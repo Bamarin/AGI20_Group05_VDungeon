@@ -1,36 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-[CustomEditor(typeof(GridObject))]
-public class GridObjectEditor : Editor
+[CustomEditor(typeof(GridWall))]
+public class GridWallEditor : Editor
 {
-
     public override void OnInspectorGUI()
     {
-        GridObject castedTarget = (GridObject)target;
+        GridWall castedTarget = (GridWall)target;
+
+        bool needsUpdate = false;
 
         EditorGUI.BeginChangeCheck();
 
         Vector2Int newGridPosition = EditorGUILayout.Vector2IntField("Grid Position: ", castedTarget.gridPosition);
         if (newGridPosition != castedTarget.gridPosition)
         {
-            // This call also updates the object's position, and therefore must be placed after the check
-            castedTarget.MoveToGridPosition(newGridPosition);
+            needsUpdate = true;
+            castedTarget.gridPosition = newGridPosition;
         }
 
         GridObject.Orientation newOrientation = (GridObject.Orientation)EditorGUILayout.EnumPopup("Grid Orientation: ", castedTarget.gridOrientation);
         if (newOrientation != castedTarget.gridOrientation)
         {
-            // This call also updates the object's rotation, and therefore must be placed after the check
-            castedTarget.MoveToGridOrientation(newOrientation);
+            needsUpdate = true;
+            castedTarget.gridOrientation = newOrientation;
+        }
+
+        bool newIsCorner = EditorGUILayout.Toggle("Is Corner Piece", castedTarget.isCornerPiece);
+        if (newIsCorner != castedTarget.isCornerPiece)
+        {
+            needsUpdate = true;
+            castedTarget.isCornerPiece = newIsCorner;
         }
 
         if (GUILayout.Button("Snap to Grid"))
         {
-            castedTarget.SnapToLocal();
+            needsUpdate = true;
+        }
+
+        if (needsUpdate)
+        {
             castedTarget.SnapToOrientation();
         }
 
