@@ -49,8 +49,7 @@ public class GridWallEditor : Editor
 
         if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
         {
-            castedTarget.SnapToGrid();
-            castedTarget.SnapToOrientation();
+            castedTarget.SnapToAll();
 
             EditorUtility.SetDirty(castedTarget);
             EditorSceneManager.MarkSceneDirty(castedTarget.gameObject.scene);

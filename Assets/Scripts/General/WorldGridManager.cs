@@ -51,6 +51,12 @@ public class WorldGridManager : MonoBehaviour
         // Locate all existing grid objects
         gridObjects.AddRange(GetComponentsInChildren<GridObject>());
         Debug.Log(gridObjects.Count + " grid objects found in " + name);
+
+        // Update all grid objects
+        foreach (var item in gridObjects)
+        {
+            item.SnapToAll();
+        }
     }
 
     // Update is called once per frame

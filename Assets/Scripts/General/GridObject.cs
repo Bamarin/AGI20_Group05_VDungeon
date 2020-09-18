@@ -21,7 +21,7 @@ public class GridObject : MonoBehaviour
 
     // *** INTERNAL VARIABLES ***
 
-    private new Collider collider;
+    private int randomRotationValue;
 
 
     // *** UTILITY FUNCTIONS ***
@@ -57,6 +57,13 @@ public class GridObject : MonoBehaviour
         transform.localEulerAngles = new Vector3(0, GetOrientationAngle());
     }
 
+    // Equivalent to calling SnapToGrid and SnapToOrientation, ensures this object is positioned correctly on the grid.
+    public void SnapToAll()
+    {
+        SnapToGrid();
+        SnapToOrientation();
+    }
+
     // Convert grid orientation to an usable angle value.
     protected float GetOrientationAngle()
     {
@@ -71,7 +78,7 @@ public class GridObject : MonoBehaviour
             case Orientation.West:
                 return 270;
             case Orientation.Random:
-                return 0; // TODO: random orientation should return a random (but consistent) angle between 0 and 359
+                return randomRotationValue;
         }
         return 0;
     }
@@ -79,12 +86,16 @@ public class GridObject : MonoBehaviour
 
     // *** MONOBEHAVIOUR FUNCTIONS ***
 
+    private void Awake()
+    {
+        // Load a consistent value for random rotation for this object
+        randomRotationValue = Random.Range(0, 360);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        // Load collider for this grid object if it has any
-        // For now we will assume each grid object will have a single collider
-        collider = GetComponentInChildren<Collider>();
+        
     }
 
     // Update is called once per frame
