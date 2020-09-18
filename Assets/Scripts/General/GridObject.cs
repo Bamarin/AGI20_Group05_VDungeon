@@ -46,7 +46,7 @@ public class GridObject : MonoBehaviour
     }
 
     // Updates this object's grid position to match its local position. (moves object to nearest cell)
-    public void SnapToLocal()
+    public virtual void SnapToLocal()
     {
         MoveToGridPosition(WorldGridManager.LocalToGrid(transform.localPosition));
     }

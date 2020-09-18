@@ -14,28 +14,42 @@ public class GridObjectEditor : Editor
 
         EditorGUI.BeginChangeCheck();
 
-        Vector2Int newGridPosition = EditorGUILayout.Vector2IntField("Grid Position: ", castedTarget.gridPosition);
-        if (newGridPosition != castedTarget.gridPosition)
-        {
-            // This call also updates the object's position, and therefore must be placed after the check
-            castedTarget.MoveToGridPosition(newGridPosition);
-        }
+        // GRID POSITION
+        GUILayout.Label("Grid Position", EditorStyles.boldLabel);
 
-        GridObject.Orientation newOrientation = (GridObject.Orientation)EditorGUILayout.EnumPopup("Grid Orientation: ", castedTarget.gridOrientation);
-        if (newOrientation != castedTarget.gridOrientation)
-        {
-            // This call also updates the object's rotation, and therefore must be placed after the check
-            castedTarget.MoveToGridOrientation(newOrientation);
-        }
+        castedTarget.gridPosition = EditorGUILayout.Vector2IntField("Coordinates: ", castedTarget.gridPosition);
 
-        if (GUILayout.Button("Snap to Grid"))
+        if (GUILayout.Button(new GUIContent("North", "Move this grid object one step North.")))
+        {
+            castedTarget.gridPosition = castedTarget.gridPosition + Vector2Int.up;
+        }
+        if (GUILayout.Button(new GUIContent("South", "Move this grid object one step South.")))
+        {
+            castedTarget.gridPosition = castedTarget.gridPosition + Vector2Int.down;
+        }
+        if (GUILayout.Button(new GUIContent("East", "Move this grid object one step East.")))
+        {
+            castedTarget.gridPosition = castedTarget.gridPosition + Vector2Int.right;
+        }
+        if (GUILayout.Button(new GUIContent("West", "Move this grid object one step West.")))
+        {
+            castedTarget.gridPosition = castedTarget.gridPosition + Vector2Int.left;
+        }
+        if (GUILayout.Button(new GUIContent("Snap to Grid", "Move this grid object to the nearest grid cell based on its current position.")))
         {
             castedTarget.SnapToLocal();
-            castedTarget.SnapToOrientation();
         }
+
+        // GRID ORIENTATION
+        GUILayout.Label("Grid Orientation", EditorStyles.boldLabel);
+
+        castedTarget.gridOrientation = (GridObject.Orientation)EditorGUILayout.EnumPopup("Orientation: ", castedTarget.gridOrientation);
 
         if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
         {
+            castedTarget.SnapToGrid();
+            castedTarget.SnapToOrientation();
+
             EditorUtility.SetDirty(castedTarget);
             EditorSceneManager.MarkSceneDirty(castedTarget.gameObject.scene);
         }

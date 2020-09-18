@@ -16,6 +16,12 @@ public class GridWall : GridObject
         transform.localPosition = WorldGridManager.GridToLocal(gridPosition) + GetOrientationOffset();
     }
 
+    // Updates this object's grid position to match its local position. (moves object to nearest cell)
+    public override void SnapToLocal()
+    {
+        MoveToGridPosition(WorldGridManager.LocalToGrid(transform.localPosition - GetOrientationOffset()));
+    }
+
     // Updates this object's local position and Y-axis rotation to match its grid orientation.
     public override void SnapToOrientation()
     {
