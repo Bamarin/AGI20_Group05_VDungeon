@@ -125,5 +125,5 @@ while True:
     if key == 27:
         break
  
-video.release()
+cap.release()
 cv2.destroyAllWindows()
