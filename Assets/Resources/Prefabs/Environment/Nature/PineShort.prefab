@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPosition: {x: 0, y: 0}
-  gridOrientation: 4
+  coordinates: {x: 0, y: 0}
+  orientation: 4
 --- !u!33 &329536975952106196
 MeshFilter:
   m_ObjectHideFlags: 0

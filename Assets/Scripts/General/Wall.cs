@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridWall : GridObject
+// A special type of Prop that is positioned between cells on a Grid
+public class Wall : Prop
 {
     // *** PROPERTY FIELDS ***
 
@@ -10,39 +11,39 @@ public class GridWall : GridObject
 
     // *** UTILITY FUNCTIONS ***
 
-    // Updates this object's local position to match its grid wall position and orientation.
-    public override void SnapToGrid()
+    // Updates the wall's local position to match its current grid coordinates.
+    public override void UpdatePosition()
     {
-        transform.localPosition = WorldGridManager.GridToLocal(gridPosition) + GetOrientationOffset();
+        transform.localPosition = Grid.GridToLocal(coordinates) + OrientationOffset();
     }
 
-    // Updates this object's grid position to match its local position. (moves object to nearest cell)
-    public override void SnapToLocal()
+    // Moves the wall to the nearest grid coordinates based on its current local position.
+    public override void MoveToNearest()
     {
-        MoveToGridPosition(WorldGridManager.LocalToGrid(transform.localPosition - GetOrientationOffset()));
+        Move(Grid.LocalToGrid(transform.localPosition - OrientationOffset()));
     }
 
-    // Updates this object's local position and Y-axis rotation to match its grid orientation.
-    public override void SnapToOrientation()
+    // Updates the wall's rotation and position to match its current grid orientation.
+    public override void UpdateOrientation()
     {
-        transform.localEulerAngles = new Vector3(0, GetOrientationAngle());
-        SnapToGrid();
+        transform.localEulerAngles = new Vector3(0, OrientationAngle());
+        UpdatePosition();
     }
 
-    protected Vector3 GetOrientationOffset()
+    protected Vector3 OrientationOffset()
     {
-        float halfCellSize = WorldGridManager.CELL_SIZE / 2;
+        float halfCellSize = Grid.CELL_SIZE / 2;
         float cornerOffset = isCornerPiece ? halfCellSize : 0;
 
-        switch (gridOrientation)
+        switch (orientation)
         {
-            case Orientation.North:
+            case Grid.Orientation.North:
                 return new Vector3(cornerOffset, 0, halfCellSize);
-            case Orientation.East:
+            case Grid.Orientation.East:
                 return new Vector3(halfCellSize, 0, -cornerOffset);
-            case Orientation.South:
+            case Grid.Orientation.South:
                 return new Vector3(-cornerOffset, 0, -halfCellSize);
-            case Orientation.West:
+            case Grid.Orientation.West:
                 return new Vector3(-halfCellSize, 0, cornerOffset);
             // "Random" orientation should not be used for walls
         }
