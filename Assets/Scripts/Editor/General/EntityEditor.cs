@@ -18,6 +18,8 @@ public class EntityEditor : Editor
         
         if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
         {
+            castedTarget.UpdateEntity();
+
             EditorUtility.SetDirty(castedTarget);
             EditorSceneManager.MarkSceneDirty(castedTarget.gameObject.scene);
         }
@@ -51,5 +53,7 @@ public class EntityEditor : Editor
         {
             castedTarget.coordinates += Vector2Int.left;
         }
+
+        castedTarget.verticalPosition = EditorGUILayout.FloatField("Vertical Position: ", castedTarget.verticalPosition);
     }
 }

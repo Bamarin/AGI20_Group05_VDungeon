@@ -25,25 +25,25 @@ public class Grid : MonoBehaviour
 
     // *** UTILITY FUNCTIONS ***
 
-    // Convert grid coordinates to local position. (Y axis is set to zero)
-    public static Vector3 GridToLocal(Vector2Int gridPosition)
+    // Convert grid coordinates to local position. (Y axis is set to verticalPosition)
+    public static Vector3 GridToLocal(Vector2Int gridPosition, float verticalPosition = 0)
     {
-        return new Vector3(gridPosition.x * CELL_SIZE, 0, gridPosition.y * CELL_SIZE);
+        return new Vector3(gridPosition.x * CELL_SIZE, verticalPosition, gridPosition.y * CELL_SIZE);
     }
 
-    // Convert local position to the nearest grid coordinates. (ignores Y axis)
+    // Convert local position to the nearest grid coordinates. (Y axis is ignored)
     public static Vector2Int LocalToGrid(Vector3 position)
     {
         return new Vector2Int(Mathf.FloorToInt((position.x + (CELL_SIZE / 2)) / CELL_SIZE), Mathf.FloorToInt((position.z + (CELL_SIZE / 2)) / CELL_SIZE));
     }
 
-    // Convert grid coordinates to world position. (Y axis is set to the grid's origin)
-    public Vector3 GridToWorld(Vector2Int gridPosition)
+    // Convert grid coordinates to world position. (Y axis is set to verticalPosition)
+    public Vector3 GridToWorld(Vector2Int gridPosition, float verticalPosition = 0)
     {
-        return transform.TransformPoint(GridToLocal(gridPosition));
+        return transform.TransformPoint(GridToLocal(gridPosition, verticalPosition));
     }
 
-    // Convert world position to the nearest grid coordinates. (ignores Y axis)
+    // Convert world position to the nearest grid coordinates. (Y axis is ignored)
     public Vector2Int WorldToGrid(Vector3 position)
     {
         return LocalToGrid(transform.InverseTransformPoint(position));
@@ -78,9 +78,10 @@ public class Grid : MonoBehaviour
         entityList.AddRange(GetComponentsInChildren<Entity>());
         Debug.Log(entityList.Count + " entities found in grid: " + name);
 
-        // Update all entities on the grid
+        // Initialize and update all entities on the grid
         foreach (var item in entityList)
         {
+            item.Initialize(this);
             item.UpdateEntity();
         }
     }

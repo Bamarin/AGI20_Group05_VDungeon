@@ -14,7 +14,7 @@ public class Wall : Prop
     // Updates the wall's local position to match its current grid coordinates.
     public override void UpdatePosition()
     {
-        transform.localPosition = Grid.GridToLocal(coordinates) + OrientationOffset();
+        transform.localPosition = Grid.GridToLocal(coordinates, verticalPosition) + OrientationOffset();
     }
 
     // Moves the wall to the nearest grid coordinates based on its current local position.
