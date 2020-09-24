@@ -34,9 +34,33 @@ public class knight_controler : MonoBehaviour
     void Update()
     {
         Movement();
+        UnityChanFace();
         GetInput();
 
 
+    }
+    void UnityChanFace()
+    {
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            anim.SetInteger("face", 0);
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            anim.SetInteger("face", 1);
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            anim.SetInteger("face", 2);
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            anim.SetInteger("face", 3);
+        }
+        if (Input.GetKey(KeyCode.Alpha5))
+        {
+            anim.SetInteger("face", 4);
+        }
     }
     void Movement()
     {
@@ -59,12 +83,31 @@ public class knight_controler : MonoBehaviour
                 moveDir = transform.TransformDirection(moveDir);
             }
         }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            if (anim.GetBool("attacking") == true)
+            {
+                return;
+            }
+            else if (anim.GetBool("attacking") == false)
+            {
+                anim.SetBool("running", true);
+                anim.SetInteger("condition", -1);
+                moveDir = new Vector3(0, 0, -1);
+                moveDir *= speed;
+                moveDir *= 0.7f;
+                moveDir = transform.TransformDirection(moveDir);
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
         {
             anim.SetBool("running", false);
             anim.SetInteger("condition", 0);
             moveDir = new Vector3(0, 0, 0);
         }
+        
         
         rot += Input.GetAxis("Horizontal") * rotSpeed * Time.deltaTime;
         transform.eulerAngles = new Vector3(0, rot, 0);
