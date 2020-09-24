@@ -32,6 +32,9 @@ public class CharacterEditor : EntityEditor
     {
         GUILayout.Label("Character", EditorStyles.boldLabel);
 
+        castedTarget.interactable = EditorGUILayout.Toggle("Interactable", castedTarget.interactable);
         castedTarget.rotateSpeed = EditorGUILayout.Slider("Rotate Speed", castedTarget.rotateSpeed, 10f, 50f);
+
+        castedTarget.defaultMaterial = (Material)EditorGUILayout.ObjectField("Default Material", castedTarget.defaultMaterial, typeof(Material), false);
     }
 }

@@ -177,11 +177,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 11483780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63f664ef2cae8c44480b37b51d4ccb5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coordinates: {x: 1, y: 2}
   verticalPosition: 0
+  defaultMaterial: {fileID: 2100000, guid: 7eb15412c844042639a1579b5d465312, type: 2}
+  rotateSpeed: 40
+  interactable: 0
 --- !u!1 &68551472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2248,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
+  defaultMaterial: {fileID: 2100000, guid: 7eb15412c844042639a1579b5d465312, type: 2}
   rotateSpeed: 40
+  interactable: 1
 --- !u!136 &1202974200
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3991,11 +3996,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2012914329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63f664ef2cae8c44480b37b51d4ccb5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coordinates: {x: -2, y: -1}
   verticalPosition: 0
+  defaultMaterial: {fileID: 2100000, guid: 7eb15412c844042639a1579b5d465312, type: 2}
+  rotateSpeed: 40
+  interactable: 0
 --- !u!1 &2026882813
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,8 +19,11 @@ public class Character : Entity
 
     // *** PROPERTY FIELDS ***
 
+    // The default material to render this character with when it is not highlighted
+    public Material defaultMaterial;
     public float rotateSpeed = 40f;
-
+    // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
+    public bool interactable = false; 
 
     // *** INTERNAL VARIABLES ***
 
@@ -73,8 +76,13 @@ public class Character : Entity
 
     private void UpdateMaterial()
     {
+        // If the object is inactive, use the default material
+        if (!interactable)
+        {
+            renderer.material = defaultMaterial;
+        }
         // If the object is being hovered or dragged, highlight
-        if (mouseHover || mouseLocked)
+        else if (mouseHover || mouseLocked)
         {
             renderer.material = MAT_SELECTED;
         }
@@ -85,9 +93,22 @@ public class Character : Entity
         }
     }
 
-    void OnMouseOver(){
-        mouseHover = true;
+    // Enables or disables interaction with this character, and updates its appearance accordingly.
+    public void EnableInteraction(bool enable = true)
+    {
+        interactable = enable;
         UpdateMaterial();
+    }
+
+
+    // *** EVENTS ***
+
+    void OnMouseOver(){
+        if (interactable)
+        {
+            mouseHover = true;
+            UpdateMaterial();
+        }
     }
 
     void OnMouseExit(){
@@ -97,19 +118,25 @@ public class Character : Entity
 
     // When the mouse is clicked on a collider
     void OnMouseDown(){
-        mouseLocked = true;
-        UpdateMaterial();
+        if (interactable)
+        {
+            mouseLocked = true;
+            UpdateMaterial();
 
-        movePlane = new Plane(Vector3.up, transform.position);
-        offset = MouseWorldPosition() - transform.position;
-        CreateGridHighlight();
+            movePlane = new Plane(Vector3.up, transform.position);
+            offset = MouseWorldPosition() - transform.position;
+            CreateGridHighlight();
+        }
     }
 
     // when the mouse is clicked on a collider and still holding it,
     // move the object and show the nearest grid point
     void OnMouseDrag(){
-        transform.position = MouseWorldPosition() - offset;
-        UpdateHighlight();
+        if (mouseLocked)
+        {
+            transform.position = MouseWorldPosition() - offset;
+            UpdateHighlight();
+        }
     }
 
     // when the mouse exit the collider, attach to the grid vertice
@@ -125,6 +152,9 @@ public class Character : Entity
         }
     }
 
+
+    // *** MONOBEHAVIOUR FUNCTIONS ***
+
     private void Awake()
     {
         LoadMaterials();   
@@ -134,12 +164,23 @@ public class Character : Entity
     void Start()
     {
         renderer = GetComponentInChildren<Renderer>();
+
+        if (defaultMaterial == null)
+        {
+            Debug.Log("No material found for " + name + ", loading default from renderer");
+            defaultMaterial = renderer.material;
+        }
+
+        UpdateMaterial();
     }
 
     // Update is called once per frame
     void Update()
-    { 
-        Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
-        transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
+    {
+        if (interactable)
+        {
+            Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
+            transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
+        }
     }
 }
