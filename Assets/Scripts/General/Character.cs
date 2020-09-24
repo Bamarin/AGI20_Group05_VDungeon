@@ -2,16 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Character : Entity
 {
-    public GridPointAttching grids;
-    [Range(10f, 50f)]
-    public float rotateSpeed = 40f;
-    
-    private Material objectMat;
-    private new Renderer renderer;
+    // *** STATIC REFERENCES ***
 
-    private Entity entity;
+    private static Material MAT_ACTIVE;
+    private static Material MAT_SELECTED;
+
+    // Load static references to materials *once*
+    private static void LoadMaterials()
+    {
+        if (MAT_ACTIVE == null) MAT_ACTIVE = Resources.Load<Material>("Materials/UI/CharActive");
+        if (MAT_SELECTED == null) MAT_SELECTED = Resources.Load<Material>("Materials/UI/CharSelected");
+    }
+
+
+    // *** PROPERTY FIELDS ***
+
+    public float rotateSpeed = 40f;
+
+
+    // *** INTERNAL VARIABLES ***
+
+    private new Renderer renderer;
     private Entity highlight;
 
     private bool mouseHover = false;
@@ -31,7 +44,7 @@ public class Movement : MonoBehaviour
             newObject.transform.position = transform.position;
 
             highlight = newObject.GetComponent<Entity>();
-            highlight.Initialize(entity.ParentGrid);
+            highlight.Initialize(ParentGrid);
             highlight.MoveToNearest();
         }
     }
@@ -47,19 +60,15 @@ public class Movement : MonoBehaviour
         highlight.Move(Grid.LocalToGrid(transform.localPosition));
     }
 
-    // get the mouse position in world coordinate
-    Vector3 mouseWorldPosition(){
+    // *** UTILITY FUNCTIONS ***
+
+    // Get the mouse position in world coordinates
+    Vector3 MouseWorldPosition(){
         //cast a ray along the camera to the plane
         Ray rayToPlane = Camera.main.ScreenPointToRay(Input.mousePosition);
         float rayDis;
         movePlane.Raycast(rayToPlane, out rayDis);
         return rayToPlane.GetPoint(rayDis);
-    }
-    // get the index of the nearest grid point
-    Vector2Int getGirdIndex(){
-        int i = Mathf.FloorToInt(((transform.position.x - (grids.leftBottomPosition.x - grids.gridSize/2f)) / grids.gridSize));
-        int j = Mathf.FloorToInt(((transform.position.z - (grids.leftBottomPosition.y - grids.gridSize/2f)) / grids.gridSize));
-        return new Vector2Int(i, j);
     }
 
     private void UpdateMaterial()
@@ -67,12 +76,12 @@ public class Movement : MonoBehaviour
         // If the object is being hovered or dragged, highlight
         if (mouseHover || mouseLocked)
         {
-            renderer.material = grids.nearMat;
+            renderer.material = MAT_SELECTED;
         }
         // Otherwise, remove the highlight
         else
         {
-            renderer.material = objectMat;
+            renderer.material = MAT_ACTIVE;
         }
     }
 
@@ -86,20 +95,20 @@ public class Movement : MonoBehaviour
         UpdateMaterial();
     }
 
-    // when the mouse is clicked on a collider
+    // When the mouse is clicked on a collider
     void OnMouseDown(){
         mouseLocked = true;
         UpdateMaterial();
 
         movePlane = new Plane(Vector3.up, transform.position);
-        offset = mouseWorldPosition() - transform.position;
+        offset = MouseWorldPosition() - transform.position;
         CreateGridHighlight();
     }
 
     // when the mouse is clicked on a collider and still holding it,
     // move the object and show the nearest grid point
     void OnMouseDrag(){
-        transform.position = mouseWorldPosition() - offset;
+        transform.position = MouseWorldPosition() - offset;
         UpdateHighlight();
     }
 
@@ -109,20 +118,22 @@ public class Movement : MonoBehaviour
         if (mouseLocked)
         {
             RemoveGridHighlight();
-            entity.MoveToNearest();
+            MoveToNearest();
 
             mouseLocked = false;
             UpdateMaterial();
         }
     }
 
+    private void Awake()
+    {
+        LoadMaterials();   
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponentInChildren<Renderer>();
-        entity = GetComponent<Entity>();
-
-        objectMat = renderer.material;
     }
 
     // Update is called once per frame

@@ -2207,7 +2207,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1202974197}
-  - component: {fileID: 1202974199}
   - component: {fileID: 1202974198}
   - component: {fileID: 1202974200}
   m_Layer: 0
@@ -2244,22 +2243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grids: {fileID: 500195738}
-  rotateSpeed: 40
---- !u!114 &1202974199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202974196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63f664ef2cae8c44480b37b51d4ccb5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
+  rotateSpeed: 40
 --- !u!136 &1202974200
 CapsuleCollider:
   m_ObjectHideFlags: 0
