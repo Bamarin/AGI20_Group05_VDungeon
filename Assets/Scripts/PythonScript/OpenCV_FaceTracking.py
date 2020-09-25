@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import dlib
 import socket
+import math
 
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5065
@@ -96,6 +97,19 @@ def head_pose_estimate(image, landmarks):
     cv2.line(image, p1, p2, (255,0,0), 2)
     return success, rotation_vector, translation_vector, camera_matrix, dist_coeffs
 
+# Convert rotation_vector to quaternion component (x,y,z,w)
+def convert_to_quaternion(rotation_vector):
+        # calculate rotation angles
+    theta = cv2.norm(rotation_vector, cv2.NORM_L2)
+    # theta = mean_filter_simple(theta)
+    
+    # transformed to quaterniond
+    w = math.cos(theta / 2)
+    x = math.sin(theta / 2)*rotation_vector[0][0] / theta
+    y = math.sin(theta / 2)*rotation_vector[1][0] / theta
+    z = math.sin(theta / 2)*rotation_vector[2][0] / theta
+    return round(w,4), round(x,4), round(y,4), round(z,4)
+
 # initialize dlib's pre-trained face detector and load the facial landmark predictor
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
@@ -120,7 +134,11 @@ while True:
         
         # Show head pose
         ret, rotation_vector, translation_vector, camera_matrix, dist_coeffs = head_pose_estimate(frame, landmarks)
-        face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(rotation_vector[0,0])+':'+str(rotation_vector[1,0])+':'+str(rotation_vector[2,0])+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)
+        # Convert rotation_vector to quaternion component (x,y,z,w)
+        w,x,y,z = convert_to_quaternion(rotation_vector)
+
+        #face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(rotation_vector[0,0])+':'+str(rotation_vector[1,0])+':'+str(rotation_vector[2,0])+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)
+        face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(w)+':'+str(x)+':'+str(y)+':'+str(z)+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)
         sock.sendto(face_data.encode() , (UDP_IP, UDP_PORT))        
         # loop over the (x, y)-coordinates for the facial landmarks and draw them on the image
         for (x, y) in landmarks:
