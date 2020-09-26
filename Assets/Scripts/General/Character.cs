@@ -179,8 +179,10 @@ public class Character : Entity
     {
         if (interactable)
         {
-            Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
-            transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
+            if (!SystemInfo.supportsGyroscope){ //enable keyboard to rotate when the gyroscope is not valide
+                Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
+                transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
+            }
         }
     }
 }
