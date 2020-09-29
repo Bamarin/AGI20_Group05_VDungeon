@@ -4,30 +4,15 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    // *** STATIC REFERENCES ***
-
-    private static Material MAT_ACTIVE;
-    private static Material MAT_SELECTED;
-
-    // Load static references to materials *once*
-    private static void LoadMaterials()
-    {
-        if (MAT_ACTIVE == null) MAT_ACTIVE = Resources.Load<Material>("Materials/UI/CharActive");
-        if (MAT_SELECTED == null) MAT_SELECTED = Resources.Load<Material>("Materials/UI/CharSelected");
-    }
-
-
     // *** PROPERTY FIELDS ***
 
-    // The default material to render this character with when it is not highlighted
-    public Material defaultMaterial;
     public float rotateSpeed = 40f;
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
     public bool interactable = false; 
 
     // *** INTERNAL VARIABLES ***
 
-    private new Renderer renderer;
+    private List<Renderer> characterRenderers;
     private Entity highlight;
 
     private bool mouseHover = false;
@@ -74,22 +59,25 @@ public class Character : Entity
         return rayToPlane.GetPoint(rayDis);
     }
 
-    private void UpdateMaterial()
+    private void UpdateMaterials()
     {
-        // If the object is inactive, use the default material
-        if (!interactable)
-        {
-            renderer.material = defaultMaterial;
-        }
         // If the object is being hovered or dragged, highlight
-        else if (mouseHover || mouseLocked)
+        if (interactable && (mouseHover || mouseLocked))
         {
-            renderer.material = MAT_SELECTED;
+            UpdateMaterial(Color.red);
         }
         // Otherwise, remove the highlight
         else
         {
-            renderer.material = MAT_ACTIVE;
+            UpdateMaterial(Color.white);
+        }
+    }
+
+    private void UpdateMaterial(Color color)
+    {
+        foreach (var item in characterRenderers)
+        {
+            item.material.color = color;
         }
     }
 
@@ -97,7 +85,7 @@ public class Character : Entity
     public void EnableInteraction(bool enable = true)
     {
         interactable = enable;
-        UpdateMaterial();
+        UpdateMaterials();
     }
 
 
@@ -107,13 +95,13 @@ public class Character : Entity
         if (interactable)
         {
             mouseHover = true;
-            UpdateMaterial();
+            UpdateMaterials();
         }
     }
 
     void OnMouseExit(){
         mouseHover = false;
-        UpdateMaterial();
+        UpdateMaterials();
     }
 
     // When the mouse is clicked on a collider
@@ -121,7 +109,7 @@ public class Character : Entity
         if (interactable)
         {
             mouseLocked = true;
-            UpdateMaterial();
+            UpdateMaterials();
 
             movePlane = new Plane(Vector3.up, transform.position);
             offset = MouseWorldPosition() - transform.position;
@@ -148,7 +136,7 @@ public class Character : Entity
             MoveToNearest();
 
             mouseLocked = false;
-            UpdateMaterial();
+            UpdateMaterials();
         }
     }
 
@@ -156,22 +144,17 @@ public class Character : Entity
     // *** MONOBEHAVIOUR FUNCTIONS ***
 
     private void Awake()
-    {
-        LoadMaterials();   
+    {  
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponentInChildren<Renderer>();
+        characterRenderers = new List<Renderer>();
+        characterRenderers.AddRange(GetComponentsInChildren<Renderer>());
 
-        if (defaultMaterial == null)
-        {
-            Debug.Log("No material found for " + name + ", loading default from renderer");
-            defaultMaterial = renderer.material;
-        }
-
-        UpdateMaterial();
+        UpdateMaterials();
     }
 
     // Update is called once per frame
