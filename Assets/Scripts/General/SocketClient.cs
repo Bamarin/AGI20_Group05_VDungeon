@@ -11,7 +11,8 @@ public class SocketClient : MonoBehaviour
 {
     Thread receiveThread; 
     UdpClient client; 
-    int port; 
+    int port;
+    public static string dataString;
 
     void Start()
     {
@@ -50,11 +51,11 @@ public class SocketClient : MonoBehaviour
         {
             try
             {
-                IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port); 
-                byte[] data = client.Receive(ref anyIP); 
 
-                string text = Encoding.UTF8.GetString(data); 
-                print(text);
+                IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port); 
+                byte[] data = client.Receive(ref anyIP);
+                dataString = Encoding.UTF8.GetString(data);
+                print(dataString);
 
             }
             catch (Exception e)

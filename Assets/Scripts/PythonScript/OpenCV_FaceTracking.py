@@ -101,7 +101,6 @@ def head_pose_estimate(image, landmarks):
 def convert_to_quaternion(rotation_vector):
         # calculate rotation angles
     theta = cv2.norm(rotation_vector, cv2.NORM_L2)
-    # theta = mean_filter_simple(theta)
     
     # transformed to quaterniond
     w = math.cos(theta / 2)
@@ -116,7 +115,6 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 
 while True:
-    
     ret, frame = cap.read()
     # convert frame into grayscale
     gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
