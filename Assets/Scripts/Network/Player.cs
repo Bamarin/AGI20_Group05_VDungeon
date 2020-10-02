@@ -9,6 +9,15 @@ using System.Collections.Generic;
 
 public class Player : NetworkBehaviour
 {
+    [SyncVar]
+    public Race race;
+    [SyncVar]
+    public string characterName;
+    [SyncVar]
+    public Color skinColor;
+    [SyncVar]
+    public RPGClass characterClass;
+
     #region Start & Stop Callbacks
 
     /// <summary>

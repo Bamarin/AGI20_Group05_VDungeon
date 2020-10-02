@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
+using System.Linq;
 
 /*
 	Documentation: https://mirror-networking.com/docs/Components/NetworkManager.html
@@ -177,6 +178,17 @@ public class VDNetworkManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
         base.OnClientConnect(conn);
+
+        // you can send the message here, or wherever else you want
+        CreateRPGCharacterMessage characterMessage = new CreateRPGCharacterMessage
+        {
+            race = Race.Dwarvish,
+            name = "Bamarin",
+            skinColor = Color.black,
+            characterClass = RPGClass.Fighter
+        };
+
+        conn.Send(characterMessage);
     }
 
     /// <summary>
@@ -222,7 +234,9 @@ public class VDNetworkManager : NetworkManager
     /// <para>StartServer has multiple signatures, but they all cause this hook to be called.</para>
     /// </summary>
     public override void OnStartServer() {
+        base.OnStartServer();
 
+        NetworkServer.RegisterHandler<CreateRPGCharacterMessage>(OnCreateCharacter);
     }
 
     /// <summary>
@@ -250,4 +264,24 @@ public class VDNetworkManager : NetworkManager
     public override void OnStopClient() { }
 
     #endregion
+
+    void OnCreateCharacter(NetworkConnection conn, CreateRPGCharacterMessage message)
+    {
+        // playerPrefab is the one assigned in the inspector in Network
+        // Manager but you can use different prefabs per race for example
+        GameObject gameobject = Instantiate(spawnPrefabs[(int)message.characterClass]);//spawnPrefabs[(int)message.characterClass]
+
+        // Apply data from the message however appropriate for your game
+        // Typically Player would be a component you write with syncvars or properties
+        Player player = gameobject.GetComponent<Player>();
+        player.race = message.race;
+        player.name = message.name;
+        player.skinColor = message.skinColor;
+        player.characterClass = message.characterClass;
+
+        // call this to use this gameobject as the primary controller
+        NetworkServer.AddPlayerForConnection(conn, gameobject);
+    }
 }
+
+

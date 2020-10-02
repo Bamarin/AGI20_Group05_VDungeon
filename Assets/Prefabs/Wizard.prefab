@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 7908279975672947706}
   - component: {fileID: 7908279975672947707}
   - component: {fileID: 4287019222006941656}
+  - component: {fileID: 5487753101126490794}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -348,3 +349,21 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &5487753101126490794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908279975672947705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed83a32a211c0a4abd6b13e933f3512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0

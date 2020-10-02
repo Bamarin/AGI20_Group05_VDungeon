@@ -8,7 +8,7 @@ public class CreateRPGCharacterMessage : MessageBase
     public Race race;
     public string name;
     public Color skinColor;
-    public Class characterClass;
+    public RPGClass characterClass;
 }
 
 public enum Race
@@ -19,18 +19,8 @@ public enum Race
     Human
 }
 
-public enum Class
+public enum RPGClass
 {
-    Barbarian,
-    Bard,
-    Cleric,
-    Druid,
-    Fighter,
-    Monk,
-    Paladin,
-    Ranger,
-    Rogue,
-    Sorcerer,
-    Warlock,
-    Wizard
+    Fighter = 0,
+    Wizard = 1
 }
