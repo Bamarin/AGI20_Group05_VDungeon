@@ -25,6 +25,11 @@ public class Character : Entity
     private Vector3 offset;
     //the plane where the object is moving on
     private Plane movePlane;
+    // for the arrow pointing from source to destination
+    private LineRenderer arrow;
+    private Vector3 arrowOrigin;
+    private Vector3 arrowTarget;
+    private float arrowHeadPer = 0.2f;
 
     private void CreateGridHighlight()
     {
@@ -142,6 +147,9 @@ public class Character : Entity
             movePlane = new Plane(Vector3.up, transform.position);
             offset = MouseWorldPosition() - transform.position;
             CreateGridHighlight();
+
+            arrowOrigin = transform.position;
+            arrowOrigin.y = 0.2f;
         }
     }
 
@@ -153,6 +161,14 @@ public class Character : Entity
         {
             transform.position = MouseWorldPosition() - offset;
             UpdateHighlight();
+
+            arrowTarget = Grid.GridToLocal(Grid.LocalToGrid(transform.position), 0.2f);
+            arrow.positionCount = 4;
+            arrow.SetPositions(new Vector3[] {
+              arrowOrigin
+              , Vector3.Lerp(arrowOrigin, arrowTarget, 0.999f - arrowHeadPer)
+              , Vector3.Lerp(arrowOrigin, arrowTarget, 1 - arrowHeadPer)
+              , arrowTarget });
         }
     }
 
@@ -166,6 +182,8 @@ public class Character : Entity
 
             mouseLocked = false;
             UpdateMaterials();
+
+            arrow.positionCount = 0;
         }
     }
 
@@ -184,6 +202,24 @@ public class Character : Entity
         characterRenderers.AddRange(GetComponentsInChildren<Renderer>());
 
         UpdateMaterials();
+
+        // initial set for arrow
+        arrow = gameObject.AddComponent<LineRenderer>() as LineRenderer;
+        arrow.material = new Material(Shader.Find("Sprites/Default"));
+        arrow.positionCount = 0;
+        // set shape for arrow
+        arrow.widthCurve = new AnimationCurve(
+             new Keyframe(0, 0.15f)
+             , new Keyframe(0.999f - arrowHeadPer, 0.15f)  // neck of arrow
+             , new Keyframe(1 - arrowHeadPer, 0.3f)  // max width of arrow head
+             , new Keyframe(1, 0f)); 
+        //arrow color
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(Color.red, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(0.6f, 1.0f) }
+        );
+        arrow.colorGradient = gradient;
     }
 
     // Update is called once per frame
