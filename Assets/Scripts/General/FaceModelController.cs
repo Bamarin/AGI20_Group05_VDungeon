@@ -19,12 +19,6 @@ public class FaceModelController : MonoBehaviour
     private string data;
     private string[] dataArray;
 
-    // Kalman objects
-    KalmanObject W_Kalman = new KalmanObject();
-    KalmanObject X_Kalman = new KalmanObject();
-    KalmanObject Y_Kalman = new KalmanObject();
-    KalmanObject Z_Kalman = new KalmanObject();
-
     void Start()
     {
         //Initialization of model parameters
@@ -49,18 +43,28 @@ public class FaceModelController : MonoBehaviour
             headRot.y = Convert.ToSingle(dataArray[5]);
             headRot.z = Convert.ToSingle(dataArray[6]);
 
-            headRot.w = W_Kalman.Kalman_filter(headRot.w, 8e-3f, 5e-4f);
-            headRot.x = X_Kalman.Kalman_filter(headRot.x, 8e-3f, 5e-4f);
-            headRot.y = Y_Kalman.Kalman_filter(headRot.y, 8e-3f, 5e-4f);
-            headRot.z = Z_Kalman.Kalman_filter(headRot.z, 8e-3f, 5e-4f);
+            headRot.w = Kalman_filter(headRot.w, 8e-3f, 5e-4f);
+            headRot.x = Kalman_filter(headRot.x, 8e-3f, 5e-4f);
+            headRot.y = Kalman_filter(headRot.y, 8e-3f, 5e-4f);
+            headRot.z = Kalman_filter(headRot.z, 8e-3f, 5e-4f);
 
-            //leftEyeShape = leftEye.transform.localScale;
-            //rightEyeShape = rightEye.transform.localScale;
-            //mouthShape = mouth.transform.localScale;
+            leftEyeShape = new Vector3(0.2f, Convert.ToSingle(dataArray[7]), 0.2f);
+            if (leftEyeShape[1] < 0.12f)
+            {
+                leftEyeShape[1] = 0.01f;
+            }
+
+            rightEyeShape = new Vector3(0.2f, Convert.ToSingle(dataArray[8]), 0.2f);
+            if (rightEyeShape[1] < 0.12f)
+            {
+                rightEyeShape[1] = 0.01f;
+            }
+
+            mouthShape = new Vector3(Convert.ToSingle(dataArray[10]), Convert.ToSingle(dataArray[9]), 0.2f);
 
             //Apply rotation changes
             head.transform.rotation = headRot;
-            //Debug.Log(headRot);
+
             //Apply facial expression shapes changes
             leftEye.transform.localScale = leftEyeShape;
             rightEye.transform.localScale = rightEyeShape;
@@ -69,18 +73,15 @@ public class FaceModelController : MonoBehaviour
        
     }
 
-    class KalmanObject
+    public float Kalman_filter(float input, float Q, float R)
     {
-        public float K;
-        public float X = 0;
-        public float P = 0.1f;
-
-        public float Kalman_filter(float input, float Q, float R)
-        {
-            K = P / (P + R);
-            X = X + K * (input - X);
-            P = P - K * P + Q;
-            return X;
-        }
+        float K;
+        float X = 0;
+        float P = 0.1f;
+        K = P / (P + R);
+        X = X + K * (input - X);
+        P = P - K * P + Q;
+        return X;
     }
+
 }
