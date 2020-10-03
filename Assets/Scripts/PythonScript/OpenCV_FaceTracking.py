@@ -59,29 +59,29 @@ def get_facial_parameter(landmarks):
 # Head Pose Estimation function: get rotation vector and translation vector       
 def head_pose_estimate(image, landmarks):
     
-    #2D image points. 
+    ##2D image points. 
     image_points = np.array([   landmarks[30],     # Nose tip
                                 landmarks[8],      # Chin
                                 landmarks[36],     # Left eye left corner
                                 landmarks[45],     # Right eye right corne
-                                landmarks[48],     # Left Mouth corner
-                                landmarks[54]      # Right mouth corner
+                                landmarks[1],     # Left head corner
+                                landmarks[15]      # Right head corner
                             ], dtype="double")
+
     # 3D model points.
     model_points = np.array([   (0.0, 0.0, 0.0),             # Nose tip
                                 (0.0, -330.0, -65.0),        # Chin
                                 (-225.0, 170.0, -135.0),     # Left eye left corner
                                 (225.0, 170.0, -135.0),      # Right eye right corne
-                                (-150.0, -150.0, -125.0),    # Left Mouth corner
-                                (150.0, -150.0, -125.0)      # Right mouth corner
+                                (-349.0, 85.0, -300.0),      # Left head corner
+                                (349.0, 85.0, -300.0)        # Right head corner
                          
                             ])
 
     # Input vector of distortion coefficients, Assuming no lens distortion
     dist_coeffs = np.zeros((4,1))  
-        
-    (success, rotation_vector, translation_vector) = cv2.solvePnP(model_points, image_points, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_ITERATIVE)
-     
+    imagePoints = np.ascontiguousarray(image_points[:,:2]).reshape((6,1,2))    
+    (success, rotation_vector, translation_vector) = cv2.solvePnP(model_points, imagePoints, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_DLS)
     print("Rotation Vector:\n {0}".format(rotation_vector))
     print("Translation Vector:\n {0}".format(translation_vector))
      
@@ -113,6 +113,47 @@ def convert_to_quaternion(rotation_vector):
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
+# parameters for median filter
+windowlen = 5
+queue3D_points = np.zeros((windowlen,68,2))
+# Smooth filter
+def median_filter(input):
+    for i in range(windowlen-1):
+        queue3D_points[i,:,:] = queue3D_points[i+1,:,:]
+    queue3D_points[windowlen-1,:,:] = input
+    output = queue3D_points.mean(axis = 0)
+    return output
+
+class KalmanFilter:
+    def __init__(self, m, q, r):
+        self.F = np.eye(m)  # state-transition matrix
+        self.H = np.eye(m)  # observation matrix
+        self.B = np.eye(m)  # control matrix
+        self.K = np.zeros((m,m))  # optimal gain matrix
+        self.x = np.zeros(m)  # initial state
+        self.P = np.eye(m)  # initial state ccovariance matrix
+        self.Q = q * np.eye(m)  # covariance matrix of the process noise
+        self.R = r * np.eye(m)  # covariance matrix of the observation noise
+
+    def kalman_predict(self, u):
+        self.x = np.dot(self.F, self.x) + np.dot(self.B, u)
+        self.P = np.dot(np.dot(self.F, self.P), self.F.T) + self.Q
+        return self.x, self.P
+
+    def kalman_update(self, u, z):
+        self.x, self.P = self.kalman_predict(u)
+        self.K = self.P.dot(self.H.T).dot( np.linalg.inv(self.H.dot(self.P).dot(self.H.T) + self.R) )
+        self.x = self.x + self.K.dot(z - self.H.dot(self.x))
+        self.P = self.P - self.K.dot(self.H).dot(self.P)
+
+# Initialize kalman object
+# noise covariances Q，R for changing sensitivity
+kf_X = KalmanFilter(68, 1,10) 
+kf_Y = KalmanFilter(68, 1,10) 
+u = np.zeros((68)) # control vector 
+
+# initialize an array for landmarks
+landmarks = np.zeros((68,2))
 
 while True:
     ret, frame = cap.read()
@@ -124,7 +165,15 @@ while True:
         # determine the facial landmarks for the face region
         shape = predictor(gray_image, face)
         # convert the facial landmark (x, y)-coordinates to a NumPy array (68*2)
-        landmarks = landmarks_to_np(shape)
+        landmarks_orig = landmarks_to_np(shape)
+
+        # Apply kalman filter to landmarks FOR POSE ESTIMATION
+        kf_X.kalman_update(u, landmarks_orig[:,0])
+        kf_Y.kalman_update(u, landmarks_orig[:,1])
+        landmarks[:,0] = kf_X.x.astype(np.int32)
+        landmarks[:,1] = kf_Y.x.astype(np.int32)
+
+        landmarks = median_filter(landmarks)
 
         # Show facial parameter
         leftEyeWid, rightEyewid, mouthWid,mouthLen =get_facial_parameter(landmarks)
@@ -139,7 +188,7 @@ while True:
         face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(w)+':'+str(x)+':'+str(y)+':'+str(z)+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)
         sock.sendto(face_data.encode() , (UDP_IP, UDP_PORT))        
         # loop over the (x, y)-coordinates for the facial landmarks and draw them on the image
-        for (x, y) in landmarks:
+        for (x, y) in landmarks_orig:
             cv2.circle(frame, (x, y), 2, (255, 0, 0), -1) 
             
     cv2.imshow('Video', frame)

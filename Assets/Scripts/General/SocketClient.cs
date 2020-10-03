@@ -55,7 +55,8 @@ public class SocketClient : MonoBehaviour
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port); 
                 byte[] data = client.Receive(ref anyIP);
                 dataString = Encoding.UTF8.GetString(data);
-                print(dataString);
+                //print(dataString);
+                Thread.Sleep(1);
 
             }
             catch (Exception e)

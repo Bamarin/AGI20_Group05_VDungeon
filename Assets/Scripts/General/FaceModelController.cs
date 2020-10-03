@@ -60,7 +60,7 @@ public class FaceModelController : MonoBehaviour
 
             //Apply rotation changes
             head.transform.rotation = headRot;
-            Debug.Log(headRot);
+            //Debug.Log(headRot);
             //Apply facial expression shapes changes
             leftEye.transform.localScale = leftEyeShape;
             rightEye.transform.localScale = rightEyeShape;
