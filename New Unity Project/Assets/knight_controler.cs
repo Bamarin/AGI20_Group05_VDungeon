@@ -16,6 +16,9 @@ public class knight_controler : MonoBehaviour
 
     CharacterController controller;
     Animator anim;
+    AnimatorClipInfo[] m_AnimatorClipInfo;
+    int counter = 0;
+  
 
 
 
@@ -27,6 +30,7 @@ public class knight_controler : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        
     }
 
 
@@ -36,7 +40,8 @@ public class knight_controler : MonoBehaviour
         Movement();
         UnityChanFace();
         GetInput();
-
+        counter++;
+        
 
     }
     void UnityChanFace()
@@ -60,7 +65,9 @@ public class knight_controler : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha5))
         {
             anim.SetInteger("face", 4);
+            anim.Play("disstract1@unitychan");
         }
+        
     }
     void Movement()
     {
@@ -148,5 +155,9 @@ public class knight_controler : MonoBehaviour
         yield return new WaitForSeconds(1);
         anim.SetInteger("condition", 0);
         anim.SetBool("attacking", false);
+
+        
+
+
     }
 }
