@@ -9,13 +9,22 @@ public class CameraView : MonoBehaviour
 
     public float yOffset = 0.85f; // move to the height of the face
 
+    [Header("Mobile Control")]
+    public bool gyroscopeControl = true;
     private Gyroscope gyro;
     //to check whether the gyroscope is avaliable on the mobile
     private bool ifGyroEnabled;
 
     private GameObject firstView;
     private Quaternion rotMatrix;
+    //for swipe rotation
+    private Touch initialTouch = new Touch();
+    private Vector3 originalRotation;
+    private float swipeRotateX;
+    private float swipeRotateY;
+    public float swipeSpeed = 0.5f;
 
+    //for FPS control & swipe control
     private float clampUpAndDown;
 
     bool EnableGryo()
@@ -25,7 +34,10 @@ public class CameraView : MonoBehaviour
             gyro = Input.gyro;
             gyro.enabled = true;
 
-            firstView.transform.rotation = Quaternion.Euler(90f, 90f, 0f); //pointing towards
+            if (gyroscopeControl)
+            {
+                firstView.transform.rotation = Quaternion.Euler(90f, 90f, 0f); //pointing towards
+            }
             return true;
         }
         else
@@ -45,16 +57,71 @@ public class CameraView : MonoBehaviour
 
         rotMatrix = new Quaternion(0, 0, 1, 0);
 
+        originalRotation = transform.eulerAngles;
+        swipeRotateX = originalRotation.x;
+        swipeRotateY = originalRotation.y;
+
         clampUpAndDown = 0;
     }
 
     private void Update()
     {
-        //firstView.transform.rotation = player.rotation;
         if (ifGyroEnabled)
         {//to avoid non-reference error
             firstView.transform.position = player.position + new Vector3(0f, yOffset, 0f);
-            transform.localRotation = gyro.attitude * rotMatrix;
+            if (gyroscopeControl)
+            {
+                transform.localRotation = gyro.attitude * rotMatrix;
+            }
+            else
+            {
+                // swipe rotation
+                foreach (Touch touch in Input.touches)
+                { //enable multiple touch
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        initialTouch = touch;
+                    }
+                    else if (touch.phase == TouchPhase.Moved)
+                    {
+
+                        //swipeRotateX -= (touch.position.y - initialTouch.position.y) * Time.deltaTime * swipeSpeed;
+                        //swipeRotateY += (touch.position.x - initialTouch.position.x) * Time.deltaTime * swipeSpeed;
+                        //transform.eulerAngles = new Vector3(swipeRotateX, swipeRotateY, 0f);
+                        //Debug.Log(touch.position.y);
+
+                        Vector3 swipeRotation = transform.rotation.eulerAngles;
+                        // up-and-down
+                        swipeRotation.x -= (touch.position.y - initialTouch.position.y) * Time.deltaTime * swipeSpeed;
+                        swipeRotation.z = 0;
+
+                        clampUpAndDown -= (touch.position.y - initialTouch.position.y) * Time.deltaTime * swipeSpeed;
+
+                        //limit the up-and-down rotationn
+                        if (clampUpAndDown > 40)
+                        {
+                            clampUpAndDown = 40;
+                            swipeRotation.x = 40;
+                        }
+                        else if (clampUpAndDown < -40)
+                        {
+                            clampUpAndDown = -40;
+                            swipeRotation.x = -40;
+                        }
+
+                        // left-and-right
+                        swipeRotation.y += (touch.position.x - initialTouch.position.x) * Time.deltaTime * swipeSpeed;
+                        transform.localRotation = Quaternion.Euler(swipeRotation);
+                    }
+                    else if (touch.phase == TouchPhase.Ended)
+                    {
+                        initialTouch = new Touch();
+                    }
+                }
+            }
+
+
+
         }
     }
 

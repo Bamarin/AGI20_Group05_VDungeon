@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7682197843d3d493884e0fe2ba7888c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4080208747491015}
+  player: {fileID: 1202974197}
   mouse: {fileID: 1202974198}
   yOffset: 0.85
 --- !u!81 &315691271
