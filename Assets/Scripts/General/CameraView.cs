@@ -7,7 +7,7 @@ public class CameraView : MonoBehaviour
     public Transform player;
     public Character mouse; //only for getting the same mouse sensitivity now
 
-    public float yOffset = 0.8f; // move to the height of the face
+    public float yOffset = 0.85f; // move to the height of the face
 
     private Gyroscope gyro;
     //to check whether the gyroscope is avaliable on the mobile
@@ -64,34 +64,37 @@ public class CameraView : MonoBehaviour
         if (!ifGyroEnabled)
         {
             firstView.transform.position = player.position + new Vector3(0f, yOffset, 0f);
-
-            //the following could be changed to sychronizing the character when the head rotation could be caught
-            // change per frame
-            float rotationX = Input.GetAxis("Mouse X") * mouse.mouseSensitivity;
-            float rotationY = Input.GetAxis("Mouse Y") * mouse.mouseSensitivity;
-
-            clampUpAndDown -= rotationY; //keep for relative rotation
-
-            Vector3 camRotation = transform.rotation.eulerAngles;
-            // up-and-down
-            camRotation.x -= rotationY;
-            camRotation.z = 0;
-
-            //limit the up-and-down rotationn
-            if (clampUpAndDown > 40)
+            // only trigger the first-view rotation change when right clicked the mouse
+            if (Input.GetMouseButton(1))
             {
-                clampUpAndDown = 40;
-                camRotation.x = 40;
-            }
-            else if (clampUpAndDown < -40)
-            {
-                clampUpAndDown = -40;
-                camRotation.x = -40;
-            }
+                //the following could be changed to sychronizing the character when the head rotation could be caught
+                // change per frame
+                float rotationX = Input.GetAxis("Mouse X") * mouse.mouseSensitivity;
+                float rotationY = Input.GetAxis("Mouse Y") * mouse.mouseSensitivity;
 
-            // left-and-right
-            camRotation.y += rotationX;
-            transform.rotation = Quaternion.Euler(camRotation);
+                clampUpAndDown -= rotationY; //keep for relative rotation
+
+                Vector3 camRotation = transform.rotation.eulerAngles;
+                // up-and-down
+                camRotation.x -= rotationY;
+                camRotation.z = 0;
+
+                //limit the up-and-down rotationn
+                if (clampUpAndDown > 40)
+                {
+                    clampUpAndDown = 40;
+                    camRotation.x = 40;
+                }
+                else if (clampUpAndDown < -40)
+                {
+                    clampUpAndDown = -40;
+                    camRotation.x = -40;
+                }
+
+                // left-and-right
+                camRotation.y += rotationX;
+                transform.rotation = Quaternion.Euler(camRotation);
+            }
         }
     }
 

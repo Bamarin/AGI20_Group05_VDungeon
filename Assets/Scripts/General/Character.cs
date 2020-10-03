@@ -11,7 +11,7 @@ public class Character : Entity
 
 
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
-    public bool interactable = false; 
+    public bool interactable = false;
 
     // *** INTERNAL VARIABLES ***
 
@@ -54,7 +54,8 @@ public class Character : Entity
     // *** UTILITY FUNCTIONS ***
 
     // Get the mouse position in world coordinates
-    Vector3 MouseWorldPosition(){
+    Vector3 MouseWorldPosition()
+    {
         //cast a ray along the camera to the plane
         Ray rayToPlane = Camera.main.ScreenPointToRay(Input.mousePosition);
         float rayDis;
@@ -92,7 +93,8 @@ public class Character : Entity
     }
 
     // Enable control the first person view through mouse
-    private void FPScontrol(){
+    private void FPScontrol()
+    {
         // change per frame
         float rotationX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float rotationY = Input.GetAxis("Mouse Y") * mouseSensitivity;
@@ -114,7 +116,8 @@ public class Character : Entity
 
     // *** EVENTS ***
 
-    void OnMouseOver(){
+    void OnMouseOver()
+    {
         if (interactable)
         {
             mouseHover = true;
@@ -122,13 +125,15 @@ public class Character : Entity
         }
     }
 
-    void OnMouseExit(){
+    void OnMouseExit()
+    {
         mouseHover = false;
         UpdateMaterials();
     }
 
     // When the mouse is clicked on a collider
-    void OnMouseDown(){
+    void OnMouseDown()
+    {
         if (interactable)
         {
             mouseLocked = true;
@@ -142,7 +147,8 @@ public class Character : Entity
 
     // when the mouse is clicked on a collider and still holding it,
     // move the object and show the nearest grid point
-    void OnMouseDrag(){
+    void OnMouseDrag()
+    {
         if (mouseLocked)
         {
             transform.position = MouseWorldPosition() - offset;
@@ -167,14 +173,13 @@ public class Character : Entity
     // *** MONOBEHAVIOUR FUNCTIONS ***
 
     private void Awake()
-    {  
+    {
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         characterRenderers = new List<Renderer>();
         characterRenderers.AddRange(GetComponentsInChildren<Renderer>());
 
@@ -186,9 +191,18 @@ public class Character : Entity
     {
         if (interactable)
         {
-            if (!SystemInfo.supportsGyroscope){ 
+            if (!SystemInfo.supportsGyroscope)
+            {
                 //enable mouse to control the first person view when the gyroscope is not avaliable
-                FPScontrol();
+                if (Input.GetMouseButton(1))
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    // enable fps when the right click is holding
+                    FPScontrol();
+                }
+                else{
+                    Cursor.lockState = CursorLockMode.None;
+                }
             }
         }
     }
