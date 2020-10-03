@@ -6,7 +6,10 @@ public class Character : Entity
 {
     // *** PROPERTY FIELDS ***
 
-    public float rotateSpeed = 40f;
+    public float mouseSensitivity = 3f;
+    public GameObject playerHead;
+
+
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
     public bool interactable = false; 
 
@@ -88,6 +91,26 @@ public class Character : Entity
         UpdateMaterials();
     }
 
+    // Enable control the first person view through mouse
+    private void FPScontrol(){
+        // change per frame
+        float rotationX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float rotationY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        //currently disable the head rotation up and down
+        //Vector3 headRotation = playerHead.transform.rotation.eulerAngles;
+        Vector3 playerRotation = transform.rotation.eulerAngles;
+        // up-and-down for character's head
+        //headRotation.x -= rotationY;
+        //headRotation.z = 0;
+
+        // left-and-right for character
+        playerRotation.y += rotationX;
+
+        //playerHead.rotation = Quaternion.Euler(headRotation);
+        transform.rotation = Quaternion.Euler(playerRotation);
+    }
+
 
     // *** EVENTS ***
 
@@ -151,6 +174,7 @@ public class Character : Entity
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         characterRenderers = new List<Renderer>();
         characterRenderers.AddRange(GetComponentsInChildren<Renderer>());
 
@@ -162,9 +186,9 @@ public class Character : Entity
     {
         if (interactable)
         {
-            if (!SystemInfo.supportsGyroscope){ //enable keyboard to rotate when the gyroscope is not valide
-                Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
-                transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
+            if (!SystemInfo.supportsGyroscope){ 
+                //enable mouse to control the first person view when the gyroscope is not avaliable
+                FPScontrol();
             }
         }
     }

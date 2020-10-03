@@ -33,6 +33,8 @@ public class CharacterEditor : EntityEditor
         GUILayout.Label("Character", EditorStyles.boldLabel);
 
         castedTarget.interactable = EditorGUILayout.Toggle("Interactable", castedTarget.interactable);
-        castedTarget.rotateSpeed = EditorGUILayout.Slider("Rotate Speed", castedTarget.rotateSpeed, 10f, 50f);
+        castedTarget.mouseSensitivity = EditorGUILayout.Slider("Mouse Sensitivity", castedTarget.mouseSensitivity, 1f, 10f);
+        //for control of hear look up and down
+        castedTarget.playerHead = (GameObject)EditorGUILayout.ObjectField("Head Object", castedTarget.playerHead, typeof(GameObject), true);
     }
 }

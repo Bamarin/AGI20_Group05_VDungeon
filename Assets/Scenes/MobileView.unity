@@ -182,7 +182,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordinates: {x: 1, y: 2}
   verticalPosition: 0
-  defaultMaterial: {fileID: 2100000, guid: 7eb15412c844042639a1579b5d465312, type: 2}
   rotateSpeed: 40
   interactable: 0
 --- !u!4 &105952035 stripped
@@ -582,7 +581,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordinates: {x: 0, y: -4}
   verticalPosition: 0
-  defaultMaterial: {fileID: 2100000, guid: 7eb15412c844042639a1579b5d465312, type: 2}
   rotateSpeed: 40
   interactable: 1
 --- !u!1 &408312296
@@ -2604,7 +2602,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690144987}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 6.53, z: -10.39}
+  m_LocalPosition: {x: 0, y: 7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3416,7 +3414,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordinates: {x: -2, y: -1}
   verticalPosition: 0
-  defaultMaterial: {fileID: 2100000, guid: 7eb15412c844042639a1579b5d465312, type: 2}
   rotateSpeed: 40
   interactable: 0
 --- !u!1 &2026882813
