@@ -7,10 +7,10 @@ namespace Mirror.Weaver
 {
     public static class Extensions
     {
-        public static bool Is(this TypeReference td, Type t) =>
-            td.FullName == t.FullName;
-
-        public static bool Is<T>(this TypeReference td) => Is(td, typeof(T));
+        public static bool IsDerivedFrom(this TypeDefinition td, TypeReference baseClass)
+        {
+            return IsDerivedFrom(td, baseClass.FullName);
+        }
 
         // removes <T> from class names (if any generic parameters)
         internal static string StripGenericParametersFromClassName(string className)
@@ -23,9 +23,7 @@ namespace Mirror.Weaver
             return className;
         }
 
-        public static bool IsDerivedFrom<T>(this TypeDefinition td) => IsDerivedFrom(td, typeof(T));
-
-        public static bool IsDerivedFrom(this TypeDefinition td, Type baseClass)
+        public static bool IsDerivedFrom(this TypeDefinition td, string baseClassFullName)
         {
             if (!td.IsClass)
                 return false;
@@ -39,7 +37,7 @@ namespace Mirror.Weaver
                 // strip generic <T> parameters from class name (if any)
                 parentName = StripGenericParametersFromClassName(parentName);
 
-                if (parentName == baseClass.FullName)
+                if (parentName == baseClassFullName)
                 {
                     return true;
                 }
@@ -68,15 +66,14 @@ namespace Mirror.Weaver
             throw new ArgumentException($"Invalid enum {td.FullName}");
         }
 
-        public static bool ImplementsInterface<TInterface>(this TypeDefinition td)
+        public static bool ImplementsInterface(this TypeDefinition td, TypeReference baseInterface)
         {
             TypeDefinition typedef = td;
-
             while (typedef != null)
             {
                 foreach (InterfaceImplementation iface in typedef.Interfaces)
                 {
-                    if (iface.InterfaceType.Is<TInterface>())
+                    if (iface.InterfaceType.FullName == baseInterface.FullName)
                         return true;
                 }
 
@@ -108,12 +105,12 @@ namespace Mirror.Weaver
 
         public static bool IsArraySegment(this TypeReference td)
         {
-            return td.Resolve().Is(typeof(ArraySegment<>));
+            return td.FullName.StartsWith("System.ArraySegment`1", System.StringComparison.Ordinal);
         }
 
         public static bool IsList(this TypeReference td)
         {
-            return td.Resolve().Is(typeof(List<>));
+            return td.FullName.StartsWith("System.Collections.Generic.List`1", System.StringComparison.Ordinal);
         }
 
         public static bool CanBeResolved(this TypeReference parent)
@@ -171,20 +168,20 @@ namespace Mirror.Weaver
             return Weaver.CurrentAssembly.MainModule.ImportReference(reference);
         }
 
-        public static CustomAttribute GetCustomAttribute<TAttribute>(this ICustomAttributeProvider method)
+        public static CustomAttribute GetCustomAttribute(this ICustomAttributeProvider method, string attributeName)
         {
             foreach (CustomAttribute ca in method.CustomAttributes)
             {
-                if (ca.AttributeType.Is<TAttribute>())
+                if (ca.AttributeType.FullName == attributeName)
                     return ca;
             }
             return null;
         }
 
-        public static bool HasCustomAttribute<TAttribute>(this ICustomAttributeProvider attributeProvider)
+        public static bool HasCustomAttribute(this ICustomAttributeProvider attributeProvider, TypeReference attribute)
         {
             // Linq allocations don't matter in weaver
-            return attributeProvider.CustomAttributes.Any(attr => attr.AttributeType.Is<TAttribute>());
+            return attributeProvider.CustomAttributes.Any(attr => attr.AttributeType.FullName == attribute.FullName);
         }
 
         public static T GetField<T>(this CustomAttribute ca, string field, T defaultValue)

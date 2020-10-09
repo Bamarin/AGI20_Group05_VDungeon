@@ -112,8 +112,6 @@ namespace Mirror
 
         /// <summary>
         /// Returns true if running as a client and this object was spawned by a server.
-        /// </summary>
-        /// <remarks>
         /// <para>
         ///     <b>IMPORTANT:</b> checking NetworkClient.active means that isClient is false in OnDestroy:
         /// </para>
@@ -127,6 +125,8 @@ namespace Mirror
         /// <para>
         ///     => fixes <see href="https://github.com/vis2k/Mirror/issues/1475"/>
         /// </para>
+        /// </summary>
+        /// <remarks>
         /// </remarks>
         public bool isClient { get; internal set; }
 
@@ -721,11 +721,6 @@ namespace Mirror
                 // Do not add logging to this (see above)
                 NetworkServer.Destroy(gameObject);
             }
-
-            if (isLocalPlayer)
-            {
-                ClientScene.ClearLocalPlayer();
-            }
         }
 
         internal void OnStartServer()
@@ -931,7 +926,7 @@ namespace Mirror
         ///     </item>
         ///     <item>
         ///         returns true if we have no NetworkVisibility, default objects are visible
-        ///     </item>
+        ///     </item>   
         /// </list>
         /// </summary>
         /// <param name="conn"></param>
@@ -981,7 +976,7 @@ namespace Mirror
         /// <param name="initialState"></param>
         /// <returns></returns>
         /// <remarks>
-        /// vis2k: readstring bug prevention:
+        /// vis2k: readstring bug prevention: 
         /// <see cref="https://issuetracker.unity3d.com/issues/unet-networkwriter-dot-write-causing-readstring-slash-readbytes-out-of-range-errors-in-clients"/>
         /// <list type="bullet">
         ///     <item>
@@ -1168,12 +1163,12 @@ namespace Mirror
             catch (Exception e)
             {
                 // show a detailed error and let the user know what went wrong
-                logger.LogError($"OnDeserialize failed for: object={name} component={comp.GetType()} sceneId={sceneId:X} length={contentSize}. Possible Reasons:\n" +
+                logger.LogError($"OnDeserialize failed for: object={name} component={comp.GetType()} sceneId={sceneId.ToString("X")} length={contentSize}. Possible Reasons:\n" +
                     $"  * Do {comp.GetType()}'s OnSerialize and OnDeserialize calls write the same amount of data({contentSize} bytes)? \n" +
                     $"  * Was there an exception in {comp.GetType()}'s OnSerialize/OnDeserialize code?\n" +
                     $"  * Are the server and client the exact same project?\n" +
                     $"  * Maybe this OnDeserialize call was meant for another GameObject? The sceneIds can easily get out of sync if the Hierarchy was modified only in the client OR the server. Try rebuilding both.\n\n" +
-                    $"Exception {e}");
+                    $"Exeption {e}");
             }
 
             // now the reader should be EXACTLY at 'before + size'.
@@ -1208,36 +1203,58 @@ namespace Mirror
         }
 
         /// <summary>
-        /// Helper function to handle Command/Rpc
+        /// Helper function to handle SyncEvent/Command/Rpc
         /// </summary>
         /// <param name="componentIndex"></param>
         /// <param name="functionHash"></param>
         /// <param name="invokeType"></param>
         /// <param name="reader"></param>
         /// <param name="senderConnection"></param>
-        internal void HandleRemoteCall(int componentIndex, int functionHash, MirrorInvokeType invokeType, NetworkReader reader, NetworkConnectionToClient senderConnection = null)
+        void HandleRemoteCall(int componentIndex, int functionHash, MirrorInvokeType invokeType, NetworkReader reader, NetworkConnectionToClient senderConnection = null)
         {
             // check if unity object has been destroyed
             if (this == null)
             {
-                logger.LogWarning($"{invokeType} [{functionHash}] received for deleted object [netId={netId}]");
+                logger.LogWarning(invokeType + " [" + functionHash + "] received for deleted object [netId=" + netId + "]");
                 return;
             }
 
             // find the right component to invoke the function on
-            if (componentIndex < 0 || componentIndex >= NetworkBehaviours.Length)
+            if (0 <= componentIndex && componentIndex < NetworkBehaviours.Length)
             {
-                logger.LogWarning($"Component [{componentIndex}] not found for [netId={netId}]");
-                return;
+                NetworkBehaviour invokeComponent = NetworkBehaviours[componentIndex];
+                if (!RemoteCallHelper.InvokeHandlerDelegate(functionHash, invokeType, reader, invokeComponent, senderConnection))
+                {
+                    logger.LogError("Found no receiver for incoming " + invokeType + " [" + functionHash + "] on " + gameObject + ",  the server and client should have the same NetworkBehaviour instances [netId=" + netId + "].");
+                }
             }
-
-
-            NetworkBehaviour invokeComponent = NetworkBehaviours[componentIndex];
-
-            if (!RemoteCallHelper.InvokeHandlerDelegate(functionHash, invokeType, reader, invokeComponent, senderConnection))
+            else
             {
-                logger.LogError($"Found no receiver for incoming {invokeType} [{functionHash}] on {gameObject.name}, the server and client should have the same NetworkBehaviour instances [netId={netId}].");
+                logger.LogWarning("Component [" + componentIndex + "] not found for [netId=" + netId + "]");
             }
+        }
+
+        /// <summary>
+        /// Runs on client
+        /// </summary>
+        /// <param name="componentIndex"></param>
+        /// <param name="eventHash"></param>
+        /// <param name="reader"></param>
+        internal void HandleSyncEvent(int componentIndex, int eventHash, NetworkReader reader)
+        {
+            HandleRemoteCall(componentIndex, eventHash, MirrorInvokeType.SyncEvent, reader);
+        }
+
+        /// <summary>
+        /// Runs on server
+        /// </summary>
+        /// <param name="componentIndex"></param>
+        /// <param name="cmdHash"></param>
+        /// <param name="reader"></param>
+        /// <param name="senderConnection"></param>
+        internal void HandleCommand(int componentIndex, int cmdHash, NetworkReader reader, NetworkConnectionToClient senderConnection)
+        {
+            HandleRemoteCall(componentIndex, cmdHash, MirrorInvokeType.Command, reader, senderConnection);
         }
 
         /// <summary>
@@ -1269,8 +1286,16 @@ namespace Mirror
         }
 
         /// <summary>
-        /// Called when NetworkIdentity is destroyed
+        /// Runs on client
         /// </summary>
+        /// <param name="componentIndex"></param>
+        /// <param name="rpcHash"></param>
+        /// <param name="reader"></param>
+        internal void HandleRPC(int componentIndex, int rpcHash, NetworkReader reader)
+        {
+            HandleRemoteCall(componentIndex, rpcHash, MirrorInvokeType.ClientRpc, reader);
+        }
+
         internal void ClearObservers()
         {
             if (observers != null)
@@ -1536,7 +1561,7 @@ namespace Mirror
         /// <summary>
         /// Marks the identity for future reset, this is because we cant reset the identity during destroy
         /// as people might want to be able to read the members inside OnDestroy(), and we have no way
-        /// of invoking reset after OnDestroy is called.
+        /// of invoking reset after OnDestroy is called. 
         /// </summary>
         internal void Reset()
         {
@@ -1554,11 +1579,6 @@ namespace Mirror
             networkBehavioursCache = null;
 
             ClearObservers();
-
-            if (isLocalPlayer)
-            {
-                ClientScene.ClearLocalPlayer();
-            }
         }
 
         /// <summary>
@@ -1632,7 +1652,7 @@ namespace Mirror
 
 
         /// <summary>
-        /// clear all component's dirty bits no matter what
+        /// clear all component's dirty bits no matter what 
         /// </summary>
         internal void ClearAllComponentsDirtyBits()
         {

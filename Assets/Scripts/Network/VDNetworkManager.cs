@@ -185,7 +185,7 @@ public class VDNetworkManager : NetworkManager
             race = Race.Dwarvish,
             name = "Bamarin",
             skinColor = Color.black,
-            characterClass = RPGClass.Fighter
+            characterClass = RPGClass.Wizard
         };
 
         conn.Send(characterMessage);
