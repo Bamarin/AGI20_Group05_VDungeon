@@ -326,6 +326,11 @@ PrefabInstance:
       propertyPath: orientation
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 927723920276853171, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: sceneId
+      value: 396173282
+      objectReference: {fileID: 0}
     - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
       propertyPath: m_Name
@@ -469,6 +474,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.y
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7209733217895118127, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: sceneId
+      value: 395018423
       objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
@@ -968,6 +978,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineShort
       objectReference: {fileID: 0}
+    - target: {fileID: 4253580932616552297, guid: 2cca8606964468c408318cbc51b3ed13,
+        type: 3}
+      propertyPath: sceneId
+      value: 946643191
+      objectReference: {fileID: 0}
     - target: {fileID: 5677324623494450187, guid: 2cca8606964468c408318cbc51b3ed13,
         type: 3}
       propertyPath: gridPosition.y
@@ -1086,6 +1101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974214418922753652, guid: c0351ab60cc77fb418864870c918244a,
+        type: 3}
+      propertyPath: sceneId
+      value: 2121995456
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0351ab60cc77fb418864870c918244a, type: 3}
@@ -1327,6 +1347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993827504612118798, guid: d55858d683d77024fa77d11e6f543a1e,
+        type: 3}
+      propertyPath: sceneId
+      value: 558610158
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d55858d683d77024fa77d11e6f543a1e, type: 3}
@@ -1827,6 +1852,11 @@ PrefabInstance:
       propertyPath: coordinates.y
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 7209733217895118127, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: sceneId
+      value: 1983474307
+      objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: m_Name
@@ -1992,6 +2022,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWallDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5489134295642425829, guid: 25610e74a8a10184c81f8914d825b585,
+        type: 3}
+      propertyPath: sceneId
+      value: 568216077
       objectReference: {fileID: 0}
     - target: {fileID: 6150510731436727697, guid: 25610e74a8a10184c81f8914d825b585,
         type: 3}
@@ -2388,6 +2423,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 356903375}
     m_Modifications:
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 2376695757
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: gridPosition.x
@@ -2487,6 +2527,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 356903375}
     m_Modifications:
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 3856384614
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: gridPosition.x
@@ -2676,6 +2721,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5993827504612118798, guid: d55858d683d77024fa77d11e6f543a1e,
+        type: 3}
+      propertyPath: sceneId
+      value: 276155880
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d55858d683d77024fa77d11e6f543a1e, type: 3}
 --- !u!1 &1359238081
@@ -2751,6 +2801,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 356903375}
     m_Modifications:
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 377765497
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: gridPosition.x
@@ -2985,6 +3040,11 @@ PrefabInstance:
       propertyPath: coordinates.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 927723920276853171, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: sceneId
+      value: 1863374355
+      objectReference: {fileID: 0}
     - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
       propertyPath: m_Name
@@ -3159,6 +3219,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1262873468}
     m_Modifications:
+    - target: {fileID: 6007563752475425507, guid: e8c59d7ca09d13b4493e527c30c3ad25,
+        type: 3}
+      propertyPath: sceneId
+      value: 3793216346
+      objectReference: {fileID: 0}
     - target: {fileID: 6557380084280397363, guid: e8c59d7ca09d13b4493e527c30c3ad25,
         type: 3}
       propertyPath: m_Name
@@ -3277,6 +3342,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.y
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4310380546345398485, guid: 8092bf510892c004a91da4815f1c61bd,
+        type: 3}
+      propertyPath: sceneId
+      value: 3899603207
       objectReference: {fileID: 0}
     - target: {fileID: 8973437606596291468, guid: 8092bf510892c004a91da4815f1c61bd,
         type: 3}
@@ -3467,6 +3537,11 @@ PrefabInstance:
       propertyPath: coordinates.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 927723920276853171, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: sceneId
+      value: 3586043892
+      objectReference: {fileID: 0}
     - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
       propertyPath: m_Name
@@ -3641,6 +3716,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 356903375}
     m_Modifications:
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 2543765881
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: gridPosition.x
@@ -4202,6 +4282,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 356903375}
     m_Modifications:
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 653035641
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807137, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: m_LocalPosition.x
