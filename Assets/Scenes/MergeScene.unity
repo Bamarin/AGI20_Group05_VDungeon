@@ -511,6 +511,8 @@ MonoBehaviour:
   player: {fileID: 1202974197}
   mouse: {fileID: 1202974198}
   yOffset: 0.85
+  gyroscopeControl: 1
+  swipeSpeed: 0.5
 --- !u!81 &315691271
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1422,22 +1424,22 @@ PrefabInstance:
     - target: {fileID: 1919877438879150940, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 1919877438879150940, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1919877438879150940, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1919877438879150940, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1919877438879150940, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
@@ -1482,7 +1484,12 @@ PrefabInstance:
     - target: {fileID: 3521066497257077869, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: coordinates.y
-      value: -2
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521066497257077869, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: coordinates.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}

@@ -2553,6 +2553,8 @@ MonoBehaviour:
   player: {fileID: 1244801991}
   mouse: {fileID: 1244801993}
   yOffset: 0.85
+  gyroscopeControl: 0
+  swipeSpeed: 0.5
 --- !u!81 &315691271
 AudioListener:
   m_ObjectHideFlags: 0

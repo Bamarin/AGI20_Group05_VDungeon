@@ -149,7 +149,7 @@ public class Character : Entity
             CreateGridHighlight();
 
             arrowOrigin = transform.position;
-            arrowOrigin.y = 0.2f;
+            arrowOrigin.y = 0.2f; //make the arrow plane a little bit higher than the game board
         }
     }
 
@@ -169,6 +169,10 @@ public class Character : Entity
               , Vector3.Lerp(arrowOrigin, arrowTarget, 0.999f - arrowHeadPer)
               , Vector3.Lerp(arrowOrigin, arrowTarget, 1 - arrowHeadPer)
               , arrowTarget });
+
+            //set character orientation
+            Quaternion orientation = Quaternion.LookRotation(arrowTarget - arrowOrigin, Vector3.up);
+            transform.rotation = orientation;
         }
     }
 

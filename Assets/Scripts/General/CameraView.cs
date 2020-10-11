@@ -53,13 +53,16 @@ public class CameraView : MonoBehaviour
         firstView.transform.position = transform.position;
         transform.SetParent(firstView.transform);
 
-        ifGyroEnabled = EnableGryo();
+        if (ifGyroEnabled)
+        {
+            ifGyroEnabled = EnableGryo();
 
-        rotMatrix = new Quaternion(0, 0, 1, 0);
+            rotMatrix = new Quaternion(0, 0, 1, 0);
 
-        originalRotation = transform.eulerAngles;
-        swipeRotateX = originalRotation.x;
-        swipeRotateY = originalRotation.y;
+            originalRotation = transform.eulerAngles;
+            swipeRotateX = originalRotation.x;
+            swipeRotateY = originalRotation.y;
+        }
 
         clampUpAndDown = 0;
     }
@@ -131,6 +134,10 @@ public class CameraView : MonoBehaviour
         if (!ifGyroEnabled)
         {
             firstView.transform.position = player.position + new Vector3(0f, yOffset, 0f);
+
+            if (!Input.GetMouseButton(1)){
+                transform.rotation =  Quaternion.Euler(player.rotation.eulerAngles);
+            }
             // only trigger the first-view rotation change when right clicked the mouse
             if (Input.GetMouseButton(1))
             {
