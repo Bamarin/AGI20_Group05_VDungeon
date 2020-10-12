@@ -15,6 +15,7 @@ public class CharacterEditor : EntityEditor
         EditorGUI.BeginChangeCheck();
 
         CreateCharacterGUI(castedTarget);
+        CreateCollisionGUI(castedTarget);
         CreateCoordinatesGUI(castedTarget);
 
         if (EditorGUI.EndChangeCheck() && !Application.isPlaying)

@@ -14,6 +14,7 @@ public class PropEditor : EntityEditor
 
         EditorGUI.BeginChangeCheck();
 
+        CreateCollisionGUI(castedTarget);
         CreateCoordinatesGUI(castedTarget);
         CreateOrientationGUI(castedTarget);  
 

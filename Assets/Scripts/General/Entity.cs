@@ -6,6 +6,7 @@ public class Entity : MonoBehaviour
 {
     // *** PROPERTY FIELDS ***
 
+    public bool hasCollision;
     public Vector2Int coordinates;
     public float verticalPosition;
 
@@ -16,6 +17,10 @@ public class Entity : MonoBehaviour
     // Moves the entity to a new set of grid coordinates.
     public void Move(Vector2Int newCoordinates)
     {
+        if (hasCollision)
+        {
+            ParentGrid.MoveCollision(coordinates, newCoordinates);
+        }
         coordinates = newCoordinates;
         UpdatePosition();
     }

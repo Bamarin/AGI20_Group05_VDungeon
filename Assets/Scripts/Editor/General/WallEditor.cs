@@ -12,6 +12,7 @@ public class WallEditor : PropEditor
         EditorGUI.BeginChangeCheck();
 
         CreateWallGUI(castedTarget);
+        CreateCollisionGUI(castedTarget);
         CreateCoordinatesGUI(castedTarget);
         CreateOrientationGUI(castedTarget);
 
