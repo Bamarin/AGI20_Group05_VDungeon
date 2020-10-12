@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44970924, g: 0.49977732, b: 0.57563454, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497096, g: 0.49977773, b: 0.5756355, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: 1, y: 2}
   verticalPosition: 0
   mouseSensitivity: 3
@@ -469,6 +470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.y
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521066497257077869, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
@@ -827,6 +833,11 @@ PrefabInstance:
       propertyPath: orientation
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5677324623494450187, guid: 2cca8606964468c408318cbc51b3ed13,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cca8606964468c408318cbc51b3ed13, type: 3}
 --- !u!1001 &543103501
@@ -860,6 +871,11 @@ PrefabInstance:
         type: 3}
       propertyPath: orientation
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333809218749775914, guid: c0351ab60cc77fb418864870c918244a,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2333809218749775917, guid: c0351ab60cc77fb418864870c918244a,
         type: 3}
@@ -952,6 +968,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15906fe5892c12248b6c59ba13075dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSize: {x: 10, y: 10}
+  showGrid: 0
+  showCollisions: 1
 --- !u!4 &600232988
 Transform:
   m_ObjectHideFlags: 0
@@ -1300,6 +1319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 0
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
   orientation: 0
@@ -1490,6 +1510,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521066497257077869, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
@@ -1725,6 +1750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
   mouseSensitivity: 3
@@ -2578,6 +2604,11 @@ PrefabInstance:
       propertyPath: orientation
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8936175117573311231, guid: e8c59d7ca09d13b4493e527c30c3ad25,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8c59d7ca09d13b4493e527c30c3ad25, type: 3}
 --- !u!1001 &1821973433
@@ -2611,6 +2642,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.y
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074155318507032555, guid: 8092bf510892c004a91da4815f1c61bd,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8973437606596291468, guid: 8092bf510892c004a91da4815f1c61bd,
         type: 3}
@@ -3120,6 +3156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: -2, y: -1}
   verticalPosition: 0
   mouseSensitivity: 3
@@ -3232,6 +3269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 0
   coordinates: {x: 0, y: -5}
   verticalPosition: 0
   orientation: 0

@@ -15,14 +15,20 @@ public class Entity : MonoBehaviour
     // *** UTILITY FUNCTIONS ***
 
     // Moves the entity to a new set of grid coordinates.
-    public void Move(Vector2Int newCoordinates)
+    public bool Move(Vector2Int newCoordinates, bool ignoreCollision = false)
     {
-        if (hasCollision)
+        if (hasCollision && !ignoreCollision)
         {
+            // Abort movement if the new position already is occupied
+            if (ParentGrid.GetCollision(newCoordinates)) return false;
+
+            // Update collision array
             ParentGrid.MoveCollision(coordinates, newCoordinates);
         }
         coordinates = newCoordinates;
         UpdatePosition();
+
+        return true;
     }
 
     // Updates the entity's local position to match its current grid coordinates.
@@ -32,9 +38,9 @@ public class Entity : MonoBehaviour
     }
 
     // Moves the entity to the nearest grid coordinates based on its current local position.
-    public virtual void MoveToNearest()
+    public virtual bool MoveToNearest()
     {
-        Move(Grid.LocalToGrid(transform.localPosition));
+        return Move(Grid.LocalToGrid(transform.localPosition));
     }
 
     // Ensures the entity is correctly positioned and oriented within the grid.

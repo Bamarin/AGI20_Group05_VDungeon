@@ -18,9 +18,9 @@ public class Wall : Prop
     }
 
     // Moves the wall to the nearest grid coordinates based on its current local position.
-    public override void MoveToNearest()
+    public override bool MoveToNearest()
     {
-        Move(Grid.LocalToGrid(transform.localPosition - OrientationOffset()));
+        return Move(Grid.LocalToGrid(transform.localPosition - OrientationOffset()));
     }
 
     // Updates the wall's rotation and position to match its current grid orientation.

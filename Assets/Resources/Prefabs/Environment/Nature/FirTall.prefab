@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: 0, y: 0}
+  verticalPosition: 0
   orientation: 4
 --- !u!33 &9005336212979878302
 MeshFilter:

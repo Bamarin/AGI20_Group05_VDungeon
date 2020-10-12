@@ -182,7 +182,13 @@ public class Character : Entity
         if (mouseLocked)
         {
             RemoveGridHighlight();
-            MoveToNearest();
+
+            // Attempt to move into new position
+            if (!MoveToNearest())
+            {
+                // If failed due to collision, move back to previous position
+                Move(coordinates, true);
+            }
 
             mouseLocked = false;
             UpdateMaterials();
