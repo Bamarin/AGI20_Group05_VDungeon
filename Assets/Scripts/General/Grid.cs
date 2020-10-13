@@ -168,7 +168,7 @@ public class Grid : MonoBehaviour
         {
             for (int y = -gridSize.y; y < gridSize.y; y++)
             {
-                Gizmos.DrawWireCube(GridToWorld(new Vector2Int(x,y)), new Vector3(CELL_SIZE, CELL_SIZE, CELL_SIZE));
+                Gizmos.DrawWireCube(GridToWorld(new Vector2Int(x,y), CELL_SIZE / 2), new Vector3(CELL_SIZE, CELL_SIZE, CELL_SIZE));
             }
         }
     }
@@ -186,7 +186,7 @@ public class Grid : MonoBehaviour
                 if (gridCollisions[x,y])
                 {
                     Vector2Int coordinates = new Vector2Int(x - gridSize.x, y - gridSize.y);
-                    Gizmos.DrawWireCube(GridToWorld(coordinates), new Vector3(CELL_SIZE, CELL_SIZE, CELL_SIZE));
+                    Gizmos.DrawWireCube(GridToWorld(coordinates, CELL_SIZE / 2), new Vector3(CELL_SIZE, CELL_SIZE, CELL_SIZE));
                 }
             }
         }
