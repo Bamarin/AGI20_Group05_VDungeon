@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,17 @@ public class Grid : MonoBehaviour
         South,
         West,
         Random,
+    }
+
+    [Flags]
+    public enum CollisionFlags : byte
+    {
+        None    = 0,
+        Center  = 0b00001,
+        North   = 0b00010,
+        South   = 0b00100,
+        East    = 0b01000,
+        West    = 0b10000,
     }
 
     // *** PROPERTY FIELDS ***
@@ -30,7 +42,7 @@ public class Grid : MonoBehaviour
     private List<Entity> entityList;
 
     // Stores grid cell collision data
-    private bool[,] gridCollisions;
+    private CollisionFlags[,] gridCollisions;
 
 
     // *** UTILITY FUNCTIONS ***
@@ -76,17 +88,38 @@ public class Grid : MonoBehaviour
         return 0;
     }
 
-    // Set collision in a grid cell. No effect if the coordinates are out of bounds of the collider array.
-    public void SetCollision(Vector2Int gridPosition, bool enable)
+    // Set collision flags in a grid cell. No effect if the coordinates are out of bounds of the collider array.
+    public void SetCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)
     {
         Vector2Int index = GridToCollisionArray(gridPosition);
         if (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
         {
-            gridCollisions[index.x, index.y] = enable;
+            gridCollisions[index.x, index.y] = flags;
+        }
+    }
+    
+    // Add specific collision flags to a grid cell. Existing flags are not changed.
+    public void AddCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)
+    {
+        Vector2Int index = GridToCollisionArray(gridPosition);
+        if (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
+        {
+            gridCollisions[index.x, index.y] |= flags;
         }
     }
 
-    public bool GetCollision(Vector2Int gridPosition)
+    // Remove specific collision flags from a grid cell.
+    public void RemoveCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)
+    {
+        Vector2Int index = GridToCollisionArray(gridPosition);
+        if (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
+        {
+            gridCollisions[index.x, index.y] &= ~flags;
+        }
+    }
+
+    // Get all collision flags from a grid cell. Out of bounds positions will always return central collision.
+    public CollisionFlags GetCollisionFlags(Vector2Int gridPosition)
     {
         Vector2Int index = GridToCollisionArray(gridPosition);
         if (index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
@@ -94,15 +127,20 @@ public class Grid : MonoBehaviour
             return gridCollisions[index.x, index.y];
         }
 
-        // Out of bounds always returns true; prevents entities with collision from being moved out of bounds.
-        return true;
+        // Out of bounds always returns central collision; prevents entities with collision from being moved out of bounds.
+        return CollisionFlags.Center;
     }
 
-    // Disables collision at the old position and enables collision at the new position
-    public void MoveCollision(Vector2Int oldPosition, Vector2Int newPosition)
+    // Returns true if *at least one* of the specified collision flags are present in a grid cell.
+    public bool CheckCollisionFlags(Vector2Int gridPosition, CollisionFlags flagsToCheck)
     {
-        SetCollision(oldPosition, false);
-        SetCollision(newPosition, true);
+        return CheckCollisionFlags(GetCollisionFlags(gridPosition), flagsToCheck);
+    }
+
+    // For internal use only
+    private bool CheckCollisionFlags(CollisionFlags value, CollisionFlags flagsToCheck)
+    {
+        return (value & flagsToCheck) != 0;
     }
 
     // Convert grid coordinates to collision array index values. (internal use only)
@@ -115,7 +153,7 @@ public class Grid : MonoBehaviour
     private void InitializeEntities()
     {
         entityList = new List<Entity>();
-        gridCollisions = new bool[(gridSize.x*2)+1, (gridSize.y*2)+1];
+        gridCollisions = new CollisionFlags[(gridSize.x*2)+1, (gridSize.y*2)+1];
 
         // Locate all existing entities on this grid
         entityList.AddRange(GetComponentsInChildren<Entity>());
@@ -127,9 +165,11 @@ public class Grid : MonoBehaviour
             item.Initialize(this);
             item.UpdateEntity();
 
-            if (item.hasCollision)
+            CollisionFlags flags = item.GetCollisionFlags();
+            if (flags != CollisionFlags.None)
             {
-                SetCollision(item.coordinates, true);
+                // Update grid cell collision data
+                AddCollisionFlags(item.coordinates, flags);
             }
         }
     }
@@ -154,11 +194,13 @@ public class Grid : MonoBehaviour
 
     public bool showGrid = false;
     public bool showCollisions = false;
+    public bool showWallCollisions = false;
 
     private void OnDrawGizmos()
     {
         if (showGrid) DEBUG_DrawGrid();
         if (showCollisions) DEBUG_DrawCollisions();
+        if (showWallCollisions) DEBUG_DrawWallCollisions();
     }
 
     private void DEBUG_DrawGrid()
@@ -183,10 +225,41 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < gridCollisions.GetLength(1); y++)
             {
-                if (gridCollisions[x,y])
+                if (CheckCollisionFlags(gridCollisions[x,y], CollisionFlags.Center))
                 {
                     Vector2Int coordinates = new Vector2Int(x - gridSize.x, y - gridSize.y);
                     Gizmos.DrawWireCube(GridToWorld(coordinates, CELL_SIZE / 2), new Vector3(CELL_SIZE, CELL_SIZE, CELL_SIZE));
+                }
+            }
+        }
+    }
+
+    private void DEBUG_DrawWallCollisions()
+    {
+        if (gridCollisions == null) return;
+
+        Gizmos.color = Color.red;
+
+        for (int x = 0; x < gridCollisions.GetLength(0); x++)
+        {
+            for (int y = 0; y < gridCollisions.GetLength(1); y++)
+            {
+                Vector3 center = GridToWorld(new Vector2Int(x - gridSize.x, y - gridSize.y), CELL_SIZE / 2);
+                if (CheckCollisionFlags(gridCollisions[x, y], CollisionFlags.North))
+                {
+                    Gizmos.DrawWireCube(new Vector3(center.x, center.y, center.z + (CELL_SIZE / 2)), new Vector3(CELL_SIZE, CELL_SIZE, 0.1f));
+                }
+                if (CheckCollisionFlags(gridCollisions[x, y], CollisionFlags.East))
+                {
+                    Gizmos.DrawWireCube(new Vector3(center.x + (CELL_SIZE / 2), center.y, center.z), new Vector3(0.1f, CELL_SIZE, CELL_SIZE));
+                }
+                if (CheckCollisionFlags(gridCollisions[x, y], CollisionFlags.South))
+                {
+                    Gizmos.DrawWireCube(new Vector3(center.x, center.y, center.z - (CELL_SIZE / 2)), new Vector3(CELL_SIZE, CELL_SIZE, 0.1f));
+                }
+                if (CheckCollisionFlags(gridCollisions[x, y], CollisionFlags.West))
+                {
+                    Gizmos.DrawWireCube(new Vector3(center.x - (CELL_SIZE / 2), center.y, center.z), new Vector3(0.1f, CELL_SIZE, CELL_SIZE));
                 }
             }
         }

@@ -15,15 +15,16 @@ public class Entity : MonoBehaviour
     // *** UTILITY FUNCTIONS ***
 
     // Moves the entity to a new set of grid coordinates.
-    public bool Move(Vector2Int newCoordinates, bool ignoreCollision = false)
+    public virtual bool Move(Vector2Int newCoordinates, bool ignoreCollision = false)
     {
         if (hasCollision && !ignoreCollision)
         {
             // Abort movement if the new position already is occupied
-            if (ParentGrid.GetCollision(newCoordinates)) return false;
+            if (ParentGrid.CheckCollisionFlags(newCoordinates, Grid.CollisionFlags.Center)) return false;
 
             // Update collision array
-            ParentGrid.MoveCollision(coordinates, newCoordinates);
+            ParentGrid.RemoveCollisionFlags(coordinates, Grid.CollisionFlags.Center);
+            ParentGrid.AddCollisionFlags(newCoordinates, Grid.CollisionFlags.Center);
         }
         coordinates = newCoordinates;
         UpdatePosition();
@@ -47,6 +48,17 @@ public class Entity : MonoBehaviour
     public virtual void UpdateEntity()
     {
         UpdatePosition();
+    }
+
+    // Get the collision flags for this wall piece based on its type and orientation.
+    public virtual Grid.CollisionFlags GetCollisionFlags()
+    {
+        if (hasCollision)
+        {
+            return Grid.CollisionFlags.Center;
+        }
+
+        return Grid.CollisionFlags.None;
     }
 
     // *** GENERAL FUNCTIONS ***

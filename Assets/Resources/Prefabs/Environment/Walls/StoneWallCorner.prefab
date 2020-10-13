@@ -140,8 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004cafda77674dc469aae5c1fb41dee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPosition: {x: 0, y: 0}
-  gridOrientation: 0
+  hasCollision: 1
+  coordinates: {x: 0, y: 0}
+  verticalPosition: 0
+  orientation: 0
   isCornerPiece: 1
 --- !u!1 &4253953986696414510
 GameObject:
