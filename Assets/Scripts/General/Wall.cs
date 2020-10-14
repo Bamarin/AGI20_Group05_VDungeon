@@ -12,21 +12,16 @@ public class Wall : Prop
     // *** UTILITY FUNCTIONS ***
 
     // Moves the entity to a new set of grid coordinates.
-    public override bool Move(Vector2Int newCoordinates, bool ignoreCollision = false)
+    public override void Move(Vector2Int newCoordinates)
     {
-        if (hasCollision && !ignoreCollision)
+        if (hasCollision)
         {
-            // Abort movement if the new position already is occupied
-            if (ParentGrid.CheckCollisionFlags(newCoordinates, GetCollisionFlags())) return false;
-
             // Update collision array
             ParentGrid.RemoveCollisionFlags(coordinates, GetCollisionFlags());
             ParentGrid.AddCollisionFlags(newCoordinates, GetCollisionFlags());
         }
         coordinates = newCoordinates;
         UpdatePosition();
-
-        return true;
     }
 
     // Updates the wall's local position to match its current grid coordinates.
@@ -36,9 +31,9 @@ public class Wall : Prop
     }
 
     // Moves the wall to the nearest grid coordinates based on its current local position.
-    public override bool MoveToNearest()
+    public override void MoveToNearest()
     {
-        return Move(Grid.LocalToGrid(transform.localPosition - OrientationOffset()));
+        Move(Grid.LocalToGrid(transform.localPosition - OrientationOffset()));
     }
 
     // Updates the wall's rotation and position to match its current grid orientation.

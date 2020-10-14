@@ -183,11 +183,19 @@ public class Character : Entity
         {
             RemoveGridHighlight();
 
-            // Attempt to move into new position
-            if (!MoveToNearest())
+            // Check if path between old and new position is possible
+            GridPathfinder ptf = new GridPathfinder(ParentGrid);
+            List<Vector2Int> path = ptf.GetPath(coordinates, Grid.LocalToGrid(transform.localPosition));
+
+            if (path != null)
             {
-                // If failed due to collision, move back to previous position
-                Move(coordinates, true);
+                // Path available - move to new position
+                MoveToNearest();
+            }
+            else
+            {
+                // Path blocked - move to old position
+                Move(coordinates);
             }
 
             mouseLocked = false;

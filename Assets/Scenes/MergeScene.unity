@@ -332,6 +332,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneWallCorner (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1654351827208531513, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -480,6 +485,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWallCentralPillar (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aff029c4a454d8c4fac11429e33ebd1d, type: 3}
@@ -968,9 +978,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15906fe5892c12248b6c59ba13075dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 10, y: 10}
-  showGrid: 0
+  gridSize: {x: 2, y: 1}
+  showGrid: 1
   showCollisions: 1
+  showWallCollisions: 1
 --- !u!4 &600232988
 Transform:
   m_ObjectHideFlags: 0
@@ -1007,6 +1018,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWallInnerCorner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3438637263461584332, guid: d55858d683d77024fa77d11e6f543a1e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3438637263461584335, guid: d55858d683d77024fa77d11e6f543a1e,
         type: 3}
@@ -1521,6 +1537,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneWallCentralPillar
       objectReference: {fileID: 0}
+    - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aff029c4a454d8c4fac11429e33ebd1d, type: 3}
 --- !u!1001 &1142759547
@@ -1589,6 +1610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWallDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059304144044609530, guid: 25610e74a8a10184c81f8914d825b585,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6150510731436727697, guid: 25610e74a8a10184c81f8914d825b585,
         type: 3}
@@ -1902,6 +1928,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneWall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8204759753292807142, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 077fa3b39584a994b9d541e967554238, type: 3}
 --- !u!1001 &1315381146
@@ -2006,6 +2037,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneWall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8204759753292807142, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 077fa3b39584a994b9d541e967554238, type: 3}
 --- !u!1001 &1337280206
@@ -2019,6 +2055,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWallInnerCorner
+      objectReference: {fileID: 0}
+    - target: {fileID: 3438637263461584332, guid: d55858d683d77024fa77d11e6f543a1e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3438637263461584335, guid: d55858d683d77024fa77d11e6f543a1e,
         type: 3}
@@ -2295,6 +2336,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8204759753292807142, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 077fa3b39584a994b9d541e967554238, type: 3}
 --- !u!1 &1492555858
@@ -2442,6 +2488,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWallCorner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1654351827208531513, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
@@ -3095,6 +3146,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneWall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8204759753292807142, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 077fa3b39584a994b9d541e967554238, type: 3}
 --- !u!1 &2012914329
@@ -3339,6 +3395,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204759753292807142, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 077fa3b39584a994b9d541e967554238, type: 3}

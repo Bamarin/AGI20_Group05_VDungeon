@@ -17,12 +17,13 @@ public class Grid : MonoBehaviour
     [Flags]
     public enum CollisionFlags : byte
     {
-        None    = 0,
-        Center  = 0b00001,
-        North   = 0b00010,
-        South   = 0b00100,
-        East    = 0b01000,
-        West    = 0b10000,
+        None            = 0,
+        Center          = 0b00001,
+        North           = 0b00010,
+        South           = 0b00100,
+        East            = 0b01000,
+        West            = 0b10000,
+        AllDirections   = 0b11110,
     }
 
     // *** PROPERTY FIELDS ***
@@ -42,7 +43,7 @@ public class Grid : MonoBehaviour
     private List<Entity> entityList;
 
     // Stores grid cell collision data
-    private CollisionFlags[,] gridCollisions;
+    public CollisionFlags[,] gridCollisions;
 
 
     // *** UTILITY FUNCTIONS ***
@@ -137,8 +138,7 @@ public class Grid : MonoBehaviour
         return CheckCollisionFlags(GetCollisionFlags(gridPosition), flagsToCheck);
     }
 
-    // For internal use only
-    private bool CheckCollisionFlags(CollisionFlags value, CollisionFlags flagsToCheck)
+    public static bool CheckCollisionFlags(CollisionFlags value, CollisionFlags flagsToCheck)
     {
         return (value & flagsToCheck) != 0;
     }
@@ -206,9 +206,9 @@ public class Grid : MonoBehaviour
     private void DEBUG_DrawGrid()
     {
         Gizmos.color = Color.white;
-        for (int x = -gridSize.x; x < gridSize.x; x++)
+        for (int x = -gridSize.x; x < gridSize.x + 1; x++)
         {
-            for (int y = -gridSize.y; y < gridSize.y; y++)
+            for (int y = -gridSize.y; y < gridSize.y + 1; y++)
             {
                 Gizmos.DrawWireCube(GridToWorld(new Vector2Int(x,y), CELL_SIZE / 2), new Vector3(CELL_SIZE, CELL_SIZE, CELL_SIZE));
             }
