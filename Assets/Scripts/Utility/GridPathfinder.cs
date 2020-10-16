@@ -27,7 +27,7 @@ public class GridPathfinder
         Vector2Int end = GridToIndex(to);
 
         // Check if the end is at all reachable before beginning
-        if (!IsReachable(end)) return null;
+        if (IsOutOfBounds(end) || !IsReachable(end)) return null;
 
         // Get started with source node
         pathQueue.Enqueue(start);
