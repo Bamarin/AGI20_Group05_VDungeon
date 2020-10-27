@@ -1017,7 +1017,7 @@ MonoBehaviour:
   gridSize: {x: 2, y: 4}
   showGrid: 0
   showCollisions: 0
-  showWallCollisions: 0
+  showWallCollisions: 1
 --- !u!4 &600232988
 Transform:
   m_ObjectHideFlags: 0
