@@ -49,6 +49,8 @@ public class Grid : MonoBehaviour
 
     // *** UTILITY FUNCTIONS ***
 
+    // ** Coordinate Functions **
+
     // Convert grid coordinates to local position. (Y axis is set to verticalPosition)
     public static Vector3 GridToLocal(Vector2Int gridPosition, float verticalPosition = 0)
     {
@@ -73,6 +75,8 @@ public class Grid : MonoBehaviour
         return LocalToGrid(transform.InverseTransformPoint(position));
     }
 
+    // ** Orientation Functions **
+
     // Convert grid orientation to local angle. (around Y-axis)
     public static float OrientationToAngle(Orientation orientation)
     {
@@ -89,6 +93,40 @@ public class Grid : MonoBehaviour
         }
         return 0;
     }
+
+    public static Orientation RotateCW(Orientation orientation)
+    {
+        switch (orientation)
+        {
+            case Orientation.North:
+                return Orientation.East;
+            case Orientation.East:
+                return Orientation.South;
+            case Orientation.South:
+                return Orientation.West;
+            case Orientation.West:
+                return Orientation.North;
+        }
+        return Orientation.Random;
+    }
+
+    public static Orientation RotateCCW(Orientation orientation)
+    {
+        switch (orientation)
+        {
+            case Orientation.North:
+                return Orientation.West;
+            case Orientation.East:
+                return Orientation.North;
+            case Orientation.South:
+                return Orientation.East;
+            case Orientation.West:
+                return Orientation.South;
+        }
+        return Orientation.Random;
+    }
+
+    // ** Collision Functions **
 
     // Set collision flags in a grid cell. No effect if the coordinates are out of bounds of the collider array.
     public void SetCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)

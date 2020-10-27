@@ -69,11 +69,15 @@ public class Entity : MonoBehaviour
         Move(BookmarkedCoordinates);
     }
 
-    // Updates the collision array by removing the collision data at the last bookmarked position,
-    // and creating new collision data at the current position.
-    public void UpdateCollisionChange()
+    // Removes the collision data from the bookmarked position.
+    public void ClearCollisionAtBookmark()
     {
         ParentGrid.RemoveCollisionFlags(BookmarkedCoordinates, BookmarkedCollision);
+    }
+
+    // Updates collision data according to this Entity's current status.
+    public void UpdateCollision()
+    {
         ParentGrid.AddCollisionFlags(coordinates, GetCollisionFlags());
     }
 

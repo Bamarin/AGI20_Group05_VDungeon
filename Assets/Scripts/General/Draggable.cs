@@ -16,6 +16,7 @@ public class Draggable : MonoBehaviour
     // *** INTERNAL VARIABLES ***
 
     public Entity AttachedEntity { get; private set; }
+    public Prop AttachedProp { get; private set; }
 
     private List<Renderer> entityRenderers;
     private Entity gridHighlight;
@@ -125,6 +126,7 @@ public class Draggable : MonoBehaviour
         if (enableEdit)
         {
             AttachedEntity.SetBookmark();
+            AttachedEntity.ClearCollisionAtBookmark();
 
             mouseLocked = true;
             UpdateRenderers();
@@ -192,14 +194,15 @@ public class Draggable : MonoBehaviour
             {
                 // Can move to new position
                 AttachedEntity.Move(targetCoordinates);
-                // Update collision data
-                AttachedEntity.UpdateCollisionChange();
             }
             else
             {
                 // Cannot move to new position - go back to old position
                 AttachedEntity.LoadBookmark();
             }
+
+            // Update collision data
+            AttachedEntity.UpdateCollision();
 
             mouseLocked = false;
             UpdateRenderers();
@@ -214,7 +217,11 @@ public class Draggable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // AttachedEntity and AttachedProp refer to the same component, only at different levels (Prop allows for orientation control)
+        // AttachedEntity is required, but AttachedProp is not
         AttachedEntity = GetComponent<Entity>();
+        AttachedProp = GetComponent<Prop>();
+
         if (AttachedEntity == null)
         {
             Debug.LogWarning("Draggable object " + name + " has no Entity (or Entity-based) component attached.");
@@ -247,6 +254,13 @@ public class Draggable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (mouseLocked && AttachedProp != null)
+        {
+            // Rotate with 'R'
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                AttachedProp.Rotate(Grid.RotateCW(AttachedProp.orientation));
+            }
+        }
     }
 }
