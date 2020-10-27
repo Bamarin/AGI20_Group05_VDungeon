@@ -57,7 +57,7 @@ public class Draggable : MonoBehaviour
 
     private void UpdateGridHighlight()
     {
-        gridHighlight.Move(Grid.LocalToGrid(transform.localPosition));
+        gridHighlight.Move(AttachedEntity.coordinates);
     }
 
     private void UpdateRenderers()
@@ -144,11 +144,12 @@ public class Draggable : MonoBehaviour
     {
         if (mouseLocked)
         {
-            transform.position = MouseWorldPosition() - offset;
+            AttachedEntity.Move(AttachedEntity.ParentGrid.WorldToGrid(MouseWorldPosition()));
+
             UpdateRenderers();
             UpdateGridHighlight();
 
-            arrowTarget = Grid.GridToLocal(Grid.LocalToGrid(transform.position), 0.2f);
+            arrowTarget = Grid.GridToLocal(AttachedEntity.coordinates, 0.2f);
             arrow.positionCount = 4;
             arrow.SetPositions(new Vector3[] {
               arrowOrigin
