@@ -24,6 +24,7 @@ public class Grid : MonoBehaviour
         East            = 0b01000,
         West            = 0b10000,
         AllDirections   = 0b11110,
+        All             = 0b11111,
     }
 
     // *** PROPERTY FIELDS ***
@@ -93,7 +94,7 @@ public class Grid : MonoBehaviour
     public void SetCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)
     {
         Vector2Int index = GridToCollisionArray(gridPosition);
-        if (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
+        if (IsInCollisionArray(index))
         {
             gridCollisions[index.x, index.y] = flags;
         }
@@ -103,7 +104,7 @@ public class Grid : MonoBehaviour
     public void AddCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)
     {
         Vector2Int index = GridToCollisionArray(gridPosition);
-        if (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
+        if (IsInCollisionArray(index))
         {
             gridCollisions[index.x, index.y] |= flags;
         }
@@ -113,7 +114,7 @@ public class Grid : MonoBehaviour
     public void RemoveCollisionFlags(Vector2Int gridPosition, CollisionFlags flags)
     {
         Vector2Int index = GridToCollisionArray(gridPosition);
-        if (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
+        if (IsInCollisionArray(index))
         {
             gridCollisions[index.x, index.y] &= ~flags;
         }
@@ -123,18 +124,22 @@ public class Grid : MonoBehaviour
     public CollisionFlags GetCollisionFlags(Vector2Int gridPosition)
     {
         Vector2Int index = GridToCollisionArray(gridPosition);
-        if (index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1))
+        if (IsInCollisionArray(index))
         {
             return gridCollisions[index.x, index.y];
         }
 
-        // Out of bounds always returns central collision; prevents entities with collision from being moved out of bounds.
-        return CollisionFlags.Center;
+        // Out of bounds always returns full collision; prevents entities with collision from being moved out of bounds.
+        return CollisionFlags.All;
     }
 
     // Returns true if *at least one* of the specified collision flags are present in a grid cell.
+    // For walls, it also checks neighboring cells for opposing walls.
     public bool CheckCollisionFlags(Vector2Int gridPosition, CollisionFlags flagsToCheck)
     {
+        if (CheckCollisionFlags(flagsToCheck, CollisionFlags.AllDirections))
+            return CheckWallCollisionFlags(gridPosition, flagsToCheck);
+
         return CheckCollisionFlags(GetCollisionFlags(gridPosition), flagsToCheck);
     }
 
@@ -143,10 +148,47 @@ public class Grid : MonoBehaviour
         return (value & flagsToCheck) != 0;
     }
 
+    private bool CheckWallCollisionFlags(Vector2Int gridPosition, CollisionFlags flagsToCheck)
+    {
+        // Check central cell for any conflicting collisions
+        if (CheckCollisionFlags(GetCollisionFlags(gridPosition), flagsToCheck))
+            return true;
+
+        // Check the neighboring cells for opposing collisions that apply
+        if (CheckCollisionFlags(flagsToCheck, CollisionFlags.North))
+        {
+            if (CheckCollisionFlags(GetCollisionFlags(gridPosition + Vector2Int.up), CollisionFlags.South))
+                return true;
+        }
+        if (CheckCollisionFlags(flagsToCheck, CollisionFlags.South))
+        {
+            if (CheckCollisionFlags(GetCollisionFlags(gridPosition + Vector2Int.down), CollisionFlags.North))
+                return true;
+        }
+        if (CheckCollisionFlags(flagsToCheck, CollisionFlags.East))
+        {
+            if (CheckCollisionFlags(GetCollisionFlags(gridPosition + Vector2Int.right), CollisionFlags.West))
+                return true;
+        }
+        if (CheckCollisionFlags(flagsToCheck, CollisionFlags.West))
+        {
+            if (CheckCollisionFlags(GetCollisionFlags(gridPosition + Vector2Int.left), CollisionFlags.East))
+                return true;
+        }
+
+        // No conflicting collisions found.
+        return false;
+    }
+
     // Convert grid coordinates to collision array index values. (internal use only)
     private Vector2Int GridToCollisionArray(Vector2Int gridPosition)
     {
         return new Vector2Int(gridPosition.x + gridSize.x, gridPosition.y + gridSize.y);
+    }
+
+    private bool IsInCollisionArray(Vector2Int index)
+    {
+        return (index.x >= 0 && index.y >= 0 && index.x < gridCollisions.GetLength(0) && index.y < gridCollisions.GetLength(1));
     }
 
     // *** INITIALIZATION FUNCTIONS ***

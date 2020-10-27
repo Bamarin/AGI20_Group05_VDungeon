@@ -33,7 +33,7 @@ public class CharacterEditor : EntityEditor
     {
         GUILayout.Label("Character", EditorStyles.boldLabel);
 
-        castedTarget.interactable = EditorGUILayout.Toggle("Interactable", castedTarget.interactable);
+        castedTarget.activeCharacter = EditorGUILayout.Toggle("Active Character", castedTarget.activeCharacter);
         castedTarget.mouseSensitivity = EditorGUILayout.Slider("Mouse Sensitivity", castedTarget.mouseSensitivity, 1f, 10f);
         //for control of hear look up and down
         castedTarget.playerHead = (GameObject)EditorGUILayout.ObjectField("Head Object", castedTarget.playerHead, typeof(GameObject), true);

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 456316071426975537}
   - component: {fileID: 6150510731436727697}
+  - component: {fileID: -7260540173389161714}
   m_Layer: 0
   m_Name: StoneWallDoor
   m_TagString: Untagged
@@ -49,6 +50,21 @@ MonoBehaviour:
   verticalPosition: 0
   orientation: 0
   isCornerPiece: 0
+--- !u!114 &-7260540173389161714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5059304144044609530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableEdit: 0
+  requiresPath: 0
+  fixedRotation: 1
 --- !u!1 &5999933631147459504
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5694076902475755886}
   - component: {fileID: 3438637263461584335}
+  - component: {fileID: -6343689139011617344}
+  - component: {fileID: 228235950538108499}
   m_Layer: 0
   m_Name: StoneWallInnerCorner
   m_TagString: Untagged
@@ -44,9 +46,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004cafda77674dc469aae5c1fb41dee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPosition: {x: 0, y: 0}
-  gridOrientation: 0
+  hasCollision: 0
+  coordinates: {x: 0, y: 0}
+  verticalPosition: 0
+  orientation: 0
   isCornerPiece: 1
+--- !u!114 &-6343689139011617344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438637263461584332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableEdit: 0
+  requiresPath: 0
+  fixedRotation: 1
+--- !u!65 &228235950538108499
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438637263461584332}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1.2, z: 0.5}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!1 &8566296824726164577
 GameObject:
   m_ObjectHideFlags: 0
