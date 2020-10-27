@@ -9,17 +9,12 @@ public class Wall : Prop
 
     public bool isCornerPiece = false;
 
+
     // *** UTILITY FUNCTIONS ***
 
     // Moves the entity to a new set of grid coordinates.
     public override void Move(Vector2Int newCoordinates)
     {
-        if (hasCollision)
-        {
-            // Update collision array
-            ParentGrid.RemoveCollisionFlags(coordinates, GetCollisionFlags());
-            ParentGrid.AddCollisionFlags(newCoordinates, GetCollisionFlags());
-        }
         coordinates = newCoordinates;
         UpdatePosition();
     }

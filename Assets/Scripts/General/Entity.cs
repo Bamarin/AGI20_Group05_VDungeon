@@ -12,17 +12,16 @@ public class Entity : MonoBehaviour
 
     public Grid ParentGrid { get; private set; }
 
+    // *** INTERNAL VARIABLES ***
+
+    public Vector2Int BookmarkedCoordinates { get; protected set; }
+    public Grid.CollisionFlags BookmarkedCollision { get; protected set; }
+
     // *** UTILITY FUNCTIONS ***
 
     // Moves the entity to a new set of grid coordinates.
     public virtual void Move(Vector2Int newCoordinates)
     {
-        if (hasCollision)
-        {
-            // Update collision array
-            ParentGrid.RemoveCollisionFlags(coordinates, Grid.CollisionFlags.Center);
-            ParentGrid.AddCollisionFlags(newCoordinates, Grid.CollisionFlags.Center);
-        }
         coordinates = newCoordinates;
         UpdatePosition();
     }
@@ -56,6 +55,28 @@ public class Entity : MonoBehaviour
         return Grid.CollisionFlags.None;
     }
 
+    // Bookmarks this Entity's current status for easy fallback at a later point.
+    // Also relevant for collision data maintenance.
+    public virtual void SetBookmark()
+    {
+        BookmarkedCoordinates = coordinates;
+        BookmarkedCollision = GetCollisionFlags();
+    }
+
+    // Returns this Entity to a previously bookmarked status.
+    public virtual void LoadBookmark()
+    {
+        Move(BookmarkedCoordinates);
+    }
+
+    // Updates the collision array by removing the collision data at the last bookmarked position,
+    // and creating new collision data at the current position.
+    public void UpdateCollisionChange()
+    {
+        ParentGrid.RemoveCollisionFlags(BookmarkedCoordinates, BookmarkedCollision);
+        ParentGrid.AddCollisionFlags(coordinates, GetCollisionFlags());
+    }
+
     // *** GENERAL FUNCTIONS ***
 
     // Initializes this Entity to a Grid. Only call once.
@@ -77,6 +98,7 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetBookmark();
     }
 
     // Update is called once per frame

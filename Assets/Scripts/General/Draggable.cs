@@ -124,6 +124,8 @@ public class Draggable : MonoBehaviour
     {
         if (enableEdit)
         {
+            AttachedEntity.SetBookmark();
+
             mouseLocked = true;
             UpdateRenderers();
 
@@ -189,11 +191,13 @@ public class Draggable : MonoBehaviour
             {
                 // Can move to new position
                 AttachedEntity.Move(targetCoordinates);
+                // Update collision data
+                AttachedEntity.UpdateCollisionChange();
             }
             else
             {
                 // Cannot move to new position - go back to old position
-                AttachedEntity.Move(AttachedEntity.coordinates);
+                AttachedEntity.LoadBookmark();
             }
 
             mouseLocked = false;
