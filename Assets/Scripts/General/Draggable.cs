@@ -193,7 +193,7 @@ public class Draggable : MonoBehaviour
             {
                 // Check if path between old and new position is possible
                 GridPathfinder ptf = new GridPathfinder(AttachedEntity.ParentGrid);
-                List<Vector2Int> path = ptf.GetPath(AttachedEntity.coordinates, targetCoordinates);
+                List<Vector2Int> path = ptf.GetPath(AttachedEntity.BookmarkedCoordinates, targetCoordinates);
                 isReachable = path != null;
             }
             else
