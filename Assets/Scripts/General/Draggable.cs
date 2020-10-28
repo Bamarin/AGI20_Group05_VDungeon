@@ -8,6 +8,8 @@ public class Draggable : MonoBehaviour
 
     [Tooltip("Allow this Draggable to be edited during play mode.")]
     public bool enableEdit = false;
+    [Tooltip("Whether this Draggable can only be edited during the dedicated edit mode.")]
+    public bool requiresEditMode = true;
     [Tooltip("Whether this Draggable should require an available path for move operations.")]
     public bool requiresPath = false;
     [Tooltip("Whether this draggable should keep its original rotation during move operations.")]
@@ -81,6 +83,16 @@ public class Draggable : MonoBehaviour
         {
             item.material.color = color;
         }
+    }
+
+    private void Delete()
+    {
+        if (gridHighlight != null)
+        {
+            Destroy(gridHighlight.gameObject);
+        }
+
+        Destroy(gameObject);
     }
 
     // *** UTILITY FUNCTIONS ***
@@ -260,6 +272,12 @@ public class Draggable : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 AttachedProp.Rotate(Grid.RotateCW(AttachedProp.orientation));
+            }
+
+            // Delete with 'Del'
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                Delete();
             }
         }
     }
