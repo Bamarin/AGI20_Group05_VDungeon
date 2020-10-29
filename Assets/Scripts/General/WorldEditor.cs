@@ -7,11 +7,20 @@ public class WorldEditor : MonoBehaviour
     public static WorldEditor WorldEditorManager { get; private set; }
 
     public WorldObjectList objectListUI;
+    public Grid attachedGrid;
 
     public bool IsWorldEditorActive { get; private set; }
 
     private GameObject[] worldEditorObjects;
     private bool isInitialized = false;
+
+
+    public void CreateItem(int index)
+    {
+        GameObject newObject = Instantiate(worldEditorObjects[index].gameObject);
+        newObject.GetComponent<Entity>().Initialize(attachedGrid);
+        newObject.GetComponent<Draggable>().SetPlacementMode();
+    }
 
 
     // Use this for initialization

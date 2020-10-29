@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &11483781
 Transform:
   m_ObjectHideFlags: 0
@@ -1301,6 +1301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectListUI: {fileID: 2072378962}
+  attachedGrid: {fileID: 600232987}
 --- !u!4 &621204041
 Transform:
   m_ObjectHideFlags: 0
@@ -3927,7 +3928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2012914330
 Transform:
   m_ObjectHideFlags: 0

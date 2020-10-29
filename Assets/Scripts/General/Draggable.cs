@@ -25,6 +25,7 @@ public class Draggable : MonoBehaviour
 
     private bool mouseHover = false;
     private bool mouseLocked = false;
+    private bool placementMode = false;
 
     //the plane where the object is moving on
     private Plane movePlane;
@@ -38,10 +39,11 @@ public class Draggable : MonoBehaviour
 
     private bool IsCurrentlyEditable()
     {
-        if (requiresEditMode && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
-        {
+        if (placementMode)
             return false;
-        }
+
+        if (requiresEditMode && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
+            return false;
 
         return enableEdit;
     }
@@ -122,6 +124,13 @@ public class Draggable : MonoBehaviour
         UpdateRenderers();
     }
 
+    // Use this for new objects that need placement
+    public void SetPlacementMode()
+    {
+        placementMode = true;
+        movePlane = new Plane(Vector3.up, transform.position);
+    }
+
 
     // *** EVENTS ***
 
@@ -170,19 +179,22 @@ public class Draggable : MonoBehaviour
             UpdateRenderers();
             UpdateGridHighlight();
 
-            arrowTarget = Grid.GridToLocal(AttachedEntity.coordinates, 0.2f);
-            arrow.positionCount = 4;
-            arrow.SetPositions(new Vector3[] {
+            if (!placementMode)
+            {
+                arrowTarget = Grid.GridToLocal(AttachedEntity.coordinates, 0.2f);
+                arrow.positionCount = 4;
+                arrow.SetPositions(new Vector3[] {
               arrowOrigin
               , Vector3.Lerp(arrowOrigin, arrowTarget, 0.999f - arrowHeadPer)
               , Vector3.Lerp(arrowOrigin, arrowTarget, 1 - arrowHeadPer)
               , arrowTarget });
 
-            if (!fixedRotation)
-            {
-                // Rotate to face movement direction
-                Quaternion orientation = Quaternion.LookRotation(arrowTarget - arrowOrigin, Vector3.up);
-                transform.rotation = orientation;
+                if (!fixedRotation)
+                {
+                    // Rotate to face movement direction
+                    Quaternion orientation = Quaternion.LookRotation(arrowTarget - arrowOrigin, Vector3.up);
+                    transform.rotation = orientation;
+                }
             }
         }
     }
@@ -193,10 +205,9 @@ public class Draggable : MonoBehaviour
         if (mouseLocked)
         {
             Vector2Int targetCoordinates = gridHighlight.coordinates;
-            DestroyGridHighlight();
 
             bool isReachable = false;
-            if (requiresPath)
+            if (requiresPath && !placementMode)
             {
                 // Check if path between old and new position is possible
                 GridPathfinder ptf = new GridPathfinder(AttachedEntity.ParentGrid);
@@ -216,14 +227,25 @@ public class Draggable : MonoBehaviour
             }
             else
             {
-                // Cannot move to new position - go back to old position
-                AttachedEntity.LoadBookmark();
+                if (placementMode)
+                {
+                    // Cannot move to selected position - abort placement
+                    return;
+                }
+                else
+                {
+                    // Cannot move to new position - go back to old position
+                    AttachedEntity.LoadBookmark();
+                }
             }
+
+            DestroyGridHighlight();
 
             // Update collision data
             AttachedEntity.UpdateCollision();
 
             mouseLocked = false;
+            placementMode = false;
             UpdateRenderers();
 
             arrow.positionCount = 0;
@@ -244,6 +266,12 @@ public class Draggable : MonoBehaviour
         if (AttachedEntity == null)
         {
             Debug.LogWarning("Draggable object " + name + " has no Entity (or Entity-based) component attached.");
+        }
+
+        if (placementMode)
+        {
+            mouseLocked = true;
+            CreateGridHighlight();
         }
 
         entityRenderers = new List<Renderer>();
@@ -285,6 +313,22 @@ public class Draggable : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Delete))
             {
                 Delete();
+            }
+        }
+
+        if (placementMode)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                OnMouseUp();
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                Delete();
+            }
+            else
+            {
+                OnMouseDrag();
             }
         }
     }

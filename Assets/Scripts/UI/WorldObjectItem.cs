@@ -9,7 +9,6 @@ public class WorldObjectItem : MonoBehaviour
     , IPointerExitHandler
     , IPointerClickHandler
 {
-    public WorldObjectList objectList;
     public int itemIndex;
 
     private Text myText;
@@ -18,13 +17,12 @@ public class WorldObjectItem : MonoBehaviour
 
     // *** INITIALIZATION ***
 
-    public void Initialize(int itemIndex, WorldObjectList objectList, GameObject obj)
+    public void Initialize(int itemIndex, GameObject obj)
     {
         myText = GetComponent<Text>();
         rectTransform = GetComponent<RectTransform>();
 
         this.itemIndex = itemIndex;
-        this.objectList = objectList;
 
         // Set text
         myText.text = obj.name;
@@ -54,7 +52,7 @@ public class WorldObjectItem : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        objectList.SelectItem(itemIndex);
+        WorldEditor.WorldEditorManager.CreateItem(itemIndex);
     }
 
     // Start is called before the first frame update

@@ -8,12 +8,6 @@ public class WorldObjectList : MonoBehaviour
 
     private List<WorldObjectItem> listItems;
 
-
-    public void SelectItem(int itemIndex)
-    {
-
-    }
-
     public void Initalize(GameObject[] worldEditorObjects)
     {
         listItems = new List<WorldObjectItem>();
@@ -23,7 +17,7 @@ public class WorldObjectList : MonoBehaviour
             GameObject newObject = (GameObject)Instantiate(Resources.Load("Prefabs/UI/WorldObjectItem"));
             WorldObjectItem item = newObject.GetComponent<WorldObjectItem>();
             item.transform.SetParent(listRectTransform.transform);
-            item.Initialize(i, this, worldEditorObjects[i]);
+            item.Initialize(i, worldEditorObjects[i]);
             listItems.Add(item);
         }
 

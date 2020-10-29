@@ -63,9 +63,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableEdit: 0
+  enableEdit: 1
+  requiresEditMode: 1
   requiresPath: 0
   fixedRotation: 1
+  attachedEntity: {fileID: 8936175117573311231}
+  attachedProp: {fileID: 8936175117573311231}
 --- !u!33 &6589679909803839157
 MeshFilter:
   m_ObjectHideFlags: 0
