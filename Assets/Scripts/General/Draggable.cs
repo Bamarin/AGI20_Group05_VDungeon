@@ -26,8 +26,6 @@ public class Draggable : MonoBehaviour
     private bool mouseHover = false;
     private bool mouseLocked = false;
 
-    //keep the offset from the the object center to the mouse clicked position
-    private Vector3 offset;
     //the plane where the object is moving on
     private Plane movePlane;
     // for the arrow pointing from source to destination
@@ -37,6 +35,16 @@ public class Draggable : MonoBehaviour
     private float arrowHeadPer = 0.2f;
 
     // *** INTERNAL FUNCTIONS ***
+
+    private bool IsCurrentlyEditable()
+    {
+        if (requiresEditMode && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
+        {
+            return false;
+        }
+
+        return enableEdit;
+    }
 
     private void CreateGridHighlight()
     {
@@ -119,7 +127,7 @@ public class Draggable : MonoBehaviour
 
     void OnMouseOver()
     {
-        if (enableEdit)
+        if (IsCurrentlyEditable())
         {
             mouseHover = true;
             UpdateRenderers();
@@ -135,7 +143,7 @@ public class Draggable : MonoBehaviour
     // When the mouse is clicked on a collider
     void OnMouseDown()
     {
-        if (enableEdit)
+        if (IsCurrentlyEditable())
         {
             AttachedEntity.SetBookmark();
             AttachedEntity.ClearCollisionAtBookmark();
@@ -144,7 +152,6 @@ public class Draggable : MonoBehaviour
             UpdateRenderers();
 
             movePlane = new Plane(Vector3.up, transform.position);
-            offset = MouseWorldPosition() - transform.position;
             CreateGridHighlight();
 
             arrowOrigin = transform.position;

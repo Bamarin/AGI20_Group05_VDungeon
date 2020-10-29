@@ -1213,10 +1213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15906fe5892c12248b6c59ba13075dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 2, y: 4}
+  gridSize: {x: 4, y: 8}
   showGrid: 0
-  showCollisions: 1
-  showWallCollisions: 1
+  showCollisions: 0
+  showWallCollisions: 0
 --- !u!4 &600232988
 Transform:
   m_ObjectHideFlags: 0
@@ -2448,7 +2448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableEdit: 1
-  requiresEditMode: 1
+  requiresEditMode: 0
   requiresPath: 1
   fixedRotation: 0
 --- !u!136 &1202974200

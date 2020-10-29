@@ -3,6 +3,9 @@ using System.Collections;
 
 public class WorldEditor : MonoBehaviour
 {
+    // Singleton
+    public static WorldEditor WorldEditorManager { get; private set; }
+
     public WorldObjectList objectListUI;
 
     public bool IsWorldEditorActive { get; private set; }
@@ -16,6 +19,9 @@ public class WorldEditor : MonoBehaviour
     {
         IsWorldEditorActive = false;
         worldEditorObjects = Resources.LoadAll<GameObject>("Prefabs/Environment");
+
+        if (WorldEditorManager == null)
+            WorldEditorManager = this;
     }
 
     // Update is called once per frame
