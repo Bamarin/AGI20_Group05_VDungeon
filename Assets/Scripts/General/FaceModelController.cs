@@ -7,9 +7,6 @@ using System.Globalization;
 public class FaceModelController : MonoBehaviour
 {
     public GameObject head;
-    public GameObject leftEye;
-    public GameObject rightEye;
-    public GameObject mouth;
 
     public static Vector3 headPos;
     public static Quaternion headRot;
@@ -49,9 +46,6 @@ public class FaceModelController : MonoBehaviour
         headRot.x = 0.5f;
         headRot.y = 0;
         headRot.z = 1;
-        leftEyeShape = leftEye.transform.localScale;
-        rightEyeShape = rightEye.transform.localScale;
-        mouthShape = mouth.transform.localScale;
        
     }
     // Update is called once per frame
@@ -111,7 +105,7 @@ public class FaceModelController : MonoBehaviour
             }
 
             mouthShape = new Vector3(Single.Parse(dataArray[10], CultureInfo.InvariantCulture), Single.Parse(dataArray[9], CultureInfo.InvariantCulture), 0.2f);
-            Debug.Log(mouthShape[1]);
+
             if (500 * mouthShape[1] < 100f)
             {
                 MouthHeightWeight = 500 * mouthShape[1];
@@ -128,9 +122,6 @@ public class FaceModelController : MonoBehaviour
             face.SetBlendShapeWeight(LCloseEye, LCloseEyeWeight);
             face.SetBlendShapeWeight(RCloseEye, RCloseEyeWeight);
             face.SetBlendShapeWeight(MouthHeight, MouthHeightWeight);
-            //leftEye.transform.localScale = leftEyeShape;
-            //rightEye.transform.localScale = rightEyeShape;
-            //mouth.transform.localScale = mouthShape;
         }
        
     }
