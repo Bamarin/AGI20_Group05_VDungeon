@@ -19,7 +19,7 @@ public class WorldEditor : MonoBehaviour
     {
         GameObject newObject = Instantiate(worldEditorObjects[index].gameObject);
         newObject.GetComponent<Entity>().Initialize(attachedGrid);
-        newObject.GetComponent<Draggable>().SetPlacementMode();
+        newObject.GetComponent<Draggable>().InitializeInDragMode();
     }
 
 
@@ -36,7 +36,8 @@ public class WorldEditor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        // World edit mode change not allowed while something is selected
+        if (Input.GetKeyDown(KeyCode.E) && !Draggable.HasSelection)
         {
             IsWorldEditorActive = !IsWorldEditorActive;
             objectListUI.gameObject.SetActive(IsWorldEditorActive);

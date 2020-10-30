@@ -23,9 +23,11 @@ public class Draggable : MonoBehaviour
     private List<Renderer> entityRenderers;
     private Entity gridHighlight;
 
-    private bool mouseHover = false;
-    private bool mouseLocked = false;
-    private bool placementMode = false;
+    public static bool HasSelection { get; private set; }
+
+    private bool isHovered = false;
+    private bool isSelected = false;
+    private bool firstSelectionFrame = false;
 
     //the plane where the object is moving on
     private Plane movePlane;
@@ -39,9 +41,11 @@ public class Draggable : MonoBehaviour
 
     private bool IsCurrentlyEditable()
     {
-        if (placementMode)
+        // Nothing is editable while something else is selected
+        if (HasSelection)
             return false;
 
+        // Objects that require edit mode are not editable otherwise
         if (requiresEditMode && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
             return false;
 
@@ -76,7 +80,7 @@ public class Draggable : MonoBehaviour
     private void UpdateRenderers()
     {
         // If the object is being hovered or dragged, highlight
-        if (enableEdit && (mouseHover || mouseLocked))
+        if (enableEdit && (isHovered || isSelected))
         {
             UpdateMaterial(Color.red);
         }
@@ -102,6 +106,11 @@ public class Draggable : MonoBehaviour
             Destroy(gridHighlight.gameObject);
         }
 
+        if (isSelected)
+        {
+            HasSelection = false;
+        }
+
         Destroy(gameObject);
     }
 
@@ -124,11 +133,12 @@ public class Draggable : MonoBehaviour
         UpdateRenderers();
     }
 
-    // Use this for new objects that need placement
-    public void SetPlacementMode()
+    // Use this when creating a new object that must immediately be placed.
+    public void InitializeInDragMode()
     {
-        placementMode = true;
-        movePlane = new Plane(Vector3.up, transform.position);
+        // Not possible to just call Select(), since it requires the object to be initialized
+        // Select() will be called in Start() instead
+        isSelected = true; ;
     }
 
 
@@ -138,33 +148,23 @@ public class Draggable : MonoBehaviour
     {
         if (IsCurrentlyEditable())
         {
-            mouseHover = true;
+            isHovered = true;
             UpdateRenderers();
         }
     }
 
     void OnMouseExit()
     {
-        mouseHover = false;
+        isHovered = false;
         UpdateRenderers();
     }
 
     // When the mouse is clicked on a collider
     void OnMouseDown()
     {
-        if (IsCurrentlyEditable())
+        if (!isSelected && IsCurrentlyEditable())
         {
-            AttachedEntity.SetBookmark();
-            AttachedEntity.ClearCollisionAtBookmark();
-
-            mouseLocked = true;
-            UpdateRenderers();
-
-            movePlane = new Plane(Vector3.up, transform.position);
-            CreateGridHighlight();
-
-            arrowOrigin = transform.position;
-            arrowOrigin.y = 0.2f; //make the arrow plane a little bit higher than the game board
+            Select();
         }
     }
 
@@ -172,84 +172,115 @@ public class Draggable : MonoBehaviour
     // move the object and show the nearest grid point
     void OnMouseDrag()
     {
-        if (mouseLocked)
+        if (isSelected)
         {
-            AttachedEntity.Move(AttachedEntity.ParentGrid.WorldToGrid(MouseWorldPosition()));
-
-            UpdateRenderers();
-            UpdateGridHighlight();
-
-            if (!placementMode)
-            {
-                arrowTarget = Grid.GridToLocal(AttachedEntity.coordinates, 0.2f);
-                arrow.positionCount = 4;
-                arrow.SetPositions(new Vector3[] {
-              arrowOrigin
-              , Vector3.Lerp(arrowOrigin, arrowTarget, 0.999f - arrowHeadPer)
-              , Vector3.Lerp(arrowOrigin, arrowTarget, 1 - arrowHeadPer)
-              , arrowTarget });
-
-                if (!fixedRotation)
-                {
-                    // Rotate to face movement direction
-                    Quaternion orientation = Quaternion.LookRotation(arrowTarget - arrowOrigin, Vector3.up);
-                    transform.rotation = orientation;
-                }
-            }
+            Drag();
         }
     }
 
     // when the mouse exit the collider, attach to the grid vertice
     void OnMouseUp()
     {
-        if (mouseLocked)
+        if (isSelected && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
         {
-            Vector2Int targetCoordinates = gridHighlight.coordinates;
-
-            bool isReachable = false;
-            if (requiresPath && !placementMode)
-            {
-                // Check if path between old and new position is possible
-                GridPathfinder ptf = new GridPathfinder(AttachedEntity.ParentGrid);
-                List<Vector2Int> path = ptf.GetPath(AttachedEntity.BookmarkedCoordinates, targetCoordinates);
-                isReachable = path != null;
-            }
-            else
-            {
-                // Check if the new position is vacant
-                isReachable = !AttachedEntity.ParentGrid.CheckCollisionFlags(targetCoordinates, AttachedEntity.GetCollisionFlags());
-            }
-
-            if (isReachable)
-            {
-                // Can move to new position
-                AttachedEntity.Move(targetCoordinates);
-            }
-            else
-            {
-                if (placementMode)
-                {
-                    // Cannot move to selected position - abort placement
-                    return;
-                }
-                else
-                {
-                    // Cannot move to new position - go back to old position
-                    AttachedEntity.LoadBookmark();
-                }
-            }
-
-            DestroyGridHighlight();
-
-            // Update collision data
-            AttachedEntity.UpdateCollision();
-
-            mouseLocked = false;
-            placementMode = false;
-            UpdateRenderers();
-
-            arrow.positionCount = 0;
+            Deselect();
         }
+    }
+
+
+    // *** INTERNAL FUNCTIONS ***
+    private void Select()
+    {
+        AttachedEntity.SetBookmark();
+        AttachedEntity.ClearCollisionAtBookmark();
+
+        HasSelection = true;
+        isSelected = true;
+        firstSelectionFrame = true;
+        UpdateRenderers();
+
+        movePlane = new Plane(Vector3.up, transform.position);
+        CreateGridHighlight();
+
+        arrowOrigin = transform.position;
+        arrowOrigin.y = 0.2f; //make the arrow plane a little bit higher than the game board
+    }
+
+    private void Drag()
+    {
+        firstSelectionFrame = false;
+
+        AttachedEntity.Move(AttachedEntity.ParentGrid.WorldToGrid(MouseWorldPosition()));
+
+        UpdateRenderers();
+        UpdateGridHighlight();
+
+        if (!WorldEditor.WorldEditorManager.IsWorldEditorActive)
+        {
+            arrowTarget = Grid.GridToLocal(AttachedEntity.coordinates, 0.2f);
+            arrow.positionCount = 4;
+            arrow.SetPositions(new Vector3[] {
+              arrowOrigin
+              , Vector3.Lerp(arrowOrigin, arrowTarget, 0.999f - arrowHeadPer)
+              , Vector3.Lerp(arrowOrigin, arrowTarget, 1 - arrowHeadPer)
+              , arrowTarget });
+
+            if (!fixedRotation)
+            {
+                // Rotate to face movement direction
+                Quaternion orientation = Quaternion.LookRotation(arrowTarget - arrowOrigin, Vector3.up);
+                transform.rotation = orientation;
+            }
+        }
+    }
+
+    private void Deselect()
+    {
+        Vector2Int targetCoordinates = gridHighlight.coordinates;
+
+        bool isReachable = false;
+        if (requiresPath && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
+        {
+            // Check if path between old and new position is possible
+            GridPathfinder ptf = new GridPathfinder(AttachedEntity.ParentGrid);
+            List<Vector2Int> path = ptf.GetPath(AttachedEntity.BookmarkedCoordinates, targetCoordinates);
+            isReachable = path != null;
+        }
+        else
+        {
+            // Check if the new position is vacant
+            isReachable = !AttachedEntity.ParentGrid.CheckCollisionFlags(targetCoordinates, AttachedEntity.GetCollisionFlags());
+        }
+
+        if (isReachable)
+        {
+            // Can move to new position
+            AttachedEntity.Move(targetCoordinates);
+        }
+        else
+        {
+            if (WorldEditor.WorldEditorManager.IsWorldEditorActive)
+            {
+                // Cannot move to selected position - abort placement
+                return;
+            }
+            else
+            {
+                // Cannot move to new position - go back to old position
+                AttachedEntity.LoadBookmark();
+            }
+        }
+
+        DestroyGridHighlight();
+
+        // Update collision data
+        AttachedEntity.UpdateCollision();
+
+        HasSelection = false;
+        isSelected = false;
+        UpdateRenderers();
+
+        arrow.positionCount = 0;
     }
 
 
@@ -268,16 +299,18 @@ public class Draggable : MonoBehaviour
             Debug.LogWarning("Draggable object " + name + " has no Entity (or Entity-based) component attached.");
         }
 
-        if (placementMode)
-        {
-            mouseLocked = true;
-            CreateGridHighlight();
-        }
-
         entityRenderers = new List<Renderer>();
         entityRenderers.AddRange(GetComponentsInChildren<Renderer>());
 
-        UpdateRenderers();
+        // If this object was initialized in drag mode, start it right away
+        if (isSelected)
+        {
+            Select();
+        }
+        else
+        {
+            UpdateRenderers();
+        }
 
         // initial set for arrow
         arrow = gameObject.AddComponent<LineRenderer>() as LineRenderer;
@@ -301,12 +334,16 @@ public class Draggable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mouseLocked && AttachedProp != null)
+        if (isSelected)
         {
-            // Rotate with 'R'
-            if (Input.GetKeyDown(KeyCode.R))
+            // Rotation operations are only available for Props
+            if (AttachedProp != null)
             {
-                AttachedProp.Rotate(Grid.RotateCW(AttachedProp.orientation));
+                // Rotate with 'R'
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    AttachedProp.Rotate(Grid.RotateCW(AttachedProp.orientation));
+                }
             }
 
             // Delete with 'Del'
@@ -316,19 +353,19 @@ public class Draggable : MonoBehaviour
             }
         }
 
-        if (placementMode)
+        if (WorldEditor.WorldEditorManager.IsWorldEditorActive && isSelected)
         {
-            if (Input.GetMouseButtonUp(0))
+            if (!firstSelectionFrame && Input.GetMouseButtonDown(0))
             {
-                OnMouseUp();
+                Deselect();
             }
-            else if (Input.GetMouseButtonUp(1))
+            else if (Input.GetMouseButtonDown(1))
             {
                 Delete();
             }
             else
             {
-                OnMouseDrag();
+                Drag();
             }
         }
     }
