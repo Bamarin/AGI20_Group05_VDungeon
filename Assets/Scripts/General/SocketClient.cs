@@ -17,7 +17,7 @@ public class SocketClient : MonoBehaviour
     void Start()
     {
         port = 5065;
-        ExecuteCommand("cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py"); // Execute python server script
+        ExecuteCommand(); // Execute python server script
         InitUDP();
     }
 
@@ -31,17 +31,37 @@ public class SocketClient : MonoBehaviour
     }
 
     // Execute cmd command for running python code
-    public static void ExecuteCommand(string command)
+    public static void ExecuteCommand()
     {
         print("Execute");
-        var processInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/S /C " + command)
+        if (SystemInfo.operatingSystem.Contains("Windows")) {
+            //Cammand from Windows system
+            string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
+            var processInfo = new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName= "cmd.exe",
+                CreateNoWindow = true,
+                UseShellExecute = true,
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                Arguments= "/S /C " + command
+            };
+            System.Diagnostics.Process.Start(processInfo);
+        }
+        else
         {
-            CreateNoWindow = true,
-            UseShellExecute = true,
-            WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
-        };
-
-        System.Diagnostics.Process.Start(processInfo);
+            //Shell from OS/Linux system
+            string command = "cd Assets/Scripts/PythonScript && python OpenCV_FaceTracking.py";
+            var processInfo = new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = "/bin/bash",
+                CreateNoWindow = true,
+                UseShellExecute = true,
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                Arguments = " -c \"" + command + " \""
+            };
+            System.Diagnostics.Process.Start(processInfo);
+        }
+        
     }
 
     private void ReceiveData()

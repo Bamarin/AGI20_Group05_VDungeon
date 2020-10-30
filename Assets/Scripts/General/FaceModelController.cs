@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Globalization;
 
 public class FaceModelController : MonoBehaviour
 {
@@ -19,11 +20,35 @@ public class FaceModelController : MonoBehaviour
     private string data;
     private string[] dataArray;
 
+    SkinnedMeshRenderer face;
+    const int LRaiseBrow = 0;
+    const int LAngryBrow = 1;
+    const int RRaiseBrow = 2;
+    const int RAngryBrow = 3;
+    const int LCloseEye = 4;
+    const int RCloseEye = 5;
+    const int MouthWidth = 6;
+    const int MouthHeight = 7;
+
+    private float LRaiseBrowWeight;
+    private float LAngryBrowWeight;
+    private float RRaiseBrowWeight;
+    private float RAngryBrowWeight;
+    private float LCloseEyeWeight;
+    private float RCloseEyeWeight;
+    private float MouthWidthWeight;
+    private float MouthHeightWeight;
+    private float shockEyeWeight;
+
     void Start()
     {
         //Initialization of model parameters
-        headPos = head.transform.position;
-        headRot = head.transform.rotation;
+        headRot = gameObject.transform.parent.rotation;
+        face = GetComponent<SkinnedMeshRenderer>();
+        headRot.w = 0;
+        headRot.x = 0.5f;
+        headRot.y = 0;
+        headRot.z = 1;
         leftEyeShape = leftEye.transform.localScale;
         rightEyeShape = rightEye.transform.localScale;
         mouthShape = mouth.transform.localScale;
@@ -37,38 +62,75 @@ public class FaceModelController : MonoBehaviour
         if (!String.IsNullOrEmpty(data))
         {
             dataArray = data.Split(':');
-
-            headRot.w = Convert.ToSingle(dataArray[3]);
-            headRot.x = Convert.ToSingle(dataArray[4]);
-            headRot.y = Convert.ToSingle(dataArray[5]);
-            headRot.z = Convert.ToSingle(dataArray[6]);
+           
+            headRot.w = Single.Parse(dataArray[3], CultureInfo.InvariantCulture);
+            headRot.x = Single.Parse(dataArray[4], CultureInfo.InvariantCulture);
+            headRot.y = Single.Parse(dataArray[5], CultureInfo.InvariantCulture);
+            headRot.z = Single.Parse(dataArray[6], CultureInfo.InvariantCulture);
 
             headRot.w = Kalman_filter(headRot.w, 8e-3f, 5e-4f);
             headRot.x = Kalman_filter(headRot.x, 8e-3f, 5e-4f);
             headRot.y = Kalman_filter(headRot.y, 8e-3f, 5e-4f);
             headRot.z = Kalman_filter(headRot.z, 8e-3f, 5e-4f);
 
-            leftEyeShape = new Vector3(0.2f, Convert.ToSingle(dataArray[7]), 0.2f);
-            if (leftEyeShape[1] < 0.12f)
+            // Left Eye closeness
+            leftEyeShape = new Vector3(0.2f, Single.Parse(dataArray[7], CultureInfo.InvariantCulture), 0.2f);
+            //Debug.Log(leftEyeShape[1]);
+            if (leftEyeShape[1] < 0.1f)
             {
-                leftEyeShape[1] = 0.01f;
+                LCloseEyeWeight = 100;
+            }else if(leftEyeShape[1] < 0.15f)
+            {
+                LCloseEyeWeight = 5 / leftEyeShape[1];
+            }else if(leftEyeShape[1] < 0.2f)
+            {
+                LCloseEyeWeight = -500 * leftEyeShape[1] + 100;
+            }
+            else
+            {
+                LCloseEyeWeight = 0;
             }
 
-            rightEyeShape = new Vector3(0.2f, Convert.ToSingle(dataArray[8]), 0.2f);
-            if (rightEyeShape[1] < 0.12f)
+            // Right Eye closeness
+            rightEyeShape = new Vector3(0.2f, Single.Parse(dataArray[8], CultureInfo.InvariantCulture), 0.2f);
+            if (rightEyeShape[1] < 0.1f)
             {
-                rightEyeShape[1] = 0.01f;
+                RCloseEyeWeight = 100;
+            }
+            else if (rightEyeShape[1] < 0.15f)
+            {
+                RCloseEyeWeight = 5 / rightEyeShape[1];
+            }
+            else if (rightEyeShape[1] < 0.2f)
+            {
+                RCloseEyeWeight = -500 * rightEyeShape[1] + 100;
+            }
+            else
+            {
+                RCloseEyeWeight = 0;
             }
 
-            mouthShape = new Vector3(Convert.ToSingle(dataArray[10]), Convert.ToSingle(dataArray[9]), 0.2f);
+            mouthShape = new Vector3(Single.Parse(dataArray[10], CultureInfo.InvariantCulture), Single.Parse(dataArray[9], CultureInfo.InvariantCulture), 0.2f);
+            Debug.Log(mouthShape[1]);
+            if (500 * mouthShape[1] < 100f)
+            {
+                MouthHeightWeight = 500 * mouthShape[1];
+            }
+            else
+            {
+                MouthHeightWeight = 100f;
+            }
 
             //Apply rotation changes
-            head.transform.rotation = headRot;
+            head.transform.parent.rotation = headRot;
 
             //Apply facial expression shapes changes
-            leftEye.transform.localScale = leftEyeShape;
-            rightEye.transform.localScale = rightEyeShape;
-            mouth.transform.localScale = mouthShape;
+            face.SetBlendShapeWeight(LCloseEye, LCloseEyeWeight);
+            face.SetBlendShapeWeight(RCloseEye, RCloseEyeWeight);
+            face.SetBlendShapeWeight(MouthHeight, MouthHeightWeight);
+            //leftEye.transform.localScale = leftEyeShape;
+            //rightEye.transform.localScale = rightEyeShape;
+            //mouth.transform.localScale = mouthShape;
         }
        
     }
