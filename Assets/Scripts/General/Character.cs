@@ -15,6 +15,7 @@ public class Character : Entity
     public GameObject TowardsCamera;
     //for the adjusting the the y of towards camera to force it face the character's face
     public float headHight = 0.8f;
+    public int numOfCurrentCharacter = 0;
 
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
     public bool activeCharacter = false;
@@ -54,13 +55,19 @@ public class Character : Entity
     // Start is called before the first frame update
     void Start()
     {
-        ViewCamera = new GameObject("View Camera", typeof(CameraView));
-        ViewCamera.AddComponent<Camera>();
-        ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
-        ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
-        //ViewCamera.GetComponent<CameraView>.
-        //ViewCamera.player = gameObject.transform;
-        
+        if (activeCharacter){
+            ViewCamera = new GameObject("View Camera", typeof(CameraView));
+            ViewCamera.AddComponent<Camera>();
+            ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+            ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
+        }
+
+        TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
+        TowardsCamera.AddComponent<Camera>();
+        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.17f, 0.8f, 0.15f, 0.2f);
+        CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
+        ct.player = gameObject.transform;
+        ct.offset.y = headHight;
     }
 
     // Update is called once per frame

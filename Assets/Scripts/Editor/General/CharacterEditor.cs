@@ -37,5 +37,7 @@ public class CharacterEditor : EntityEditor
         castedTarget.mouseSensitivity = EditorGUILayout.Slider("Mouse Sensitivity", castedTarget.mouseSensitivity, 1f, 10f);
         //for control of hear look up and down
         castedTarget.playerHead = (GameObject)EditorGUILayout.ObjectField("Head Object", castedTarget.playerHead, typeof(GameObject), true);
+        //tempararyly for number of current character
+        castedTarget.numOfCurrentCharacter = EditorGUILayout.IntField("Character Number (Not inclusive)", castedTarget.numOfCurrentCharacter);
     }
 }

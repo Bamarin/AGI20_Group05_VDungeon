@@ -6,7 +6,7 @@ public class CameraTowards : MonoBehaviour
 {
     // Start is called before the first frame update
      public Transform player;
-     public Vector3 offset = new Vector3(0f, 0.8f, 0.35f);
+     public Vector3 offset = new Vector3(0f, 0.8f, 0.4f);
 
     void Start(){
         transform.position = player.position + offset;
