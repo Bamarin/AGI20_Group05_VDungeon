@@ -36,5 +36,6 @@ public class CharacterEditor : EntityEditor
         castedTarget.rotateSpeed = EditorGUILayout.Slider("Rotate Speed", castedTarget.rotateSpeed, 10f, 50f);
 
         castedTarget.defaultMaterial = (Material)EditorGUILayout.ObjectField("Default Material", castedTarget.defaultMaterial, typeof(Material), false);
+        //castedTarget.faceCam = (Camera)EditorGUILayout.ObjectField("Face Camera", castedTarget.faceCam, typeof(Camera), false);
     }
 }

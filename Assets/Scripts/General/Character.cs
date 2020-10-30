@@ -21,11 +21,13 @@ public class Character : Entity
 
     // The default material to render this character with when it is not highlighted
     public Material defaultMaterial;
-    public float rotateSpeed = 40f;
+    public float rotateSpeed = 42f;
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
-    public bool interactable = false; 
+    public bool interactable = false;
+    public GameObject faceCam;
 
     // *** INTERNAL VARIABLES ***
+
 
     private new Renderer renderer;
     private Entity highlight;
@@ -182,5 +184,11 @@ public class Character : Entity
             Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
             transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
         }
+    }
+
+    void LateUpdate()
+    {
+        faceCam.transform.position = this.transform.position + faceCam.GetComponent<CameraTowards>().offset;
+        faceCam.transform.LookAt(this.transform);
     }
 }
