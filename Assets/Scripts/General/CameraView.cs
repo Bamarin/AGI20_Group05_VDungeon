@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraView : MonoBehaviour
 {
     public Transform player;
-    public Character mouse; //only for getting the same mouse sensitivity now
+
+    public float mouseSensitivity = 3f;
 
     public float yOffset = 0.85f; // move to the height of the face
 
@@ -143,8 +144,8 @@ public class CameraView : MonoBehaviour
             {
                 //the following could be changed to sychronizing the character when the head rotation could be caught
                 // change per frame
-                float rotationX = Input.GetAxis("Mouse X") * mouse.mouseSensitivity;
-                float rotationY = Input.GetAxis("Mouse Y") * mouse.mouseSensitivity;
+                float rotationX = Input.GetAxis("Mouse X") * mouseSensitivity;
+                float rotationY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
                 clampUpAndDown -= rotationY; //keep for relative rotation
 

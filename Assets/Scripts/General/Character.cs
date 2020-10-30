@@ -9,6 +9,12 @@ public class Character : Entity
     public float mouseSensitivity = 3f;
     public GameObject playerHead;
 
+    //first person view camera
+    public GameObject ViewCamera; 
+    //the camera towards the character's face
+    public GameObject TowardsCamera;
+    //for the adjusting the the y of towards camera to force it face the character's face
+    public float headHight = 0.8f;
 
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
     public bool activeCharacter = false;
@@ -48,6 +54,12 @@ public class Character : Entity
     // Start is called before the first frame update
     void Start()
     {
+        ViewCamera = new GameObject("View Camera", typeof(CameraView));
+        ViewCamera.AddComponent<Camera>();
+        ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+        ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
+        //ViewCamera.GetComponent<CameraView>.
+        //ViewCamera.player = gameObject.transform;
         
     }
 
