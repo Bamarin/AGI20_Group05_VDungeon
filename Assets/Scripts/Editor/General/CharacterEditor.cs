@@ -15,6 +15,7 @@ public class CharacterEditor : EntityEditor
         EditorGUI.BeginChangeCheck();
 
         CreateCharacterGUI(castedTarget);
+        CreateCollisionGUI(castedTarget);
         CreateCoordinatesGUI(castedTarget);
 
         if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
@@ -32,9 +33,11 @@ public class CharacterEditor : EntityEditor
     {
         GUILayout.Label("Character", EditorStyles.boldLabel);
 
-        castedTarget.interactable = EditorGUILayout.Toggle("Interactable", castedTarget.interactable);
-        castedTarget.rotateSpeed = EditorGUILayout.Slider("Rotate Speed", castedTarget.rotateSpeed, 10f, 50f);
-
-        castedTarget.defaultMaterial = (Material)EditorGUILayout.ObjectField("Default Material", castedTarget.defaultMaterial, typeof(Material), false);
+        castedTarget.activeCharacter = EditorGUILayout.Toggle("Active Character", castedTarget.activeCharacter);
+        castedTarget.mouseSensitivity = EditorGUILayout.Slider("Mouse Sensitivity", castedTarget.mouseSensitivity, 1f, 10f);
+        //for control of hear look up and down
+        castedTarget.playerHead = (GameObject)EditorGUILayout.ObjectField("Head Object", castedTarget.playerHead, typeof(GameObject), true);
+        //tempararyly for number of current character
+        castedTarget.numOfCurrentCharacter = EditorGUILayout.IntField("Character Number (Not inclusive)", castedTarget.numOfCurrentCharacter);
     }
 }

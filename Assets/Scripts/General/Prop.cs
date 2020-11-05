@@ -15,6 +15,8 @@ public class Prop : Entity
 
     private int randomRotationValue;
 
+    public Grid.Orientation BookmarkedOrientation { get; protected set; }
+
 
     // *** UTILITY FUNCTIONS ***
 
@@ -44,6 +46,20 @@ public class Prop : Entity
             return randomRotationValue;
 
         return Grid.OrientationToAngle(orientation);
+    }
+
+    // Bookmarks this Entity's current status for easy fallback at a later point.
+    public override void SetBookmark()
+    {
+        base.SetBookmark();
+        BookmarkedOrientation = orientation;
+    }
+
+    // Returns this Entity to a previously bookmarked status.
+    public override void LoadBookmark()
+    {
+        base.LoadBookmark();
+        Rotate(BookmarkedOrientation);
     }
 
 

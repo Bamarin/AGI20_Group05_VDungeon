@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8979947437387061438}
   - component: {fileID: 4074155318507032555}
+  - component: {fileID: -3378254685629336298}
   - component: {fileID: 9005336212979878302}
   - component: {fileID: 8996523802757993676}
+  - component: {fileID: 3481949805184756584}
   m_Layer: 0
   m_Name: FirTall
   m_TagString: Untagged
@@ -45,8 +47,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: 0, y: 0}
+  verticalPosition: 0
   orientation: 4
+--- !u!114 &-3378254685629336298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973437606596291468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableEdit: 1
+  requiresEditMode: 1
+  requiresPath: 0
+  fixedRotation: 1
+  attachedEntity: {fileID: 4074155318507032555}
+  attachedProp: {fileID: 4074155318507032555}
 --- !u!33 &9005336212979878302
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94,3 +116,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3481949805184756584
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973437606596291468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4, y: 7.42522, z: 1.4}
+  m_Center: {x: 0, y: 3.6932838, z: 0}

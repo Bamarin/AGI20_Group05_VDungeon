@@ -228,7 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 0
   coordinates: {x: 0, y: -5}
+  verticalPosition: 0
   orientation: 0
 --- !u!1001 &158371756
 PrefabInstance:
@@ -1119,7 +1121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 0
   coordinates: {x: 0, y: 0}
+  verticalPosition: 0
   orientation: 0
 --- !u!4 &1109181689 stripped
 Transform:
@@ -1203,6 +1207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15906fe5892c12248b6c59ba13075dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSize: {x: 4, y: 7}
+  showGrid: 0
+  showCollisions: 0
 --- !u!4 &1413053585
 Transform:
   m_ObjectHideFlags: 0
@@ -1462,6 +1469,11 @@ PrefabInstance:
       propertyPath: coordinates.y
       value: -2
       objectReference: {fileID: 0}
+    - target: {fileID: 3521066497257077869, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: m_Name
@@ -1556,6 +1568,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.y
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521066497257077869, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
@@ -1787,6 +1804,11 @@ PrefabInstance:
       propertyPath: orientation
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2333809218749775914, guid: c0351ab60cc77fb418864870c918244a,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2333809218749775917, guid: c0351ab60cc77fb418864870c918244a,
         type: 3}
       propertyPath: m_Name
@@ -1941,6 +1963,11 @@ PrefabInstance:
       propertyPath: orientation
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8936175117573311231, guid: e8c59d7ca09d13b4493e527c30c3ad25,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8c59d7ca09d13b4493e527c30c3ad25, type: 3}
 --- !u!1001 &6974542100769627657
@@ -2034,6 +2061,11 @@ PrefabInstance:
         type: 3}
       propertyPath: orientation
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5677324623494450187, guid: 2cca8606964468c408318cbc51b3ed13,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cca8606964468c408318cbc51b3ed13, type: 3}
@@ -2239,6 +2271,11 @@ PrefabInstance:
         type: 3}
       propertyPath: coordinates.y
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074155318507032555, guid: 8092bf510892c004a91da4815f1c61bd,
+        type: 3}
+      propertyPath: hasCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8973437606596291468, guid: 8092bf510892c004a91da4815f1c61bd,
         type: 3}

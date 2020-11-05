@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6563233859152598919}
   - component: {fileID: 8936175117573311231}
+  - component: {fileID: -2679371891063886678}
   - component: {fileID: 6589679909803839157}
   - component: {fileID: 6581967265235709221}
+  - component: {fileID: 6957283647920634673}
   m_Layer: 0
   m_Name: PineTall
   m_TagString: Untagged
@@ -45,8 +47,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: 0, y: 0}
+  verticalPosition: 0
   orientation: 4
+--- !u!114 &-2679371891063886678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557380084280397363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableEdit: 1
+  requiresEditMode: 1
+  requiresPath: 0
+  fixedRotation: 1
+  attachedEntity: {fileID: 8936175117573311231}
+  attachedProp: {fileID: 8936175117573311231}
 --- !u!33 &6589679909803839157
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94,3 +116,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6957283647920634673
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557380084280397363}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 8.42719, z: 1.2}
+  m_Center: {x: 0, y: 4.1942697, z: 0}
