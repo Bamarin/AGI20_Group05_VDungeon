@@ -116,7 +116,7 @@ public class FaceModelController : MonoBehaviour
             }
 
             //Apply rotation changes
-            head.transform.parent.rotation = headRot;
+            head.transform.parent.localRotation = headRot;
 
             //Apply facial expression shapes changes
             face.SetBlendShapeWeight(LCloseEye, LCloseEyeWeight);
