@@ -4,154 +4,44 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    // *** STATIC REFERENCES ***
-
-    private static Material MAT_ACTIVE;
-    private static Material MAT_SELECTED;
-
-    // Load static references to materials *once*
-    private static void LoadMaterials()
-    {
-        if (MAT_ACTIVE == null) MAT_ACTIVE = Resources.Load<Material>("Materials/UI/CharActive");
-        if (MAT_SELECTED == null) MAT_SELECTED = Resources.Load<Material>("Materials/UI/CharSelected");
-    }
-
-
     // *** PROPERTY FIELDS ***
 
-    // The default material to render this character with when it is not highlighted
-    public Material defaultMaterial;
-    public float rotateSpeed = 42f;
+    public float mouseSensitivity = 3f;
+    public GameObject playerHead;
+
+    //first person view camera
+    public GameObject ViewCamera; 
+    //the camera towards the character's face
+    public GameObject TowardsCamera;
+    //for the adjusting the the y of towards camera to force it face the character's face
+    public float headHight = 0.8f;
+    public int numOfCurrentCharacter = 0;
+
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
-    public bool interactable = false;
-    public GameObject faceCam;
-
-    // *** INTERNAL VARIABLES ***
+    public bool activeCharacter = false;
 
 
-    private new Renderer renderer;
-    private Entity highlight;
+    // *** INTERNAL FUNCTIONS ***
 
-    private bool mouseHover = false;
-    private bool mouseLocked = false;
-
-    //keep the offset from the the object center to the mouse clicked position
-    private Vector3 offset;
-    //the plane where the object is moving on
-    private Plane movePlane;
-
-    private void CreateGridHighlight()
+    // Enable control the first person view through mouse
+    private void FPScontrol()
     {
-        // TODO: All this highlight code should be moved to an specific class once it becomes needed elsewhere.
-        if (highlight == null)
-        {
-            GameObject newObject = (GameObject)Instantiate(Resources.Load("Prefabs/UI/GridHighlight"));
-            newObject.transform.position = transform.position;
+        // change per frame
+        float rotationX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float rotationY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-            highlight = newObject.GetComponent<Entity>();
-            highlight.Initialize(ParentGrid);
-            highlight.MoveToNearest();
-        }
-    }
+        //currently disable the head rotation up and down
+        //Vector3 headRotation = playerHead.transform.rotation.eulerAngles;
+        Vector3 playerRotation = transform.rotation.eulerAngles;
+        // up-and-down for character's head
+        //headRotation.x -= rotationY;
+        //headRotation.z = 0;
 
-    private void RemoveGridHighlight()
-    {
-        Destroy(highlight.gameObject);
-        highlight = null;
-    }
+        // left-and-right for character
+        playerRotation.y += rotationX;
 
-    private void UpdateHighlight()
-    {
-        highlight.Move(Grid.LocalToGrid(transform.localPosition));
-    }
-
-    // *** UTILITY FUNCTIONS ***
-
-    // Get the mouse position in world coordinates
-    Vector3 MouseWorldPosition(){
-        //cast a ray along the camera to the plane
-        Ray rayToPlane = Camera.main.ScreenPointToRay(Input.mousePosition);
-        float rayDis;
-        movePlane.Raycast(rayToPlane, out rayDis);
-        return rayToPlane.GetPoint(rayDis);
-    }
-
-    private void UpdateMaterial()
-    {
-        // If the object is inactive, use the default material
-        if (!interactable)
-        {
-            renderer.material = defaultMaterial;
-        }
-        // If the object is being hovered or dragged, highlight
-        else if (mouseHover || mouseLocked)
-        {
-            renderer.material = MAT_SELECTED;
-        }
-        // Otherwise, remove the highlight
-        else
-        {
-            renderer.material = MAT_ACTIVE;
-        }
-    }
-
-    // Enables or disables interaction with this character, and updates its appearance accordingly.
-    public void EnableInteraction(bool enable = true)
-    {
-        interactable = enable;
-        UpdateMaterial();
-    }
-
-
-    // *** EVENTS ***
-
-    void OnMouseOver(){
-        if (interactable)
-        {
-            mouseHover = true;
-            UpdateMaterial();
-        }
-    }
-
-    void OnMouseExit(){
-        mouseHover = false;
-        UpdateMaterial();
-    }
-
-    // When the mouse is clicked on a collider
-    void OnMouseDown(){
-        if (interactable)
-        {
-            mouseLocked = true;
-            UpdateMaterial();
-
-            movePlane = new Plane(Vector3.up, transform.position);
-            offset = MouseWorldPosition() - transform.position;
-            CreateGridHighlight();
-        }
-    }
-
-    // when the mouse is clicked on a collider and still holding it,
-    // move the object and show the nearest grid point
-    void OnMouseDrag(){
-        if (mouseLocked)
-        {
-            transform.position = MouseWorldPosition() - offset;
-            UpdateHighlight();
-        }
-    }
-
-    // when the mouse exit the collider, attach to the grid vertice
-    void OnMouseUp()
-    {
-        if (mouseLocked)
-        {
-            RemoveGridHighlight();
-            MoveToNearest();
-
-            mouseLocked = false;
-            UpdateMaterial();
-        }
+        //playerHead.rotation = Quaternion.Euler(headRotation);
+        transform.rotation = Quaternion.Euler(playerRotation);
     }
 
 
@@ -159,30 +49,45 @@ public class Character : Entity
 
     private void Awake()
     {
-        LoadMaterials();   
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponentInChildren<Renderer>();
-
-        if (defaultMaterial == null)
-        {
-            Debug.Log("No material found for " + name + ", loading default from renderer");
-            defaultMaterial = renderer.material;
+        if (activeCharacter){
+            ViewCamera = new GameObject("View Camera", typeof(CameraView));
+            ViewCamera.AddComponent<Camera>();
+            ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+            ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
         }
 
-        UpdateMaterial();
+        TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
+        TowardsCamera.AddComponent<Camera>();
+        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.17f, 0.8f, 0.15f, 0.2f);
+        CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
+        ct.player = gameObject.transform;
+        ct.offset.y = headHight;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (interactable)
+        if (activeCharacter)
         {
-            Vector3 aroundAxis = new Vector3(-Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"), 0f);
-            transform.Rotate(aroundAxis * rotateSpeed * Time.deltaTime);
+            if (!SystemInfo.supportsGyroscope)
+            {
+                //enable mouse to control the first person view when the gyroscope is not avaliable
+                if (Input.GetMouseButton(1))
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    // enable fps when the right click is holding
+                    FPScontrol();
+                }
+                else{
+                    Cursor.lockState = CursorLockMode.None;
+                }
+            }
         }
     }
 
