@@ -49,16 +49,17 @@ public class Character : Entity
 
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        ViewCamera = new GameObject("View Camera", typeof(CameraView));
+        ViewCamera.AddComponent<Camera>();
+        ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+        ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        if (activeCharacter){
-            ViewCamera = new GameObject("View Camera", typeof(CameraView));
-            ViewCamera.AddComponent<Camera>();
-            ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
-            ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
-        }
-
         TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
         TowardsCamera.AddComponent<Camera>();
         TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.17f, 0.8f, 0.15f, 0.2f);
@@ -70,22 +71,27 @@ public class Character : Entity
     // Update is called once per frame
     void Update()
     {
-        if (activeCharacter)
+        if (!isLocalPlayer)
         {
-            if (!SystemInfo.supportsGyroscope)
+            // exit from update if this is not the local player
+            return;
+        }
+
+        if (!SystemInfo.supportsGyroscope)
+        {
+            //enable mouse to control the first person view when the gyroscope is not avaliable
+            if (Input.GetMouseButton(1))
             {
-                //enable mouse to control the first person view when the gyroscope is not avaliable
-                if (Input.GetMouseButton(1))
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    // enable fps when the right click is holding
-                    FPScontrol();
-                }
-                else{
-                    Cursor.lockState = CursorLockMode.None;
-                }
+                Cursor.lockState = CursorLockMode.Locked;
+                // enable fps when the right click is holding
+                FPScontrol();
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
             }
         }
+
     }
 
 }

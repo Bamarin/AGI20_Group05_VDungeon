@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Mirror;
 
 // A GameObject whose position is regulated by a Grid
-public class Entity : MonoBehaviour
+public class Entity : NetworkBehaviour
 {
     // *** PROPERTY FIELDS ***
 
