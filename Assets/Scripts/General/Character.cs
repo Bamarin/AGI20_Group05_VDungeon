@@ -7,7 +7,6 @@ public class Character : Entity
     // *** PROPERTY FIELDS ***
 
     public float mouseSensitivity = 3f;
-    public GameObject playerHead;
 
     //first person view camera
     public GameObject ViewCamera; 
@@ -31,7 +30,6 @@ public class Character : Entity
         float rotationY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         //currently disable the head rotation up and down
-        //Vector3 headRotation = playerHead.transform.rotation.eulerAngles;
         Vector3 playerRotation = transform.rotation.eulerAngles;
         // up-and-down for character's head
         //headRotation.x -= rotationY;
@@ -40,7 +38,6 @@ public class Character : Entity
         // left-and-right for character
         playerRotation.y += rotationX;
 
-        //playerHead.rotation = Quaternion.Euler(headRotation);
         transform.rotation = Quaternion.Euler(playerRotation);
     }
 
