@@ -23,7 +23,7 @@ public class SocketClient : MonoBehaviour
 
     private void InitUDP()
     {
-        print("UDP Initialized");
+        Debug.Log("UDP Initialized");
 
         receiveThread = new Thread(new ThreadStart(ReceiveData));
         receiveThread.IsBackground = true; 
@@ -33,17 +33,24 @@ public class SocketClient : MonoBehaviour
     // Execute cmd command for running python code
     public static void ExecuteCommand()
     {
-        print("Execute");
+        Debug.Log("Execute");
         if (SystemInfo.operatingSystem.Contains("Windows")) {
             //Cammand from Windows system
-            string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
+            //string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
+            Debug.Log("FOLDER: "+Environment.CurrentDirectory);
+
             var processInfo = new System.Diagnostics.ProcessStartInfo()
             {
-                FileName= "cmd.exe",
+                //FileName = "cmd.exe",
+                //CreateNoWindow = true,
+                //UseShellExecute = true,
+                //WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                //Arguments = "/S /C " + command
+
+                FileName = Environment.CurrentDirectory + "/PythonApplication/dist/OpenCV_FaceTracking/OpenCV_FaceTracking.exe",
                 CreateNoWindow = true,
                 UseShellExecute = true,
-                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
-                Arguments= "/S /C " + command
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
             };
             System.Diagnostics.Process.Start(processInfo);
         }
@@ -84,5 +91,16 @@ public class SocketClient : MonoBehaviour
                 print(e.ToString());
             }
         }
+    }
+
+    void StopServer()
+    {
+        receiveThread.Abort();
+        Debug.Log("Disconnected!");
+    }
+
+    public void OnDisable()
+    {
+        StopServer();
     }
 }

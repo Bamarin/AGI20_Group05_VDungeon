@@ -7,6 +7,7 @@ using System.Globalization;
 public class FaceModelController : MonoBehaviour
 {
     public GameObject head;
+    public GameObject faceModel;
 
     public static Vector3 headPos;
     public static Quaternion headRot;
@@ -41,7 +42,7 @@ public class FaceModelController : MonoBehaviour
     {
         //Initialization of model parameters
         headRot = gameObject.transform.parent.rotation;
-        face = GetComponent<SkinnedMeshRenderer>();
+        face = faceModel.GetComponent<SkinnedMeshRenderer>();
         headRot.w = 0;
         headRot.x = 0.5f;
         headRot.y = 0;
