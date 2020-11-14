@@ -99,7 +99,7 @@ public class Character : Entity
 
     void LateUpdate()
     {
-        faceCam.transform.position = this.transform.position + faceCam.GetComponent<CameraTowards>().offset;
-        faceCam.transform.LookAt(this.transform);
+        //faceCam.transform.position = this.transform.position + faceCam.GetComponent<CameraTowards>().offset;
+        //faceCam.transform.LookAt(this.transform);
     }
 }
