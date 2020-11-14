@@ -1,9 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class Character : Entity
 {
+    // *** NETWORKED VARIABLES ***
+
+    [SyncVar]
+    public Race race;
+    [SyncVar]
+    public string characterName;
+    [SyncVar]
+    public Color skinColor;
+    [SyncVar]
+    public RPGClass characterClass;
+
     // *** PROPERTY FIELDS ***
 
     public float mouseSensitivity = 3f;

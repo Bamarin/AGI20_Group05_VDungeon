@@ -273,7 +273,7 @@ public class VDNetworkManager : NetworkManager
 
         // Apply data from the message however appropriate for your game
         // Typically Player would be a component you write with syncvars or properties
-        Player player = gameobject.GetComponent<Player>();
+        Character player = gameobject.GetComponent<Character>();
         player.race = message.race;
         player.name = message.name;
         player.skinColor = message.skinColor;

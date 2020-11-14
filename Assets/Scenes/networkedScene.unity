@@ -181,11 +181,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: 1, y: 2}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
-  playerHead: {fileID: 1367977561575298}
+  playerHead: {fileID: 0}
   ViewCamera: {fileID: 0}
   TowardsCamera: {fileID: 0}
   headHight: 0.8
@@ -910,6 +916,8 @@ GameObject:
   - component: {fileID: 570711687}
   - component: {fileID: 570711686}
   - component: {fileID: 570711685}
+  - component: {fileID: 570711690}
+  - component: {fileID: 570711689}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1002,9 +1010,8 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 8238742068339793903, guid: cfd12c1b4f7ed5340bf35d733a73b6bc,
-    type: 3}
-  autoCreatePlayer: 1
+  playerPrefab: {fileID: 0}
+  autoCreatePlayer: 0
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 6894481634958522079, guid: a5db34951ea03b74fb9bd0ad1ad417fd, type: 3}
@@ -1023,6 +1030,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &570711689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570711684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  hasCollision: 0
+  coordinates: {x: 0, y: 0}
+  verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
+  mouseSensitivity: 3
+  playerHead: {fileID: 0}
+  ViewCamera: {fileID: 0}
+  TowardsCamera: {fileID: 0}
+  headHight: 0.8
+  numOfCurrentCharacter: 0
+  defaultMaterial: {fileID: 0}
+  rotateSpeed: 40
+  activeCharacter: 0
+--- !u!114 &570711690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570711684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3772172249
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &600232986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,6 +1750,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 0
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
@@ -2224,11 +2279,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
-  playerHead: {fileID: 1210375166405511}
+  playerHead: {fileID: 0}
   ViewCamera: {fileID: 0}
   TowardsCamera: {fileID: 0}
   headHight: 0.8
@@ -3722,11 +3783,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: -2, y: -1}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
-  playerHead: {fileID: 5854617896099867115}
+  playerHead: {fileID: 0}
   ViewCamera: {fileID: 0}
   TowardsCamera: {fileID: 0}
   headHight: 0.8
@@ -3857,6 +3924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 0
   coordinates: {x: 0, y: -5}
   verticalPosition: 0
