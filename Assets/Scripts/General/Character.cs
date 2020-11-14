@@ -7,15 +7,22 @@ public class Character : Entity
     // *** PROPERTY FIELDS ***
 
     public float mouseSensitivity = 3f;
+    public GameObject playerHead;
 
     //first person view camera
-    public GameObject ViewCamera; 
+    public GameObject ViewCamera;
     //the camera towards the character's face
     public GameObject TowardsCamera;
     //for the adjusting the the y of towards camera to force it face the character's face
     public float headHight = 0.8f;
     public int numOfCurrentCharacter = 0;
 
+
+    // *** PROPERTY FIELDS ***
+
+    // The default material to render this character with when it is not highlighted
+    public Material defaultMaterial;
+    public float rotateSpeed = 40f;
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
     public bool activeCharacter = false;
 
@@ -62,7 +69,7 @@ public class Character : Entity
     {
         TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
         TowardsCamera.AddComponent<Camera>();
-        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.17f, 0.8f, 0.15f, 0.2f);
+        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter * 0.17f, 0.8f, 0.15f, 0.2f);
         CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
         ct.player = gameObject.transform;
         ct.offset.y = headHight;
@@ -92,6 +99,6 @@ public class Character : Entity
             }
         }
 
-    }
 
+    }
 }

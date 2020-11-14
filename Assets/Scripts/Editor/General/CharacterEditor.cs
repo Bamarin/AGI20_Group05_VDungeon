@@ -29,16 +29,11 @@ using UnityEditor.SceneManagement;
 //        serializedObject.ApplyModifiedProperties();
 //    }
 
-    //protected void CreateCharacterGUI(Character castedTarget)
-    //{
-    //    GUILayout.Label("Character", EditorStyles.boldLabel);
-
-    //    //castedTarget.faceCam = (Camera)EditorGUILayout.ObjectField("Face Camera", castedTarget.faceCam, typeof(Camera), false);
-    //    castedTarget.activeCharacter = EditorGUILayout.Toggle("Active Character", castedTarget.activeCharacter);
-    //    castedTarget.mouseSensitivity = EditorGUILayout.Slider("Mouse Sensitivity", castedTarget.mouseSensitivity, 1f, 10f);
-    //    //for control of hear look up and down
-    //    castedTarget.playerHead = (GameObject)EditorGUILayout.ObjectField("Head Object", castedTarget.playerHead, typeof(GameObject), true);
-    //    //tempararyly for number of current character
-    //    castedTarget.numOfCurrentCharacter = EditorGUILayout.IntField("Character Number (Not inclusive)", castedTarget.numOfCurrentCharacter);
-    //}
-//}
+        castedTarget.activeCharacter = EditorGUILayout.Toggle("Active Character", castedTarget.activeCharacter);
+        castedTarget.mouseSensitivity = EditorGUILayout.Slider("Mouse Sensitivity", castedTarget.mouseSensitivity, 1f, 10f);
+        //for control of hear look up and down
+        castedTarget.playerHead = (GameObject)EditorGUILayout.ObjectField("Head Object", castedTarget.playerHead, typeof(GameObject), true);
+        //tempararyly for number of current character
+        castedTarget.numOfCurrentCharacter = EditorGUILayout.IntField("Character Number (Not inclusive)", castedTarget.numOfCurrentCharacter);
+    }
+}
