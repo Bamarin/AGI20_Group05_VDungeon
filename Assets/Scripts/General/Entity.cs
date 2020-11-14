@@ -6,15 +6,21 @@ public class Entity : MonoBehaviour
 {
     // *** PROPERTY FIELDS ***
 
+    public bool hasCollision;
     public Vector2Int coordinates;
     public float verticalPosition;
 
     public Grid ParentGrid { get; private set; }
 
+    // *** INTERNAL VARIABLES ***
+
+    public Vector2Int BookmarkedCoordinates { get; protected set; }
+    public Grid.CollisionFlags BookmarkedCollision { get; protected set; }
+
     // *** UTILITY FUNCTIONS ***
 
     // Moves the entity to a new set of grid coordinates.
-    public void Move(Vector2Int newCoordinates)
+    public virtual void Move(Vector2Int newCoordinates)
     {
         coordinates = newCoordinates;
         UpdatePosition();
@@ -38,6 +44,43 @@ public class Entity : MonoBehaviour
         UpdatePosition();
     }
 
+    // Get the collision flags for this wall piece based on its type and orientation.
+    public virtual Grid.CollisionFlags GetCollisionFlags()
+    {
+        if (hasCollision)
+        {
+            return Grid.CollisionFlags.Center;
+        }
+
+        return Grid.CollisionFlags.None;
+    }
+
+    // Bookmarks this Entity's current status for easy fallback at a later point.
+    // Also relevant for collision data maintenance.
+    public virtual void SetBookmark()
+    {
+        BookmarkedCoordinates = coordinates;
+        BookmarkedCollision = GetCollisionFlags();
+    }
+
+    // Returns this Entity to a previously bookmarked status.
+    public virtual void LoadBookmark()
+    {
+        Move(BookmarkedCoordinates);
+    }
+
+    // Removes the collision data from the bookmarked position.
+    public void ClearCollisionAtBookmark()
+    {
+        ParentGrid.RemoveCollisionFlags(BookmarkedCoordinates, BookmarkedCollision);
+    }
+
+    // Updates collision data according to this Entity's current status.
+    public void UpdateCollision()
+    {
+        ParentGrid.AddCollisionFlags(coordinates, GetCollisionFlags());
+    }
+
     // *** GENERAL FUNCTIONS ***
 
     // Initializes this Entity to a Grid. Only call once.
@@ -59,6 +102,7 @@ public class Entity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetBookmark();
     }
 
     // Update is called once per frame

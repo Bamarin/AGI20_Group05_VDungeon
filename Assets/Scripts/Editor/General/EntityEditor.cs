@@ -14,6 +14,7 @@ public class EntityEditor : Editor
 
         EditorGUI.BeginChangeCheck();
 
+        CreateCollisionGUI(castedTarget);
         CreateCoordinatesGUI(castedTarget);
         
         if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
@@ -25,6 +26,12 @@ public class EntityEditor : Editor
         }
 
         serializedObject.ApplyModifiedProperties();
+    }
+
+    protected void CreateCollisionGUI(Entity castedTarget)
+    {
+        GUILayout.Label("Grid Collision", EditorStyles.boldLabel);
+        castedTarget.hasCollision = EditorGUILayout.Toggle("Enabled: ", castedTarget.hasCollision);
     }
 
     protected void CreateCoordinatesGUI(Entity castedTarget)

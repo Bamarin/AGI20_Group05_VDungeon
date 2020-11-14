@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 352609011896326680}
   - component: {fileID: 5677324623494450187}
+  - component: {fileID: -2467412502506124669}
   - component: {fileID: 329536975952106196}
   - component: {fileID: 342240896947299392}
   - component: {fileID: 4253580932616552297}
   - component: {fileID: 4254230021208981485}
+  - component: {fileID: 7747539884354240510}
   m_Layer: 0
   m_Name: PineShort
   m_TagString: Untagged
@@ -47,9 +49,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
   orientation: 4
+--- !u!114 &-2467412502506124669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355587061991870402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableEdit: 1
+  requiresEditMode: 1
+  requiresPath: 0
+  fixedRotation: 1
+  attachedEntity: {fileID: 5677324623494450187}
+  attachedProp: {fileID: 5677324623494450187}
 --- !u!33 &329536975952106196
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -131,3 +152,16 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!65 &7747539884354240510
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355587061991870402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 6.140114, z: 1.5}
+  m_Center: {x: 0, y: 3.0507317, z: 0}
