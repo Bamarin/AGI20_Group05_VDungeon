@@ -10,6 +10,9 @@ using System.Linq;
 
 public class VDNetworkManager : NetworkManager
 {
+
+    public Grid grid;
+    
     #region Unity Callbacks
 
     public override void OnValidate()
@@ -281,6 +284,9 @@ public class VDNetworkManager : NetworkManager
 
         // call this to use this gameobject as the primary controller
         NetworkServer.AddPlayerForConnection(conn, gameobject);
+
+        //Init entity in grid system
+        player.Initialize(grid);
     }
 }
 
