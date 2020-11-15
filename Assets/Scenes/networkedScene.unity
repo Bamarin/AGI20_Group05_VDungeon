@@ -916,8 +916,6 @@ GameObject:
   - component: {fileID: 570711687}
   - component: {fileID: 570711686}
   - component: {fileID: 570711685}
-  - component: {fileID: 570711690}
-  - component: {fileID: 570711689}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1030,52 +1028,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &570711689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 570711684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  hasCollision: 0
-  coordinates: {x: 0, y: 0}
-  verticalPosition: 0
-  race: 0
-  characterName: 
-  skinColor: {r: 0, g: 0, b: 0, a: 0}
-  characterClass: 0
-  mouseSensitivity: 3
-  playerHead: {fileID: 0}
-  ViewCamera: {fileID: 0}
-  TowardsCamera: {fileID: 0}
-  headHight: 0.8
-  numOfCurrentCharacter: 0
-  defaultMaterial: {fileID: 0}
-  rotateSpeed: 40
-  activeCharacter: 0
---- !u!114 &570711690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 570711684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3772172249
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &600232986
 GameObject:
   m_ObjectHideFlags: 0
