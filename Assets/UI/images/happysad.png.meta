@@ -1,0 +1,323 @@
+fileFormatVersion: 2
+guid: 32efee43805da45289eeec9003933304
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2874556472504434913
+    second: happysad_0
+  - first:
+      213: -2586094504747802353
+    second: happysad_1
+  - first:
+      213: 970141931317030330
+    second: happysad_0
+  - first:
+      213: -9100204705424747978
+    second: happysad_1
+  - first:
+      213: 1284390410727964899
+    second: happysad_2
+  - first:
+      213: 1644016925227575075
+    second: happysad_3
+  - first:
+      213: -5946435820693406208
+    second: happysad_4
+  - first:
+      213: 5891188201657574861
+    second: happysad_5
+  - first:
+      213: -7227135620296883109
+    second: happysad_6
+  - first:
+      213: -5481513454328361256
+    second: happysad_7
+  - first:
+      213: 5580279546869317895
+    second: happysad_8
+  - first:
+      213: 2007767352727279298
+    second: happysad_9
+  - first:
+      213: -5874833334713512088
+    second: happysad_10
+  - first:
+      213: 3000838828883029008
+    second: happysad_11
+  - first:
+      213: 8765218452677092822
+    second: happysad_12
+  - first:
+      213: -891658086078451923
+    second: happysad_13
+  - first:
+      213: 3683282979921683347
+    second: happysad_14
+  - first:
+      213: 776161266998302967
+    second: happysad_15
+  - first:
+      213: -5383285836697810657
+    second: happysad_16
+  - first:
+      213: 7800807918346697700
+    second: happysad_17
+  - first:
+      213: 2102024423420700103
+    second: happysad_18
+  - first:
+      213: -3490908631220119664
+    second: happysad_19
+  - first:
+      213: -5277535005400381864
+    second: happysad_20
+  - first:
+      213: -2456508574664863329
+    second: happysad_21
+  - first:
+      213: 7795990681308838753
+    second: happysad_22
+  - first:
+      213: -2702354651127613352
+    second: happysad_23
+  - first:
+      213: -1884442437075003752
+    second: happysad_24
+  - first:
+      213: 5139719711584312931
+    second: happysad_25
+  - first:
+      213: 3894043721839311822
+    second: happysad_26
+  - first:
+      213: -8772709493212591824
+    second: happysad_27
+  - first:
+      213: -6364587589168570697
+    second: happysad_28
+  - first:
+      213: -2931221222301721433
+    second: happysad_29
+  - first:
+      213: -6731273014350608039
+    second: happysad_30
+  - first:
+      213: 3622025027486106776
+    second: happysad_31
+  - first:
+      213: 1701135078240229836
+    second: happysad_32
+  - first:
+      213: -5350458431297412944
+    second: happysad_33
+  - first:
+      213: 4979521347012886830
+    second: happysad_34
+  - first:
+      213: -119608356630758277
+    second: happysad_35
+  - first:
+      213: -6662157775206071787
+    second: happysad_36
+  - first:
+      213: -6668279578232863888
+    second: happysad_37
+  - first:
+      213: -6823166322733342628
+    second: happysad_38
+  - first:
+      213: -1679851625545616331
+    second: happysad_39
+  - first:
+      213: -4701183714450096956
+    second: happysad_40
+  - first:
+      213: -48009365834922976
+    second: happysad_41
+  - first:
+      213: -5749107654412205046
+    second: happysad_42
+  - first:
+      213: -210204610224614777
+    second: happysad_43
+  - first:
+      213: 7330420511523139120
+    second: happysad_44
+  - first:
+      213: -8218859647496186538
+    second: happysad_45
+  - first:
+      213: 3848985248817721584
+    second: happysad_46
+  - first:
+      213: 1943508307847687897
+    second: happysad_47
+  - first:
+      213: -5193124921084694643
+    second: happysad_48
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: happysad_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 136
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e04d66b1e974e720800000000000000
+      internalID: 2874556472504434913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: happysad_1
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 40
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f01eae8efb85c1cd0800000000000000
+      internalID: -2586094504747802353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0ea957723fbdf43628815b8cc7b64f8e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
