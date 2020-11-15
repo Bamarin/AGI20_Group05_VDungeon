@@ -2103,6 +2103,11 @@ PrefabInstance:
       propertyPath: enableEdit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 431946516405935078, guid: 25610e74a8a10184c81f8914d825b585,
+        type: 3}
+      propertyPath: sceneId
+      value: 3211294428
+      objectReference: {fileID: 0}
     - target: {fileID: 456316071426975537, guid: 25610e74a8a10184c81f8914d825b585,
         type: 3}
       propertyPath: m_LocalPosition.x
