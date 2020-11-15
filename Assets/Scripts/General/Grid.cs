@@ -230,7 +230,7 @@ public class Grid : MonoBehaviour
     }
 
     // *** INITIALIZATION FUNCTIONS ***
-    private void InitializeEntities()
+    public void InitializeEntities()
     {
         entityList = new List<Entity>();
         gridCollisions = new CollisionFlags[(gridSize.x*2)+1, (gridSize.y*2)+1];

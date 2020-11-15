@@ -248,23 +248,24 @@ public class VDNetworkManager : NetworkManager
     public override void OnStartClient()
     {
         base.OnStartClient();
+        grid.InitializeEntities();
 
     }
 
     /// <summary>
     /// This is called when a host is stopped.
     /// </summary>
-    public override void OnStopHost() { }
+    public override void OnStopHost() { base.OnStopHost(); }
 
     /// <summary>
     /// This is called when a server is stopped - including when a host is stopped.
     /// </summary>
-    public override void OnStopServer() { }
+    public override void OnStopServer() { base.OnStopServer(); }
 
     /// <summary>
     /// This is called when a client is stopped.
     /// </summary>
-    public override void OnStopClient() { }
+    public override void OnStopClient() { base.OnStopClient(); }
 
     #endregion
 
