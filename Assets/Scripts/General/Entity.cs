@@ -11,8 +11,6 @@ public class Entity : NetworkBehaviour
     public Vector2Int coordinates;
     public float verticalPosition;
 
-    public Grid ParentGrid { get; private set; }
-
     // *** INTERNAL VARIABLES ***
 
     public Vector2Int BookmarkedCoordinates { get; protected set; }
@@ -73,30 +71,15 @@ public class Entity : NetworkBehaviour
     // Removes the collision data from the bookmarked position.
     public void ClearCollisionAtBookmark()
     {
-        ParentGrid.RemoveCollisionFlags(BookmarkedCoordinates, BookmarkedCollision);
+        Grid.grid.RemoveCollisionFlags(BookmarkedCoordinates, BookmarkedCollision);
     }
 
     // Updates collision data according to this Entity's current status.
     public void UpdateCollision()
     {
-        ParentGrid.AddCollisionFlags(coordinates, GetCollisionFlags());
+        Grid.grid.AddCollisionFlags(coordinates, GetCollisionFlags());
     }
 
-    // *** GENERAL FUNCTIONS ***
-
-    // Initializes this Entity to a Grid. Only call once.
-    public void Initialize(Grid parentGrid)
-    {
-        if (ParentGrid == null)
-        {
-            ParentGrid = parentGrid;
-            transform.SetParent(ParentGrid.transform, true);
-        }
-        else
-        {
-            Debug.LogWarning("Entity.Initialize() was called more than once on Entity: " + name);
-        }
-    }
 
     // *** MONOBEHAVIOUR FUNCTIONS ***
 

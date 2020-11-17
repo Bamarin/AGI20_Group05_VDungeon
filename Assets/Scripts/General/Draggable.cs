@@ -61,7 +61,6 @@ public class Draggable : MonoBehaviour
             newObject.transform.position = transform.position;
 
             gridHighlight = newObject.GetComponent<Entity>();
-            gridHighlight.Initialize(AttachedEntity.ParentGrid);
             gridHighlight.Move(AttachedEntity.coordinates);
         }
     }
@@ -210,7 +209,7 @@ public class Draggable : MonoBehaviour
     {
         firstSelectionFrame = false;
 
-        AttachedEntity.Move(AttachedEntity.ParentGrid.WorldToGrid(MouseWorldPosition()));
+        AttachedEntity.Move(Grid.grid.WorldToGrid(MouseWorldPosition()));
 
         UpdateRenderers();
         UpdateGridHighlight();
@@ -242,14 +241,14 @@ public class Draggable : MonoBehaviour
         if (requiresPath && !WorldEditor.WorldEditorManager.IsWorldEditorActive)
         {
             // Check if path between old and new position is possible
-            GridPathfinder ptf = new GridPathfinder(AttachedEntity.ParentGrid);
+            GridPathfinder ptf = new GridPathfinder(Grid.grid);
             List<Vector2Int> path = ptf.GetPath(AttachedEntity.BookmarkedCoordinates, targetCoordinates);
             isReachable = path != null;
         }
         else
         {
             // Check if the new position is vacant
-            isReachable = !AttachedEntity.ParentGrid.CheckCollisionFlags(targetCoordinates, AttachedEntity.GetCollisionFlags());
+            isReachable = !Grid.grid.CheckCollisionFlags(targetCoordinates, AttachedEntity.GetCollisionFlags());
         }
 
         if (isReachable)
