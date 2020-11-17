@@ -1014,6 +1014,15 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 6894481634958522079, guid: a5db34951ea03b74fb9bd0ad1ad417fd, type: 3}
   - {fileID: 6062503567488472847, guid: de49399a480d4f8488411e612600662d, type: 3}
+  - {fileID: 2333809218749775917, guid: c0351ab60cc77fb418864870c918244a, type: 3}
+  - {fileID: 8973437606596291468, guid: 8092bf510892c004a91da4815f1c61bd, type: 3}
+  - {fileID: 355587061991870402, guid: 2cca8606964468c408318cbc51b3ed13, type: 3}
+  - {fileID: 6557380084280397363, guid: e8c59d7ca09d13b4493e527c30c3ad25, type: 3}
+  - {fileID: 8204759753292807142, guid: 077fa3b39584a994b9d541e967554238, type: 3}
+  - {fileID: 8798297279878647806, guid: aff029c4a454d8c4fac11429e33ebd1d, type: 3}
+  - {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be, type: 3}
+  - {fileID: 5059304144044609530, guid: 25610e74a8a10184c81f8914d825b585, type: 3}
+  - {fileID: 3438637263461584332, guid: d55858d683d77024fa77d11e6f543a1e, type: 3}
   grid: {fileID: 600232987}
 --- !u!4 &570711688
 Transform:
@@ -1147,6 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectListUI: {fileID: 2072378962}
   attachedGrid: {fileID: 600232987}
+  netManager: {fileID: 570711687}
 --- !u!4 &621204041
 Transform:
   m_ObjectHideFlags: 0

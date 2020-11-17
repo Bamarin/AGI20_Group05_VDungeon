@@ -249,7 +249,6 @@ public class VDNetworkManager : NetworkManager
     {
         base.OnStartClient();
         grid.InitializeEntities();
-
     }
 
     /// <summary>
