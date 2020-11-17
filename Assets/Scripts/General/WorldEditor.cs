@@ -21,7 +21,6 @@ public class WorldEditor : MonoBehaviour
     {
         GameObject newObject = Instantiate(netManager.spawnPrefabs[index+2]);
         NetworkServer.Spawn(newObject);
-        newObject.GetComponent<Entity>().Initialize(attachedGrid);
         newObject.GetComponent<Draggable>().InitializeInDragMode();
     }
 
