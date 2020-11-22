@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class Draggable : MonoBehaviour
 
     private bool IsCurrentlyEditable()
     {
+        // UI blocks editing
+        if (EventSystem.current.IsPointerOverGameObject())
+            return false;
+
         // Nothing is editable while something else is selected
         if (HasSelection)
             return false;
@@ -144,7 +149,7 @@ public class Draggable : MonoBehaviour
     // *** EVENTS ***
 
     void OnMouseOver()
-    {
+    { 
         if (IsCurrentlyEditable())
         {
             isHovered = true;
@@ -333,6 +338,13 @@ public class Draggable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if the mouse hovered over UI
+        if (isHovered && !isSelected)
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+                OnMouseExit();
+        }
+
         if (isSelected)
         {
             // Rotation operations are only available for Props
