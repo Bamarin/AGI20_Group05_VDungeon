@@ -67,13 +67,16 @@ public class FaceModelController : MonoBehaviour
             headRot.y = Kalman_filter(headRot.y, 8e-3f, 5e-4f);
             headRot.z = Kalman_filter(headRot.z, 8e-3f, 5e-4f);
 
+            float eyeMax = 0.27f;
+            float eyeMin = 0.15f;
+
             // Left Eye closeness
             leftEyeShape = new Vector3(0.2f, Single.Parse(dataArray[7], CultureInfo.InvariantCulture), 0.2f);
-            LCloseEyeWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(0.27f, 0.15f, leftEyeShape[1]));
+            LCloseEyeWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(eyeMax, eyeMin, leftEyeShape[1]));
 
             // Right Eye closeness
             rightEyeShape = new Vector3(0.2f, Single.Parse(dataArray[8], CultureInfo.InvariantCulture), 0.2f);
-            RCloseEyeWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(0.27f, 0.15f, rightEyeShape[1]));
+            RCloseEyeWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(eyeMax, eyeMin, rightEyeShape[1]));
 
             mouthShape = new Vector3(Single.Parse(dataArray[10], CultureInfo.InvariantCulture), Single.Parse(dataArray[9], CultureInfo.InvariantCulture), 0.2f);
 
