@@ -190,6 +190,8 @@ MonoBehaviour:
   TowardsCamera: {fileID: 0}
   headHight: 0.8
   numOfCurrentCharacter: 1
+  defaultMaterial: {fileID: 0}
+  rotateSpeed: 40
   activeCharacter: 1
 --- !u!114 &11483784
 MonoBehaviour:
@@ -249,6 +251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: orientation
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 927723920276853171, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: sceneId
+      value: 396173282
       objectReference: {fileID: 0}
     - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
@@ -408,6 +415,11 @@ PrefabInstance:
         type: 3}
       propertyPath: hasCollision
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7209733217895118127, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: sceneId
+      value: 2179592319
       objectReference: {fileID: 0}
     - target: {fileID: 8632973583258481374, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
@@ -740,6 +752,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineShort
       objectReference: {fileID: 0}
+    - target: {fileID: 4253580932616552297, guid: 2cca8606964468c408318cbc51b3ed13,
+        type: 3}
+      propertyPath: sceneId
+      value: 946643191
+      objectReference: {fileID: 0}
     - target: {fileID: 5677324623494450187, guid: 2cca8606964468c408318cbc51b3ed13,
         type: 3}
       propertyPath: gridPosition.y
@@ -868,6 +885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974214418922753652, guid: c0351ab60cc77fb418864870c918244a,
+        type: 3}
+      propertyPath: sceneId
+      value: 1492770186
       objectReference: {fileID: 0}
     - target: {fileID: 7248202889494662702, guid: c0351ab60cc77fb418864870c918244a,
         type: 3}
@@ -1071,6 +1093,8 @@ MonoBehaviour:
   TowardsCamera: {fileID: 0}
   headHight: 0.8
   numOfCurrentCharacter: 0
+  defaultMaterial: {fileID: 0}
+  rotateSpeed: 40
   activeCharacter: 1
 --- !u!136 &657982558
 CapsuleCollider:
@@ -1209,6 +1233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993827504612118798, guid: d55858d683d77024fa77d11e6f543a1e,
+        type: 3}
+      propertyPath: sceneId
+      value: 558610158
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d55858d683d77024fa77d11e6f543a1e, type: 3}
@@ -1968,6 +1997,11 @@ PrefabInstance:
       propertyPath: hasCollision
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7209733217895118127, guid: aff029c4a454d8c4fac11429e33ebd1d,
+        type: 3}
+      propertyPath: sceneId
+      value: 1983474307
+      objectReference: {fileID: 0}
     - target: {fileID: 8632973583258481374, guid: aff029c4a454d8c4fac11429e33ebd1d,
         type: 3}
       propertyPath: enableEdit
@@ -2362,6 +2396,8 @@ MonoBehaviour:
   TowardsCamera: {fileID: 0}
   headHight: 0.8
   numOfCurrentCharacter: 0
+  defaultMaterial: {fileID: 0}
+  rotateSpeed: 40
   activeCharacter: 1
 --- !u!114 &1202974199
 MonoBehaviour:
@@ -2471,6 +2507,11 @@ PrefabInstance:
       propertyPath: enableEdit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 2446218714
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: gridPosition.x
@@ -2579,6 +2620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enableEdit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 1410094533
       objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
@@ -2789,6 +2835,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993827504612118798, guid: d55858d683d77024fa77d11e6f543a1e,
+        type: 3}
+      propertyPath: sceneId
+      value: 276155880
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d55858d683d77024fa77d11e6f543a1e, type: 3}
@@ -3014,6 +3065,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enableEdit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 421037641
       objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
@@ -3253,6 +3309,11 @@ PrefabInstance:
       propertyPath: coordinates.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 927723920276853171, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: sceneId
+      value: 1863374355
+      objectReference: {fileID: 0}
     - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
       propertyPath: m_Name
@@ -3348,6 +3409,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enableEdit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6007563752475425507, guid: e8c59d7ca09d13b4493e527c30c3ad25,
+        type: 3}
+      propertyPath: sceneId
+      value: 1875412204
       objectReference: {fileID: 0}
     - target: {fileID: 6557380084280397363, guid: e8c59d7ca09d13b4493e527c30c3ad25,
         type: 3}
@@ -3483,6 +3549,11 @@ PrefabInstance:
       propertyPath: hasCollision
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4310380546345398485, guid: 8092bf510892c004a91da4815f1c61bd,
+        type: 3}
+      propertyPath: sceneId
+      value: 3573814984
+      objectReference: {fileID: 0}
     - target: {fileID: 8973437606596291468, guid: 8092bf510892c004a91da4815f1c61bd,
         type: 3}
       propertyPath: m_Name
@@ -3578,6 +3649,11 @@ PrefabInstance:
         type: 3}
       propertyPath: hasCollision
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 927723920276853171, guid: 53736d42d7a41114e8ad420996f5d1be,
+        type: 3}
+      propertyPath: sceneId
+      value: 3424381404
       objectReference: {fileID: 0}
     - target: {fileID: 1512041766587221923, guid: 53736d42d7a41114e8ad420996f5d1be,
         type: 3}
@@ -3763,6 +3839,11 @@ PrefabInstance:
       propertyPath: enableEdit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 698339412
+      objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807136, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}
       propertyPath: gridPosition.x
@@ -3924,6 +4005,8 @@ MonoBehaviour:
   TowardsCamera: {fileID: 0}
   headHight: 0.8
   numOfCurrentCharacter: 2
+  defaultMaterial: {fileID: 0}
+  rotateSpeed: 40
   activeCharacter: 0
 --- !u!114 &2012914333
 MonoBehaviour:
@@ -4185,6 +4268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enableEdit
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 994844778474074754, guid: 077fa3b39584a994b9d541e967554238,
+        type: 3}
+      propertyPath: sceneId
+      value: 2384018866
       objectReference: {fileID: 0}
     - target: {fileID: 8204759753292807137, guid: 077fa3b39584a994b9d541e967554238,
         type: 3}

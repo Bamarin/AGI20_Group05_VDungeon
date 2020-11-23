@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public static Grid grid { get; private set; }
+
     public enum Orientation
     {
         North,
@@ -230,7 +232,7 @@ public class Grid : MonoBehaviour
     }
 
     // *** INITIALIZATION FUNCTIONS ***
-    private void InitializeEntities()
+    public void InitializeEntities()
     {
         entityList = new List<Entity>();
         gridCollisions = new CollisionFlags[(gridSize.x*2)+1, (gridSize.y*2)+1];
@@ -242,7 +244,6 @@ public class Grid : MonoBehaviour
         // Initialize and update all entities on the grid
         foreach (var item in entityList)
         {
-            item.Initialize(this);
             item.UpdateEntity();
 
             CollisionFlags flags = item.GetCollisionFlags();
@@ -256,6 +257,18 @@ public class Grid : MonoBehaviour
 
 
     // *** MONOBEHAVIOUR FUNCTIONS ***
+
+    private void Awake()
+    {
+        if (grid != null && grid != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            grid = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
