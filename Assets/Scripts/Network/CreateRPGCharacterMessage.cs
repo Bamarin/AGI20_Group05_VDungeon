@@ -5,6 +5,7 @@ using Mirror;
 
 public class CreateRPGCharacterMessage : MessageBase
 {
+    public int id;
     public Race race;
     public string name;
     public Color skinColor;

@@ -10,9 +10,10 @@ using System.Linq;
 
 public class VDNetworkManager : NetworkManager
 {
+    public static int playerCount = 0;
 
     public Grid grid;
-    
+
     #region Unity Callbacks
 
     public override void OnValidate()
@@ -182,9 +183,12 @@ public class VDNetworkManager : NetworkManager
     {
         base.OnClientConnect(conn);
 
+        playerCount++;
+
         // you can send the message here, or wherever else you want
         CreateRPGCharacterMessage characterMessage = new CreateRPGCharacterMessage
         {
+            id = playerCount,
             race = Race.Dwarvish,
             name = "Bamarin",
             skinColor = Color.black,
@@ -277,6 +281,7 @@ public class VDNetworkManager : NetworkManager
         // Apply data from the message however appropriate for your game
         // Typically Player would be a component you write with syncvars or properties
         Character player = gameobject.GetComponent<Character>();
+        player.playerId = message.id;
         player.race = message.race;
         player.name = message.name;
         player.skinColor = message.skinColor;
