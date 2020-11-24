@@ -307,8 +307,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   enableEdit: 1
-  requiresEditMode: 0
+  requiresEditMode: 1
   requiresPath: 1
   fixedRotation: 0
 --- !u!114 &7634314445752495677

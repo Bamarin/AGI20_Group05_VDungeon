@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using Mirror;
 
-public class Draggable : MonoBehaviour
+public class Draggable : NetworkBehaviour
 {
     // *** PROPERTY FIELDS ***
 
@@ -41,6 +42,9 @@ public class Draggable : MonoBehaviour
 
     private bool IsCurrentlyEditable()
     {
+        if (isLocalPlayer)
+            return true;
+
         // Nothing is editable while something else is selected
         if (HasSelection)
             return false;
