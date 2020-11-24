@@ -181,9 +181,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: 1, y: 2}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
   playerHead: {fileID: 1367977561575298}
   ViewCamera: {fileID: 0}
@@ -1017,6 +1023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectListUI: {fileID: 2072378962}
   attachedGrid: {fileID: 600232987}
+  netManager: {fileID: 0}
 --- !u!4 &621204041
 Transform:
   m_ObjectHideFlags: 0
@@ -1078,9 +1085,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
   playerHead: {fileID: 657982555}
   ViewCamera: {fileID: 0}
@@ -1662,6 +1675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 0
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
@@ -2061,6 +2076,11 @@ PrefabInstance:
       propertyPath: enableEdit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 431946516405935078, guid: 25610e74a8a10184c81f8914d825b585,
+        type: 3}
+      propertyPath: sceneId
+      value: 2960281444
+      objectReference: {fileID: 0}
     - target: {fileID: 456316071426975537, guid: 25610e74a8a10184c81f8914d825b585,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2285,9 +2305,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
   playerHead: {fileID: 1210375166405511}
   ViewCamera: {fileID: 0}
@@ -3888,9 +3914,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: -2, y: -1}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
   playerHead: {fileID: 5854617896099867115}
   ViewCamera: {fileID: 0}
@@ -4023,6 +4055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4338d57f9e728e849bf903f9faf0c0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 0
   coordinates: {x: 0, y: -5}
   verticalPosition: 0
