@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 7765019397100338656}
   - component: {fileID: 1060650839585664401}
   - component: {fileID: 6557289461190230305}
+  - component: {fileID: 604189931808368743}
   - component: {fileID: 1179266067171469826}
   m_Layer: 0
   m_Name: StoneDoor
@@ -147,6 +148,22 @@ MonoBehaviour:
   requiresEditMode: 1
   requiresPath: 0
   fixedRotation: 1
+--- !u!114 &604189931808368743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956149015685539674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff31c1efc623a1e43ac3973d3bbbdd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneTimeInteraction: 0
+  objectsToAnimate:
+  - {fileID: 4428881138258252884}
+  objectsToToggle: []
 --- !u!65 &1179266067171469826
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,6 +188,7 @@ GameObject:
   - component: {fileID: 623123946296229028}
   - component: {fileID: 2035135795536800362}
   - component: {fileID: 1696808085316835543}
+  - component: {fileID: 4428881138258252884}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -239,3 +257,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!95 &4428881138258252884
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953205135966816486}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e5984e929b4a4e949a947af8910ae536, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
