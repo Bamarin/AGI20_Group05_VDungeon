@@ -14,6 +14,10 @@ public class FaceModelController : MonoBehaviour
     public static Vector3 leftEyeShape;
     public static Vector3 rightEyeShape;
     public static Vector3 mouthShape;
+    public static float leftEyebrowLift;
+    public static float rightEyebrowLift;
+    public static float leftFrown;
+    public static float rightFrown;
 
     private string data;
     private string[] dataArray;
@@ -79,6 +83,28 @@ public class FaceModelController : MonoBehaviour
             rightEyeShape = new Vector3(0.2f, Single.Parse(dataArray[8], CultureInfo.InvariantCulture), 0.2f);
             RCloseEyeWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(eyeMax, eyeMin, rightEyeShape[1]));
 
+
+            float eyebrowMax = 3.8f;
+            float eyebrowMin = 3.3f;
+            // Left Eyebrow lift
+            leftEyebrowLift = Single.Parse(dataArray[11], CultureInfo.InvariantCulture);
+            //print(leftEyebrowLift);
+            LRaiseBrowWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(eyebrowMax, eyebrowMin, 100 * leftEyebrowLift));
+            // Right Eyebrow lift
+            rightEyebrowLift = Single.Parse(dataArray[12], CultureInfo.InvariantCulture);
+            RRaiseBrowWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(eyebrowMax, eyebrowMin, 100 * rightEyebrowLift));
+            //print(rightEyebrowLift);
+
+            float frownMax = 3f;
+            float frownMin = 2.8f;
+            // Left Eyebrow frown
+            leftFrown = Single.Parse(dataArray[13], CultureInfo.InvariantCulture);
+            print(leftFrown);
+            LAngryBrowWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(frownMax, frownMin, 100 * leftFrown));
+            // Right Eyebrow frown
+            rightFrown = Single.Parse(dataArray[14], CultureInfo.InvariantCulture);
+            RAngryBrowWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(frownMax, frownMin, 100 * rightFrown));
+
             mouthShape = new Vector3(Single.Parse(dataArray[10], CultureInfo.InvariantCulture), Single.Parse(dataArray[9], CultureInfo.InvariantCulture), 0.2f);
 
             if (500 * mouthShape[1] < 100f)
@@ -97,6 +123,10 @@ public class FaceModelController : MonoBehaviour
             face.SetBlendShapeWeight(LCloseEye, LCloseEyeWeight);
             face.SetBlendShapeWeight(RCloseEye, RCloseEyeWeight);
             face.SetBlendShapeWeight(MouthHeight, MouthHeightWeight);
+            face.SetBlendShapeWeight(LRaiseBrow, LRaiseBrowWeight);
+            face.SetBlendShapeWeight(RRaiseBrow, RRaiseBrowWeight);
+            face.SetBlendShapeWeight(LAngryBrow, LAngryBrowWeight);
+            face.SetBlendShapeWeight(RAngryBrow, RAngryBrowWeight);
         }
        
     }

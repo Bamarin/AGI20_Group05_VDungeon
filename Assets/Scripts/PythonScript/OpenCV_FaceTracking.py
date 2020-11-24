@@ -6,6 +6,7 @@ import socket
 import math
 import os
 
+
 UDP_IP = "127.0.0.1"
 UDP_PORT = 5065
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -38,7 +39,7 @@ def landmarks_to_np(shape, dtype="int"):
 def get_facial_parameter(landmarks):
     d00 =np.linalg.norm(landmarks[27]-landmarks[8]) # Length of face (eyebrow to chin)
     d11 =np.linalg.norm(landmarks[0]-landmarks[16]) # width of face
-    d_reference = (d00+d11)/2
+    d_reference = (d00+d11)/2 	 # a reference distance which is insensitive to the rotation
     # Left eye
     d1 =  np.linalg.norm(landmarks[37]-landmarks[41])
     d2 =  np.linalg.norm(landmarks[38]-landmarks[40])
@@ -49,13 +50,25 @@ def get_facial_parameter(landmarks):
     d5 = np.linalg.norm(landmarks[51]-landmarks[57])
     # Mouth length
     d6 = np.linalg.norm(landmarks[60]-landmarks[64])
-    
+    # Left eyebrow to eye distance - Normal
+    d7=math.sqrt(np.linalg.norm(landmarks[24]-landmarks[44]))
+    # Right eyebrow to eye distance - Normal
+    d8=math.sqrt(np.linalg.norm(landmarks[19]-landmarks[37]))
+    # Left eyebrow to eye distance - Frown
+    d9=math.sqrt(np.linalg.norm(landmarks[21]-landmarks[27]))
+    # Right eyebrow to eye distance - Frown
+    d10=math.sqrt(np.linalg.norm(landmarks[22]-landmarks[27]))
+
     leftEyeWid = ((d1+d2)/(2*d_reference) - 0.02)*6
     rightEyewid = ((d3+d4)/(2*d_reference) -0.02)*6
     mouthWid = (d5/d_reference - 0.13)*1.27+0.02
     mouthLen = d6/d_reference
+    leftEyebrowLift = d7/d_reference
+    rightEyebrowLift = d8/d_reference
+    leftFrown = d9/d_reference
+    rightFrown = d10/d_reference
 
-    return leftEyeWid, rightEyewid, mouthWid, mouthLen
+    return leftEyeWid, rightEyewid, mouthWid, mouthLen, leftEyebrowLift, rightEyebrowLift, leftFrown, rightFrown
 
 # Head Pose Estimation function: get rotation vector and translation vector       
 def head_pose_estimate(image, landmarks):
@@ -177,7 +190,7 @@ while True:
         landmarks = median_filter(landmarks)
 
         # Show facial parameter
-        leftEyeWid, rightEyewid, mouthWid,mouthLen =get_facial_parameter(landmarks)
+        leftEyeWid, rightEyewid, mouthWid, mouthLen, leftEyebrowLift, rightEyebrowLift, leftFrown, rightFrown =get_facial_parameter(landmarks)
         print('leftEyeWid:{}, rightEyewid:{}, mouthWid:{}, mouthLen:{}'.format(leftEyeWid, rightEyewid, mouthWid, mouthLen))
         
         # Show head pose
@@ -186,7 +199,7 @@ while True:
         w,x,y,z = convert_to_quaternion(rotation_vector)
 
         #face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(rotation_vector[0,0])+':'+str(rotation_vector[1,0])+':'+str(rotation_vector[2,0])+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)
-        face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(w)+':'+str(x)+':'+str(y)+':'+str(z)+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)
+        face_data = str(translation_vector[0,0])+':'+str(translation_vector[1,0])+':'+str(translation_vector[2,0])+':'+str(w)+':'+str(x)+':'+str(y)+':'+str(z)+':'+str(leftEyeWid)+':'+str(rightEyewid)+':'+str(mouthWid)+':'+str(mouthLen)+':'+str(leftEyebrowLift)+':'+str(rightEyebrowLift)+':'+str(leftFrown)+':'+str(rightFrown)
         sock.sendto(face_data.encode() , (UDP_IP, UDP_PORT))        
         # loop over the (x, y)-coordinates for the facial landmarks and draw them on the image
         for (x, y) in landmarks_orig:

@@ -36,21 +36,23 @@ public class SocketClient : MonoBehaviour
         Debug.Log("Execute");
         if (SystemInfo.operatingSystem.Contains("Windows")) {
             //Cammand from Windows system
-            //string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
-            Debug.Log("FOLDER: "+Environment.CurrentDirectory);
+            // Calling python script
+            string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
 
             var processInfo = new System.Diagnostics.ProcessStartInfo()
             {
-                //FileName = "cmd.exe",
-                //CreateNoWindow = true,
-                //UseShellExecute = true,
-                //WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
-                //Arguments = "/S /C " + command
-
-                FileName = Environment.CurrentDirectory + "/PythonApplication/dist/OpenCV_FaceTracking/OpenCV_FaceTracking.exe",
+                // Calling python script
+                FileName = "cmd.exe",
                 CreateNoWindow = true,
                 UseShellExecute = true,
-                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+                WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden,
+                Arguments = "/S /C " + command
+
+                // Runing executable python application
+                //FileName = Environment.CurrentDirectory + "/PythonApplication/dist/OpenCV_FaceTracking/OpenCV_FaceTracking.exe",
+                //CreateNoWindow = true,
+                //UseShellExecute = true,
+                //WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
             };
             System.Diagnostics.Process.Start(processInfo);
         }
