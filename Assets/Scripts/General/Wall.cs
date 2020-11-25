@@ -39,24 +39,20 @@ public class Wall : Prop
     }
 
     // Get the collision flags for this wall piece based on its type and orientation.
-    public override Grid.CollisionFlags GetCollisionFlags()
+    protected override Grid.CollisionFlags GetPersistentCollisionFlags()
     {
-        if (hasCollision)
+        // NOTE: Corner pieces are set up in a clockwise fashion
+        switch (orientation)
         {
-            // NOTE: Corner pieces are set up in a clockwise fashion
-            switch (orientation)
-            {
-                case Grid.Orientation.North:
-                    return isCornerPiece ? (Grid.CollisionFlags.North | Grid.CollisionFlags.East) : Grid.CollisionFlags.North;
-                case Grid.Orientation.East:
-                    return isCornerPiece ? (Grid.CollisionFlags.East | Grid.CollisionFlags.South) : Grid.CollisionFlags.East;
-                case Grid.Orientation.South:
-                    return isCornerPiece ? (Grid.CollisionFlags.South | Grid.CollisionFlags.West) : Grid.CollisionFlags.South;
-                case Grid.Orientation.West:
-                    return isCornerPiece ? (Grid.CollisionFlags.West | Grid.CollisionFlags.North) : Grid.CollisionFlags.West;
-            }
+            case Grid.Orientation.North:
+                return isCornerPiece ? (Grid.CollisionFlags.North | Grid.CollisionFlags.East) : Grid.CollisionFlags.North;
+            case Grid.Orientation.East:
+                return isCornerPiece ? (Grid.CollisionFlags.East | Grid.CollisionFlags.South) : Grid.CollisionFlags.East;
+            case Grid.Orientation.South:
+                return isCornerPiece ? (Grid.CollisionFlags.South | Grid.CollisionFlags.West) : Grid.CollisionFlags.South;
+            case Grid.Orientation.West:
+                return isCornerPiece ? (Grid.CollisionFlags.West | Grid.CollisionFlags.North) : Grid.CollisionFlags.West;
         }
-
         return Grid.CollisionFlags.None;
     }
 

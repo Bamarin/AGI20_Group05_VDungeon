@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oneTimeInteraction: 0
+  toggleCollision: 1
   objectsToAnimate:
   - {fileID: 4428881138258252884}
   objectsToToggle: []

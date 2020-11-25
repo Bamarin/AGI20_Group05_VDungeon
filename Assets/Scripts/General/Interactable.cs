@@ -10,11 +10,16 @@ public class Interactable : MonoBehaviour
     [Tooltip("If enabled, this object will only accept an interaction once.")]
     public bool oneTimeInteraction = false;
 
+    [Tooltip("If enabled, interactions will toggle this object's collision status.")]
+    public bool toggleCollision = false;
+
     [Tooltip("Objects that should be animated when interacted with.")]
     public Animator[] objectsToAnimate;
 
     [Tooltip("Objects that should be enabled/disabled when interacted with.")]
     public GameObject[] objectsToToggle;
+
+    
 
     public Entity AttachedEntity { get; private set; }
     public Prop AttachedProp { get; private set; }
@@ -71,6 +76,9 @@ public class Interactable : MonoBehaviour
 
     private void RunInteractions()
     {
+        if (toggleCollision)
+            AttachedEntity.ToggleCollision();
+
         foreach (var animator in objectsToAnimate)
         {
             animator.SetTrigger(ANIM_TRIGGER_ID);

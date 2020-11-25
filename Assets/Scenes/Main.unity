@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 600232988}
     m_Modifications:
+    - target: {fileID: 604189931808368743, guid: 6f1ce2a08fb4003429f0eb1b4600ab1d,
+        type: 3}
+      propertyPath: toggleCollision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6956149015685539674, guid: 6f1ce2a08fb4003429f0eb1b4600ab1d,
         type: 3}
       propertyPath: m_Name
