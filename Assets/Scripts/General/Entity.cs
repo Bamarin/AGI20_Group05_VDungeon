@@ -45,14 +45,26 @@ public class Entity : MonoBehaviour
     }
 
     // Get the collision flags for this wall piece based on its type and orientation.
-    public virtual Grid.CollisionFlags GetCollisionFlags()
+    public Grid.CollisionFlags GetCollisionFlags()
     {
         if (hasCollision)
-        {
-            return Grid.CollisionFlags.Center;
-        }
+            return GetPersistentCollisionFlags();
 
         return Grid.CollisionFlags.None;
+    }
+
+    protected virtual Grid.CollisionFlags GetPersistentCollisionFlags()
+    {
+        return Grid.CollisionFlags.Center;
+    }
+
+    // Toggles collision on and off
+    public void ToggleCollision()
+    {
+        hasCollision = !hasCollision;
+
+        if (hasCollision)   ParentGrid.AddCollisionFlags(coordinates, GetPersistentCollisionFlags());
+        else                ParentGrid.RemoveCollisionFlags(coordinates, GetPersistentCollisionFlags());
     }
 
     // Bookmarks this Entity's current status for easy fallback at a later point.
