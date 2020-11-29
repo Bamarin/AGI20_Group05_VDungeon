@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 6062503566943809797}
+  faceModel: {fileID: 6062503566943809797}
 --- !u!1 &6062503567015133357
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,9 +270,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb8dfd901041421d9137e7ac7749e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
+  race: 0
+  characterName: 
+  skinColor: {r: 0, g: 0, b: 0, a: 0}
+  characterClass: 0
   mouseSensitivity: 3
   playerHead: {fileID: 6062503567488472847}
   ViewCamera: {fileID: 0}
