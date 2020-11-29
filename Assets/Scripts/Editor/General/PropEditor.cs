@@ -1,38 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEditor.SceneManagement;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEditor;
+//using UnityEditor.SceneManagement;
 
-[CustomEditor(typeof(Prop))]
-public class PropEditor : EntityEditor
-{
+//[CustomEditor(typeof(Prop))]
+//public class PropEditor : EntityEditor
+//{
 
-    public override void OnInspectorGUI()
-    {
-        Prop castedTarget = (Prop)target;
+//    public override void OnInspectorGUI()
+//    {
+//        Prop castedTarget = (Prop)target;
 
-        EditorGUI.BeginChangeCheck();
+//        EditorGUI.BeginChangeCheck();
 
-        CreateCollisionGUI(castedTarget);
-        CreateCoordinatesGUI(castedTarget);
-        CreateOrientationGUI(castedTarget);  
+//        CreateCollisionGUI(castedTarget);
+//        CreateCoordinatesGUI(castedTarget);
+//        CreateOrientationGUI(castedTarget);  
 
-        if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
-        {
-            castedTarget.UpdateEntity();
+//        if (EditorGUI.EndChangeCheck() && !Application.isPlaying)
+//        {
+//            castedTarget.UpdateEntity();
 
-            EditorUtility.SetDirty(castedTarget);
-            EditorSceneManager.MarkSceneDirty(castedTarget.gameObject.scene);
-        }
+//            EditorUtility.SetDirty(castedTarget);
+//            EditorSceneManager.MarkSceneDirty(castedTarget.gameObject.scene);
+//        }
 
-        serializedObject.ApplyModifiedProperties();
-    }
+//        serializedObject.ApplyModifiedProperties();
+//    }
 
-    protected void CreateOrientationGUI(Prop castedTarget)
-    {
-        GUILayout.Label("Grid Orientation", EditorStyles.boldLabel);
+//    protected void CreateOrientationGUI(Prop castedTarget)
+//    {
+//        GUILayout.Label("Grid Orientation", EditorStyles.boldLabel);
 
-        castedTarget.orientation = (Grid.Orientation)EditorGUILayout.EnumPopup("Orientation: ", castedTarget.orientation);
-    }
-}
+//        castedTarget.orientation = (Grid.Orientation)EditorGUILayout.EnumPopup("Orientation: ", castedTarget.orientation);
+//    }
+//}

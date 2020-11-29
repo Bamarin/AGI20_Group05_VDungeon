@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using Mirror;
 
 public class WorldEditor : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class WorldEditor : MonoBehaviour
     public Grid attachedGrid;
 
     public bool IsWorldEditorActive { get; private set; }
+    public NetworkManager netManager;
 
     //world editor button
     public Button worldEditorButton;
@@ -21,8 +23,8 @@ public class WorldEditor : MonoBehaviour
 
     public void CreateItem(int index)
     {
-        GameObject newObject = Instantiate(worldEditorObjects[index].gameObject);
-        newObject.GetComponent<Entity>().Initialize(attachedGrid);
+        GameObject newObject = Instantiate(netManager.spawnPrefabs[index+2]);
+        NetworkServer.Spawn(newObject);
         newObject.GetComponent<Draggable>().InitializeInDragMode();
     }
 

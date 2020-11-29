@@ -1,9 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class Character : Entity
 {
+    // *** NETWORKED VARIABLES ***
+
+    [SyncVar]
+    public Race race;
+    [SyncVar]
+    public string characterName;
+    [SyncVar]
+    public Color skinColor;
+    [SyncVar]
+    public RPGClass characterClass;
+
     // *** PROPERTY FIELDS ***
 
     public float mouseSensitivity = 3f;
@@ -17,6 +29,12 @@ public class Character : Entity
     public float headHight = 0.8f;
     public int numOfCurrentCharacter = 0;
 
+
+    // *** PROPERTY FIELDS ***
+
+    // The default material to render this character with when it is not highlighted
+    public Material defaultMaterial;
+    public float rotateSpeed = 40f;
     // Whether this character can be interacted with or not. Use EnableInteraction() to ensure the character's appearance is updated!
     public bool activeCharacter = false;
 
@@ -90,4 +108,5 @@ public class Character : Entity
             }
         }
     }
+
 }
