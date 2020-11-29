@@ -99,7 +99,7 @@ public class FaceModelController : MonoBehaviour
             float frownMin = 2.8f;
             // Left Eyebrow frown
             leftFrown = Single.Parse(dataArray[13], CultureInfo.InvariantCulture);
-            print(leftFrown);
+            //print(leftFrown);
             LAngryBrowWeight = Mathf.Lerp(0, 100, Mathf.InverseLerp(frownMax, frownMin, 100 * leftFrown));
             // Right Eyebrow frown
             rightFrown = Single.Parse(dataArray[14], CultureInfo.InvariantCulture);
