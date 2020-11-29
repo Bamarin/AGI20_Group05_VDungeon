@@ -37,7 +37,7 @@ public class WorldEditor : MonoBehaviour
 
             if (IsWorldEditorActive && !isInitialized)
             {
-                objectListUI.Initalize(worldEditorObjects);
+                objectListUI.Initalize(netManager.spawnPrefabs);
                 isInitialized = true;
             }
         }

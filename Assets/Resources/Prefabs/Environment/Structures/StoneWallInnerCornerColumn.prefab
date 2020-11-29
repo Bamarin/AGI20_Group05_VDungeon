@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 530170353609304502}
   - component: {fileID: -2833037238214512400}
   - component: {fileID: 2769088127239496318}
+  - component: {fileID: -5328426841810417111}
+  - component: {fileID: 1254281855384966386}
   m_Layer: 0
   m_Name: StoneWallInnerCornerColumn
   m_TagString: Untagged
@@ -46,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004cafda77674dc469aae5c1fb41dee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hasCollision: 0
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
@@ -80,6 +84,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.55, y: 1.1, z: 0.55}
   m_Center: {x: 0, y: 0.55, z: 0}
+--- !u!114 &-5328426841810417111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530170353609304500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &1254281855384966386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530170353609304500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &6702623238541705444
 GameObject:
   m_ObjectHideFlags: 0
