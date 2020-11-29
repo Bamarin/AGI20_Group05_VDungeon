@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 using Mirror;
 
 public class WorldEditor : MonoBehaviour
@@ -13,6 +14,9 @@ public class WorldEditor : MonoBehaviour
     public bool IsWorldEditorActive { get; private set; }
     public NetworkManager netManager;
 
+    //world editor button
+    public Button worldEditorButton;
+
     private GameObject[] worldEditorObjects;
     private bool isInitialized = false;
 
@@ -24,22 +28,9 @@ public class WorldEditor : MonoBehaviour
         newObject.GetComponent<Draggable>().InitializeInDragMode();
     }
 
-
-    // Use this for initialization
-    void Start()
-    {
-        IsWorldEditorActive = false;
-        worldEditorObjects = Resources.LoadAll<GameObject>("Prefabs/Environment");
-
-        if (WorldEditorManager == null)
-            WorldEditorManager = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+    void showWorldEditor(){
         // World edit mode change not allowed while something is selected
-        if (Input.GetKeyDown(KeyCode.E) && !Draggable.HasSelection)
+        if (!Draggable.HasSelection)
         {
             IsWorldEditorActive = !IsWorldEditorActive;
             objectListUI.gameObject.SetActive(IsWorldEditorActive);
@@ -50,5 +41,24 @@ public class WorldEditor : MonoBehaviour
                 isInitialized = true;
             }
         }
+    }
+
+
+    // Use this for initialization
+    void Start()
+    {
+        IsWorldEditorActive = false;
+        worldEditorObjects = Resources.LoadAll<GameObject>("Prefabs/Environment");
+
+        if (WorldEditorManager == null)
+            WorldEditorManager = this;
+        
+        worldEditorButton.onClick.AddListener(showWorldEditor);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 }

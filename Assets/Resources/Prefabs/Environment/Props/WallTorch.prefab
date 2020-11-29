@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 5258440678237483399}
   - component: {fileID: 5258440678237483397}
   - component: {fileID: 5258440678237483398}
+  - component: {fileID: -4492697243094523435}
   - component: {fileID: 5258440678237483396}
   m_Layer: 0
   m_Name: WallTorch
@@ -147,6 +148,22 @@ MonoBehaviour:
   requiresEditMode: 1
   requiresPath: 0
   fixedRotation: 1
+--- !u!114 &-4492697243094523435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5258440678237483400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff31c1efc623a1e43ac3973d3bbbdd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneTimeInteraction: 0
+  objectsToAnimate: []
+  objectsToToggle:
+  - {fileID: 5258440678332787316}
 --- !u!65 &5258440678237483396
 BoxCollider:
   m_ObjectHideFlags: 0

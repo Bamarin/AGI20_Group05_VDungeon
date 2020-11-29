@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class WorldObjectItem : MonoBehaviour
     , IPointerEnterHandler
@@ -11,7 +12,7 @@ public class WorldObjectItem : MonoBehaviour
 {
     public int itemIndex;
 
-    private Text myText;
+    private TMP_Text myText;
     private RectTransform rectTransform;
 
 
@@ -19,7 +20,7 @@ public class WorldObjectItem : MonoBehaviour
 
     public void Initialize(int itemIndex, GameObject obj)
     {
-        myText = GetComponent<Text>();
+        myText = GetComponent<TMP_Text>();
         rectTransform = GetComponent<RectTransform>();
 
         this.itemIndex = itemIndex;
@@ -29,26 +30,27 @@ public class WorldObjectItem : MonoBehaviour
 
         // Place item at the right place
         rectTransform.sizeDelta = new Vector2(-20, 20);
-        rectTransform.anchoredPosition = new Vector2(10, -10-(itemIndex * 20));
+        rectTransform.anchoredPosition = new Vector2(10, -5-(itemIndex * 20));
     }
 
 
     // *** EVENTS ***
-
     void OnEnable()
     {
+        /*
         if (myText != null)
-            myText.color = Color.black;
+            myText.color = Color.black;*/
     }
 
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
-        myText.color = Color.blue;
+        //myText.color = Color.blue;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        myText.color = Color.black;
+        //myText.color = Color.black;
     }
 
     public void OnPointerClick(PointerEventData eventData)
