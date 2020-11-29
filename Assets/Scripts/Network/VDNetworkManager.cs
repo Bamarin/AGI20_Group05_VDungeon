@@ -206,6 +206,7 @@ public class VDNetworkManager : NetworkManager
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         base.OnClientDisconnect(conn);
+        playerCount--;
     }
 
     /// <summary>
