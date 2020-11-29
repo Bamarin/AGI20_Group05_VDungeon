@@ -62,8 +62,8 @@ public class Entity : NetworkBehaviour
     {
         hasCollision = !hasCollision;
 
-        if (hasCollision)   ParentGrid.AddCollisionFlags(coordinates, GetPersistentCollisionFlags());
-        else                ParentGrid.RemoveCollisionFlags(coordinates, GetPersistentCollisionFlags());
+        if (hasCollision)   Grid.grid.AddCollisionFlags(coordinates, GetPersistentCollisionFlags());
+        else                Grid.grid.RemoveCollisionFlags(coordinates, GetPersistentCollisionFlags());
     }
 
     // Bookmarks this Entity's current status for easy fallback at a later point.
