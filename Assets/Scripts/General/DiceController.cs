@@ -36,7 +36,7 @@ public class DiceController : MonoBehaviour
             float dirX = Random.Range(0, 500);
             float dirY = Random.Range(0, 500);
             float dirZ = Random.Range(0, 500);
-            transform.position = new Vector3(initDicePos.x,17,initDicePos.z);
+            transform.position = new Vector3(initDicePos.x, initCameraPos.y-3, initDicePos.z);
             transform.rotation = Quaternion.identity;
             rb.AddForce(transform.up * 500);
             rb.AddTorque(dirX, dirY, dirZ);
