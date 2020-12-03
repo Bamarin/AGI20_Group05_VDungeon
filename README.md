@@ -26,3 +26,7 @@ Check [Unity Remote](https://docs.unity3d.com/Manual/UnityRemote5.html)
 4. Create am empty Game Object and attach the script called "SocketClient" to the Game Object
 5. Press the Play button to run the project
 6. Terminate the python script by pressing ESC, press the play button again will not terminate the python server [TEMPORARY]
+
+### For building the executable application
+1. Build the Unity scenes
+2. **IMPORTANT:** Make sure to copy the data file **shape_predictor_68_face_landmarks.dat** and the folder **PythonApplication/** to the root of build folder
