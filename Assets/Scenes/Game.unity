@@ -1618,6 +1618,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1033809207776269585, guid: 270c171c3a07fb14da9f9bc3ac8d343a,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1033809207776269586, guid: 270c171c3a07fb14da9f9bc3ac8d343a,
         type: 3}
       propertyPath: m_LocalPosition.y
