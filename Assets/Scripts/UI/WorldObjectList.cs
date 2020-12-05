@@ -21,7 +21,7 @@ public class WorldObjectList : MonoBehaviour
             listItems.Add(item);
         }
 
-        listRectTransform.sizeDelta = new Vector2(0, 20 + (20 * (worldEditorObjects.Count - 2)));
+        listRectTransform.sizeDelta = new Vector2(0, 20 + (65 * (worldEditorObjects.Count - 2)));
     }
 
     // Start is called before the first frame update

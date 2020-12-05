@@ -29,8 +29,9 @@ public class WorldObjectItem : MonoBehaviour
         myText.text = obj.name;
 
         // Place item at the right place
-        rectTransform.sizeDelta = new Vector2(-20, 20);
-        rectTransform.anchoredPosition = new Vector2(10, -5-(itemIndex * 20));
+        rectTransform.sizeDelta = new Vector2(-20, 30);
+        rectTransform.anchoredPosition = new Vector2(15, -10-(itemIndex * 65));
+        rectTransform.localScale = new Vector3(1f,1f,1f);
     }
 
 
