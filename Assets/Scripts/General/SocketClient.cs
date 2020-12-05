@@ -37,7 +37,7 @@ public class SocketClient : MonoBehaviour
         if (SystemInfo.operatingSystem.Contains("Windows")) {
             //Cammand from Windows system
             // Calling python script
-            string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
+            //string command = "cd Assets/Scripts/PythonScript & python OpenCV_FaceTracking.py";
 
             var processInfo = new System.Diagnostics.ProcessStartInfo()
             {
