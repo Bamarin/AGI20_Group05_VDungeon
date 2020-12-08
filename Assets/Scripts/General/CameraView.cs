@@ -54,7 +54,12 @@ public class CameraView : MonoBehaviour
         firstView.transform.position = transform.position;
         transform.SetParent(firstView.transform);
 
-        if (ifGyroEnabled)
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            ifGyroEnabled = true;
+        }
+
+            if (ifGyroEnabled)
         {
             ifGyroEnabled = EnableGryo();
 

@@ -76,16 +76,22 @@ public class Character : Entity
         if (activeCharacter){
             ViewCamera = new GameObject("View Camera", typeof(CameraView));
             ViewCamera.AddComponent<Camera>();
-            ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+
+            if(SystemInfo.deviceType != DeviceType.Handheld)
+                ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+                
             ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
         }
 
-        TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
-        TowardsCamera.AddComponent<Camera>();
-        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.17f, 0.8f, 0.15f, 0.2f);
-        CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
-        ct.player = gameObject.transform;
-        ct.offset.y = headHight;
+        if (SystemInfo.deviceType != DeviceType.Handheld)
+        {
+            TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
+            TowardsCamera.AddComponent<Camera>();
+            TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter * 0.17f, 0.8f, 0.15f, 0.2f);
+            CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
+            ct.player = gameObject.transform;
+            ct.offset.y = headHight;
+        }
     }
 
     // Update is called once per frame
