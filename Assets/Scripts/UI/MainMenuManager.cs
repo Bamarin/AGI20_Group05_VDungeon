@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 public class MainMenuManager : MonoBehaviour
 {
-    //string to record the IP address
-    public string IPAdressPlayer;
-    public string IPAdressMaster;
+    public TMP_Text IPv4AdressText;
+    public TMP_InputField playerInputIPAddress;
 
-    public void getPlayerIPAddress(TMP_InputField input){
+    //PlayerPrefs is used to transfer data from main menu to the game scene
+    public void setPlayerIPAddress(TMP_InputField input){
         Debug.Log("Player: "+input.text);
-        IPAdressPlayer = input.text;
+        PlayerPrefs.SetString("IPAdressPlayer", input.text);
+        PlayerPrefs.SetInt("isMaster", 0);
     }
 
-    public void getMasterIPAddress(TMP_InputField input){
-        Debug.Log("Master: "+input.text);
-        IPAdressMaster = input.text;
+    public void setMasterIPAddress(){
+        Debug.Log("Master");
+        PlayerPrefs.SetInt("isMaster", 1);
     }
 
     public void StartGame(){
@@ -30,5 +34,41 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
+    //reference: https://answers.unity.com/questions/1731994/get-the-device-ip-address-from-unity.html
+    //IPv4
+    public string GetLocalIPAddress()
+     {
+         var host = Dns.GetHostEntry(Dns.GetHostName());
+         foreach (var ip in host.AddressList)
+         {
+             if (ip.AddressFamily == AddressFamily.InterNetwork)
+             {
+                 return ip.ToString();
+             }
+         }
+         throw new System.Exception("No network adapters with an IPv4 address in the system!");
+     }
 
+    public void setPlayerIPAddressInputField(TMP_InputField input){
+        if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter)){
+            setPlayerIPAddress(input);
+            StartGame();
+        }
+    }
+
+    public void setPlayerIPAddressButton(TMP_InputField input){
+        setPlayerIPAddress(input);
+        StartGame();
+    }
+
+
+    void Start(){
+        PlayerPrefs.SetInt("isMaster", -1);
+        IPv4AdressText.text = GetLocalIPAddress();
+    }
+
+    void Update()
+    {
+        
+    }
 }
