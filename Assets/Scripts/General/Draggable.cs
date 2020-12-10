@@ -358,7 +358,7 @@ public class Draggable : MonoBehaviour
             }
 
             // Delete with 'Del'
-            if (Input.GetKeyDown(KeyCode.Delete))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 Delete();
             }

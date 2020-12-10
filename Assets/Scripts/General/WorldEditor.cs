@@ -16,6 +16,7 @@ public class WorldEditor : MonoBehaviour
 
     //world editor button
     public Button worldEditorButton;
+    public GameObject worldEditorGuide;
 
     private GameObject[] worldEditorObjects;
     private bool isInitialized = false;
@@ -34,6 +35,7 @@ public class WorldEditor : MonoBehaviour
         {
             IsWorldEditorActive = !IsWorldEditorActive;
             objectListUI.gameObject.SetActive(IsWorldEditorActive);
+            worldEditorGuide.SetActive(!worldEditorGuide.activeSelf);
 
             if (IsWorldEditorActive && !isInitialized)
             {
