@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DiceController : MonoBehaviour
 {
@@ -14,6 +15,21 @@ public class DiceController : MonoBehaviour
     float cameraDistance;
     public float cameraDisplacement = 2f;
 
+    public Button diceRollButton;
+
+    //roll dice button
+    void rollDice(){
+        diceView.transform.position = initCameraPos;
+        diceNumber = 0;
+        float dirX = Random.Range(0, 500);
+        float dirY = Random.Range(0, 500);
+        float dirZ = Random.Range(0, 500);
+        transform.position = new Vector3(initDicePos.x, initCameraPos.y-3, initDicePos.z);
+        transform.rotation = Quaternion.identity;
+        rb.AddForce(transform.up * 500);
+        rb.AddTorque(dirX, dirY, dirZ);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +38,8 @@ public class DiceController : MonoBehaviour
         diceView = GameObject.Find("DiceView");
         initCameraPos = diceView.transform.position;
         cameraDistance = initCameraPos.y - initDicePos.y - cameraDisplacement;
+
+        diceRollButton.onClick.AddListener(rollDice);
     }
 
     // Update is called once per frame
@@ -31,15 +49,7 @@ public class DiceController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            diceView.transform.position = initCameraPos;
-            diceNumber = 0;
-            float dirX = Random.Range(0, 500);
-            float dirY = Random.Range(0, 500);
-            float dirZ = Random.Range(0, 500);
-            transform.position = new Vector3(initDicePos.x, initCameraPos.y-3, initDicePos.z);
-            transform.rotation = Quaternion.identity;
-            rb.AddForce(transform.up * 500);
-            rb.AddTorque(dirX, dirY, dirZ);
+            rollDice();
         }
         if (diceVelocity.x == 0f && diceVelocity.y == 0f && diceVelocity.z == 0f)
         {

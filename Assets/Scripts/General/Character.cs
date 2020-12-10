@@ -76,7 +76,7 @@ public class Character : Entity
         if (activeCharacter){
             ViewCamera = new GameObject("View Camera", typeof(CameraView));
             ViewCamera.AddComponent<Camera>();
-            ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 0.8f);
+            ViewCamera.GetComponent<Camera>().rect = new Rect(0.7f, 0, 0.3f, 1f);
             ViewCamera.GetComponent<CameraView>().player = gameObject.transform;
         }
 
