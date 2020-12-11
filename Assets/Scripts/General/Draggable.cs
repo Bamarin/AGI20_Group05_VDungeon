@@ -38,6 +38,8 @@ public class Draggable : MonoBehaviour
     private Vector3 arrowTarget;
     private float arrowHeadPer = 0.2f;
 
+    private Color hightlightColor = new Color(245f/255f, 128f/255f, 72f/255f, 100f/255f);
+
     // *** INTERNAL FUNCTIONS ***
 
     private bool IsCurrentlyEditable()
@@ -86,7 +88,7 @@ public class Draggable : MonoBehaviour
         // If the object is being hovered or dragged, highlight
         if (enableEdit && (isHovered || isSelected))
         {
-            UpdateMaterial(Color.red);
+            UpdateMaterial(hightlightColor);
         }
         // Otherwise, remove the highlight
         else
@@ -329,7 +331,7 @@ public class Draggable : MonoBehaviour
         //arrow color
         Gradient gradient = new Gradient();
         gradient.SetKeys(
-            new GradientColorKey[] { new GradientColorKey(Color.white, 0.0f), new GradientColorKey(Color.red, 1.0f) },
+            new GradientColorKey[] { new GradientColorKey(new Color(118f/255f, 61f/255f, 35f/255f, 100f/255f), 0.0f), new GradientColorKey(hightlightColor, 1.0f) },
             new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(0.6f, 1.0f) }
         );
         arrow.colorGradient = gradient;
