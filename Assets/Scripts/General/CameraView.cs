@@ -123,10 +123,8 @@ public class CameraView : MonoBehaviour
                     }
                 }
             }
-
-
-
         }
+
     }
 
 
