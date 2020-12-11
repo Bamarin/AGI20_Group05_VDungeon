@@ -123,10 +123,8 @@ public class CameraView : MonoBehaviour
                     }
                 }
             }
-
-
-
         }
+
     }
 
 
@@ -137,7 +135,7 @@ public class CameraView : MonoBehaviour
             firstView.transform.position = player.position + new Vector3(0f, yOffset, 0f);
 
             if (!Input.GetMouseButton(1)){
-                transform.rotation =  Quaternion.Euler(player.rotation.eulerAngles);
+                //transform.rotation =  Quaternion.Euler(player.rotation.eulerAngles);
             }
             // only trigger the first-view rotation change when right clicked the mouse
             if (Input.GetMouseButton(1))
@@ -155,6 +153,7 @@ public class CameraView : MonoBehaviour
                 camRotation.z = 0;
 
                 //limit the up-and-down rotationn
+                
                 if (clampUpAndDown > 40)
                 {
                     clampUpAndDown = 40;

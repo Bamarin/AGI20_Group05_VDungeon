@@ -16,6 +16,7 @@ public class WorldEditor : MonoBehaviour
 
     //world editor button
     public Button worldEditorButton;
+    public GameObject worldEditorInsturctions;
 
     private GameObject[] worldEditorObjects;
     private bool isInitialized = false;
@@ -34,6 +35,12 @@ public class WorldEditor : MonoBehaviour
         {
             IsWorldEditorActive = !IsWorldEditorActive;
             objectListUI.gameObject.SetActive(IsWorldEditorActive);
+            if (!IsWorldEditorActive){
+                worldEditorInsturctions.GetComponent<Animator>().SetTrigger("close");
+            }
+            else{
+                worldEditorInsturctions.GetComponent<Animator>().SetTrigger("pop");
+            }
 
             if (IsWorldEditorActive && !isInitialized)
             {
@@ -54,11 +61,15 @@ public class WorldEditor : MonoBehaviour
             WorldEditorManager = this;
         
         worldEditorButton.onClick.AddListener(showWorldEditor);
+        worldEditorInsturctions.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E)){
+            showWorldEditor();
+        }
 
     }
 }

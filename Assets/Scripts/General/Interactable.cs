@@ -57,7 +57,8 @@ public class Interactable : MonoBehaviour
         // If the object is being hovered or dragged, highlight
         if (isHovered)
         {
-            UpdateMaterial(Color.cyan);
+            //UpdateMaterial(Color.cyan);
+            UpdateMaterial(new Color(161f/255f, 200f/255f, 238f/255f, 100f/255f));
         }
         // Otherwise, remove the highlight
         else
