@@ -82,7 +82,7 @@ public class Character : Entity
 
         TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
         TowardsCamera.AddComponent<Camera>();
-        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.17f, 0.8f, 0.15f, 0.2f);
+        TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.18f, 0.8f, 0.16f, 0.2f);
         CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
         ct.player = gameObject.transform;
         ct.offset.y = headHight;
