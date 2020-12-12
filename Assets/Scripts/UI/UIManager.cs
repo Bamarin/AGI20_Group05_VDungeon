@@ -59,9 +59,7 @@ public class UIManager : MonoBehaviour
             if (DiceController.diceVelocity == new Vector3(0f, 0f, 0f) && DiceController.diceNumber != 0)
             {
                 resultText.text = DiceController.diceNumber.ToString();
-                if (bgRoll.GetCurrentAnimatorStateInfo(0).IsName("rolling")){
-                    bgRoll.SetTrigger("normal");
-                }
+                bgRoll.SetTrigger("normal");
             }
             else if (DiceController.diceVelocity != new Vector3(0f, 0f, 0f) && DiceController.diceNumber == 0)
             {
