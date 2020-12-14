@@ -1,11 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-<<<<<<< HEAD
 using UnityEngine.EventSystems;
-=======
 using Mirror;
->>>>>>> netcode-2
 
 public class Draggable : NetworkBehaviour
 {
@@ -48,14 +45,12 @@ public class Draggable : NetworkBehaviour
 
     private bool IsCurrentlyEditable()
     {
-<<<<<<< HEAD
+        if (isLocalPlayer)
+            return true;
+
         // UI blocks editing
         if (EventSystem.current.IsPointerOverGameObject())
             return false;
-=======
-        if (isLocalPlayer)
-            return true;
->>>>>>> netcode-2
 
         // Nothing is editable while something else is selected
         if (HasSelection)
