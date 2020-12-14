@@ -1024,7 +1024,10 @@ MonoBehaviour:
   objectListUI: {fileID: 2072378962}
   attachedGrid: {fileID: 600232987}
   netManager: {fileID: 0}
+<<<<<<< HEAD
   worldEditorButton: {fileID: 0}
+=======
+>>>>>>> netcode-2
 --- !u!4 &621204041
 Transform:
   m_ObjectHideFlags: 0
@@ -2200,7 +2203,11 @@ PrefabInstance:
     - target: {fileID: 431946516405935078, guid: 25610e74a8a10184c81f8914d825b585,
         type: 3}
       propertyPath: sceneId
+<<<<<<< HEAD
       value: 1975831032
+=======
+      value: 2960281444
+>>>>>>> netcode-2
       objectReference: {fileID: 0}
     - target: {fileID: 456316071426975537, guid: 25610e74a8a10184c81f8914d825b585,
         type: 3}

@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+<<<<<<< HEAD
 using UnityEngine.EventSystems;
+=======
+using Mirror;
+>>>>>>> netcode-2
 
-public class Draggable : MonoBehaviour
+public class Draggable : NetworkBehaviour
 {
     // *** PROPERTY FIELDS ***
 
@@ -44,9 +48,14 @@ public class Draggable : MonoBehaviour
 
     private bool IsCurrentlyEditable()
     {
+<<<<<<< HEAD
         // UI blocks editing
         if (EventSystem.current.IsPointerOverGameObject())
             return false;
+=======
+        if (isLocalPlayer)
+            return true;
+>>>>>>> netcode-2
 
         // Nothing is editable while something else is selected
         if (HasSelection)

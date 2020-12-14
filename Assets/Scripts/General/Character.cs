@@ -8,6 +8,8 @@ public class Character : Entity
     // *** NETWORKED VARIABLES ***
 
     [SyncVar]
+    public int playerId;
+    [SyncVar]
     public Race race;
     [SyncVar]
     public string characterName;
@@ -27,7 +29,7 @@ public class Character : Entity
     public GameObject TowardsCamera;
     //for the adjusting the the y of towards camera to force it face the character's face
     public float headHight = 0.8f;
-    public int numOfCurrentCharacter = 0;
+    public int numOfCurrentCharacter = VDNetworkManager.playerCount;
 
 
     // *** PROPERTY FIELDS ***
@@ -82,7 +84,11 @@ public class Character : Entity
 
         TowardsCamera = new GameObject("Toward Camera", typeof(CameraTowards));
         TowardsCamera.AddComponent<Camera>();
+<<<<<<< HEAD
         TowardsCamera.GetComponent<Camera>().rect = new Rect(numOfCurrentCharacter*0.18f, 0.8f, 0.16f, 0.2f);
+=======
+        TowardsCamera.GetComponent<Camera>().rect = new Rect((playerId-1)*0.17f, 0.8f, 0.15f, 0.2f);
+>>>>>>> netcode-2
         CameraTowards ct = TowardsCamera.GetComponent<CameraTowards>();
         ct.player = gameObject.transform;
         ct.offset.y = headHight;

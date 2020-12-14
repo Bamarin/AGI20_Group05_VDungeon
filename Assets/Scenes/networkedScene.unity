@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &11483781
 Transform:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
   hasCollision: 1
   coordinates: {x: 1, y: 2}
   verticalPosition: 0
-  ParentGrid: {fileID: 0}
+  playerId: 0
   race: 0
   characterName: 
   skinColor: {r: 0, g: 0, b: 0, a: 0}
@@ -212,6 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   enableEdit: 0
   requiresEditMode: 1
   requiresPath: 1
@@ -1719,7 +1721,6 @@ MonoBehaviour:
   hasCollision: 0
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
-  ParentGrid: {fileID: 0}
   orientation: 0
 --- !u!1 &913886688
 GameObject:
@@ -1869,8 +1870,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.7
-    height: 0.8
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -2259,7 +2260,7 @@ MonoBehaviour:
   hasCollision: 1
   coordinates: {x: 0, y: 0}
   verticalPosition: 0
-  ParentGrid: {fileID: 0}
+  playerId: 0
   race: 0
   characterName: 
   skinColor: {r: 0, g: 0, b: 0, a: 0}
@@ -2285,6 +2286,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   enableEdit: 1
   requiresEditMode: 0
   requiresPath: 1
@@ -3717,7 +3720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2012914330
 Transform:
   m_ObjectHideFlags: 0
@@ -3764,7 +3767,7 @@ MonoBehaviour:
   hasCollision: 1
   coordinates: {x: -2, y: -1}
   verticalPosition: 0
-  ParentGrid: {fileID: 0}
+  playerId: 0
   race: 0
   characterName: 
   skinColor: {r: 0, g: 0, b: 0, a: 0}
@@ -3790,6 +3793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a799569b139fd945b2aa9ee33e33653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   enableEdit: 0
   requiresEditMode: 1
   requiresPath: 1
@@ -3906,7 +3911,6 @@ MonoBehaviour:
   hasCollision: 0
   coordinates: {x: 0, y: -5}
   verticalPosition: 0
-  ParentGrid: {fileID: 0}
   orientation: 0
 --- !u!1 &2072378960
 GameObject:
